@@ -11,32 +11,43 @@
 
 import 'package:flutter/widgets.dart';
 
-class $AssetsIconsGen {
-  const $AssetsIconsGen();
-
-  /// File path: assets/icons/bookia_logo.svg
-  String get bookiaLogo => 'assets/icons/bookia_logo.svg';
-
-  /// List of all assets
-  List<String> get values => [bookiaLogo];
-}
-
 class $AssetsImagesGen {
   const $AssetsImagesGen();
+
+  /// File path: assets/images/app_logo.png
+  AssetGenImage get appLogo =>
+      const AssetGenImage('assets/images/app_logo.png');
 
   /// File path: assets/images/splash_background.png
   AssetGenImage get splashBackground =>
       const AssetGenImage('assets/images/splash_background.png');
 
+  /// File path: assets/images/splash_screen.png
+  AssetGenImage get splashScreen =>
+      const AssetGenImage('assets/images/splash_screen.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [splashBackground];
+  List<AssetGenImage> get values => [appLogo, splashBackground, splashScreen];
+}
+
+class $AssetsTranslationGen {
+  const $AssetsTranslationGen();
+
+  /// File path: assets/translation/ar.json
+  String get ar => 'assets/translation/ar.json';
+
+  /// File path: assets/translation/en.json
+  String get en => 'assets/translation/en.json';
+
+  /// List of all assets
+  List<String> get values => [ar, en];
 }
 
 class Assets {
   const Assets._();
 
-  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsTranslationGen translation = $AssetsTranslationGen();
 }
 
 class AssetGenImage {
