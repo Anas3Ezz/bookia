@@ -2,6 +2,7 @@ import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/core/widgets/customr_app_button.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
 import 'package:bookia/feature/auth/ui/widgets/social_login_button.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -63,7 +64,13 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              AppButton(text: 'login', isFilled: true, onPressed: () {}),
+              AppButton(
+                text: 'login',
+                isFilled: true,
+                onPressed: () {
+                  login();
+                },
+              ),
               const SizedBox(height: 35),
               Row(
                 children: [
@@ -110,4 +117,14 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Future<void> login() async {
+  Dio dio = Dio();
+
+  final response = await dio.post(
+    'https://codingarabic.online/api/login',
+    data: {"email": "ahmed122343@gmail.com", "password": "12345678"},
+  );
+  debugPrint(response.statusCode.toString());
 }
