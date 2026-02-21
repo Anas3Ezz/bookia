@@ -86,22 +86,15 @@ class LoginScreen extends StatelessWidget {
                 onTap: () {},
               ),
               const SizedBox(height: 40),
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    text: "Don't have an account?  ",
-                    style: const TextStyle(color: Color(0xFF1E232C)),
-                    children: [
-                      TextSpan(
-                        text: 'Register Now',
-                        style: const TextStyle(
-                          color: Color(0xFFBB9457),
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Don't have an account?  "),
+                  Text(
+                    'Register Now',
+                    style: TextStyle(color: Color(0xFFBB9457)),
                   ),
-                ),
+                ],
               ),
             ],
           ),

@@ -15,8 +15,13 @@ class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: Color(0xFFBB9457),
       obscureText: isPassword,
       decoration: InputDecoration(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color(0xFFBB9457), width: 1.5),
+        ),
         hintText: hintText,
         hintStyle: const TextStyle(color: Color(0xFF8391A1)),
         fillColor: const Color(0xFFF7F8F9),
