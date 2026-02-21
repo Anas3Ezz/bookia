@@ -1,5 +1,6 @@
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/core/widgets/customr_app_button.dart';
+import 'package:bookia/feature/auth/ui/register_screen.dart';
 import 'package:bookia/feature/auth/ui/widgets/social_login_button.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ class LoginScreen extends StatelessWidget {
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Column(
+            spacing: 7,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
@@ -90,9 +92,15 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Don't have an account?  "),
-                  Text(
-                    'Register Now',
-                    style: TextStyle(color: Color(0xFFBB9457)),
+                  InkWell(
+                    onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterScreen()),
+                    ),
+                    child: Text(
+                      'Register Now',
+                      style: TextStyle(color: Color(0xFFBB9457)),
+                    ),
                   ),
                 ],
               ),
