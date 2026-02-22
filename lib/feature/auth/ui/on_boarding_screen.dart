@@ -1,9 +1,11 @@
+import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/theme/app_texts_styles.dart';
 import 'package:bookia/core/widgets/customr_app_button.dart';
-import 'package:bookia/feature/auth/ui/login_screen.dart';
 import 'package:bookia/gen/assets.gen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/routs/app_routs.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   const OnBoardingScreen({super.key});
@@ -37,10 +39,7 @@ class OnBoardingScreen extends StatelessWidget {
                 text: 'login'.tr(),
                 isFilled: true,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
+                  context.pushNamed(AppRoutes.login);
                 },
               ),
               const SizedBox(height: 15),
@@ -48,10 +47,7 @@ class OnBoardingScreen extends StatelessWidget {
                 text: 'register'.tr(),
                 isFilled: false,
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                  );
+                  context.pushNamed(AppRoutes.register);
                 },
               ),
 
