@@ -67,7 +67,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 CustomTextField(
                   hintText: 'User name',
                   controller: _userNameController,
-                  // Added simple validator for username
                   validator: (value) =>
                       value!.isEmpty ? 'Username is required' : null,
                 ),
@@ -82,7 +81,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Email is required';
                     }
-                    // Professional Regex for email validation
                     final bool emailValid = RegExp(
                       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+",
                     ).hasMatch(value);
@@ -125,11 +123,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   text: 'Register',
                   isFilled: true,
                   onPressed: () {
-                    // 3. ADDED: Logic to trigger validators
                     if (_formKey.currentState!.validate()) {
-                      // Logic if all fields are correct
                       debugPrint("Email: ${_emailController.text}");
-                      // context.read<AuthCubit>().register(...);
                     }
                   },
                 ),

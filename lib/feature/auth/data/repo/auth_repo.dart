@@ -19,7 +19,6 @@ class AuthRepo {
         return false;
       }
     } on Exception catch (e) {
-      // TODO
       debugPrint(e.toString());
       return false;
     }

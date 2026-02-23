@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/core/widgets/customr_app_button.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
@@ -114,23 +115,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         context: context,
                         builder: (context) => AlertDialog(title: Text('Error')),
                       );
+                    } else if (state is AuthLoadingState) {
+                      CircularProgressIndicator(color: AppColors.primaryColor);
                     } else if (state is AuthSucessState) {
-                      showDialog(
-                        context: context,
-                        builder: (context) =>
-                            AlertDialog(title: Text('GGGG ANOS')),
-                      );
+                      context.pushNamed(AppRoutes.home);
                     }
                   },
                   child: AppButton(
                     text: 'login',
                     isFilled: true,
                     onPressed: () {
-                      context.read<AuthCubit>().authlogin(
-                        email: _emailController.text,
-                        password: _passwordController.text,
-                      );
-                      // login();
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthCubit>().authlogin(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                        );
+                      }
                     },
                   ),
                 ),
