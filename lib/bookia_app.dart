@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BookiaApp extends StatelessWidget {
-  const BookiaApp({super.key});
+  final String? token;
+  const BookiaApp({super.key, required this.token});
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +21,18 @@ class BookiaApp extends StatelessWidget {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
-          initialRoute: AppRoutes.onboarding,
+          initialRoute: startRout(),
           onGenerateRoute: AppRouter.generateRoute,
         );
       },
     );
+  }
+
+  String startRout() {
+    if (token == null) {
+      return AppRoutes.onboarding;
+    } else {
+      return AppRoutes.home;
+    }
   }
 }
