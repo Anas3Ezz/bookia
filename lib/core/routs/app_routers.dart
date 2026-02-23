@@ -15,11 +15,11 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (context) => AuthCubit(),
-            child: const LoginScreen(),
+            child: LoginScreen(),
           ),
         );
       case AppRoutes.register:
-        return MaterialPageRoute(builder: (_) => const RegisterScreen());
+        return MaterialPageRoute(builder: (_) => RegisterScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

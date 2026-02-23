@@ -4,19 +4,36 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final bool isPassword;
   final Widget? suffixIcon;
+  final TextEditingController controller;
+  // --- ADDED PROPERTIES ---
+  final String? Function(String?)? validator; // For form validation
+  final TextInputType? keyboardType; // To show the '@' or numeric keyboard
+  final Iterable<String>? autofillHints; // Helps password managers
+  final TextInputAction? textInputAction; // "Next" or "Done" button on keyboard
 
   const CustomTextField({
     super.key,
     required this.hintText,
     this.isPassword = false,
     this.suffixIcon,
+    required this.controller,
+    this.validator,
+    this.keyboardType,
+    this.autofillHints,
+    this.textInputAction,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      cursorColor: Color(0xFFBB9457),
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      controller: controller,
+      validator: validator, // Connects logic to the Form
+      keyboardType: keyboardType, // UX Improvement
+      autofillHints: autofillHints, // UX & Security Improvement
+      textInputAction: textInputAction, // Flow Improvement
       obscureText: isPassword,
+      cursorColor: const Color(0xFFBB9457),
       decoration: InputDecoration(
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
