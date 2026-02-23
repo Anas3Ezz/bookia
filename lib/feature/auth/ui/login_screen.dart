@@ -110,14 +110,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 30),
                 BlocListener<AuthCubit, AuthState>(
                   listener: (context, state) {
-                    if (state is AuthErrorState) {
+                    if (state is LoginErrorState) {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(title: Text('Error')),
                       );
-                    } else if (state is AuthLoadingState) {
+                    } else if (state is LoginLoadingState) {
                       CircularProgressIndicator(color: AppColors.primaryColor);
-                    } else if (state is AuthSucessState) {
+                    } else if (state is LoginSucessState) {
                       context.pushNamed(AppRoutes.home);
                     }
                   },
