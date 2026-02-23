@@ -1,8 +1,10 @@
 import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
 import 'package:bookia/feature/auth/ui/login_screen.dart';
 import 'package:bookia/feature/auth/ui/on_boarding_screen.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -10,7 +12,12 @@ class AppRouter {
       case AppRoutes.onboarding:
         return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
       case AppRoutes.login:
-        return MaterialPageRoute(builder: (_) => const LoginScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => AuthCubit(),
+            child: const LoginScreen(),
+          ),
+        );
       case AppRoutes.register:
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       default:
