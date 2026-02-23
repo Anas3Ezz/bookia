@@ -41,13 +41,14 @@ class AuthRepo {
           "password_confirmation": passwordConfirmation,
         },
       );
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         return true;
       } else {
         return false;
       }
-    } on Exception catch (e) {
-      debugPrint(e.toString());
+    } on DioException catch (e) {
+      // This will print the actual error message from the server (e.g., "Email already taken")
+      debugPrint(e.response?.data.toString());
       return false;
     }
   }

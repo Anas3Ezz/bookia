@@ -1,6 +1,10 @@
+import 'package:bookia/core/helper/extenstions.dart';
+import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/core/widgets/customr_app_button.dart';
+import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -119,14 +123,31 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 const SizedBox(height: 30),
-                AppButton(
-                  text: 'Register',
-                  isFilled: true,
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      debugPrint("Email: ${_emailController.text}");
+                BlocListener<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if (state is AuthErrorState) {
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(title: Text('Error')),
+                      );
+                    } else if (state is AuthSucessState) {
+                      context.pushNamed(AppRoutes.home);
                     }
                   },
+                  child: AppButton(
+                    text: 'Register',
+                    isFilled: true,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthCubit>().authRegister(
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                          passwordConfirmation: _confirmPasswordController.text,
+                          name: _userNameController.text,
+                        );
+                      }
+                    },
+                  ),
                 ),
                 const SizedBox(height: 35),
                 Row(

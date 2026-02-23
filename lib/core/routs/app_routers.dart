@@ -20,7 +20,12 @@ class AppRouter {
           ),
         );
       case AppRoutes.register:
-        return MaterialPageRoute(builder: (_) => RegisterScreen());
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (context) => AuthCubit(),
+            child: RegisterScreen(),
+          ),
+        );
       case AppRoutes.home:
         return MaterialPageRoute(builder: (_) => HomeScreen());
       default:
