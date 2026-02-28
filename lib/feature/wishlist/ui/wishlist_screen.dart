@@ -5,8 +5,6 @@ class WishlistScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('WISHLIST'),
-    )
+    return Center(child: Text('WISHLIST'));
   }
 }
