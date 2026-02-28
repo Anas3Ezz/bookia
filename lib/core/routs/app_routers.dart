@@ -3,7 +3,7 @@ import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
 import 'package:bookia/feature/auth/ui/login_screen.dart';
 import 'package:bookia/feature/auth/ui/on_boarding_screen.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
-import 'package:bookia/feature/home_screen/cubit/home_cubit.dart';
+import 'package:bookia/feature/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
 import 'package:bookia/feature/home_screen/ui/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,12 +28,9 @@ class AppRouter {
           ),
         );
       case AppRoutes.home:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => HomeCubit()..getHomeSliders(),
-            child: HomeScreen(),
-          ),
-        );
+        return MaterialPageRoute(builder: (_) => HomeScreen());
+      case AppRoutes.bottomNavBarScreen:
+        return MaterialPageRoute(builder: (_) => BottomNavBarScreen());
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
