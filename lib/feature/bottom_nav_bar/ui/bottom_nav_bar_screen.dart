@@ -1,6 +1,9 @@
 import 'package:bookia/core/theme/app_colors.dart';
-import 'package:bookia/feature/home_screen/cubit/home_cubit.dart';
-import 'package:bookia/feature/home_screen/ui/home_screen.dart';
+import 'package:bookia/feature/book_mark/ui/book_mark_screen.dart';
+import 'package:bookia/feature/cart/ui/cart_screen.dart';
+import 'package:bookia/feature/home/cubit/home_cubit.dart';
+import 'package:bookia/feature/home/ui/home_screen.dart';
+import 'package:bookia/feature/profile/ui/profile_screen.dart';
 import 'package:bookia/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +23,9 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       create: (context) => HomeCubit()..getHomeSliders(),
       child: const HomeScreen(),
     ),
-    const HomeScreen(),
-    const HomeScreen(),
-    const HomeScreen(),
+    const BookMarkScreen(),
+    const CartScreen(),
+    const ProfileScreen(),
   ];
 
   @override

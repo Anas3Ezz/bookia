@@ -1,5 +1,5 @@
 import 'package:bookia/core/helper/constants.dart';
-import 'package:bookia/feature/home_screen/data/models/home_slider_model.dart';
+import 'package:bookia/feature/home/data/models/home_slider_model.dart';
 import 'package:dio/dio.dart';
 
 class HomeSliderRepo {

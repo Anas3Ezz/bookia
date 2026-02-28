@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:bookia/feature/home_screen/data/models/home_slider_model.dart';
-import 'package:bookia/feature/home_screen/data/repo/home_slider_repo.dart';
+import 'package:bookia/feature/home/data/models/home_slider_model.dart';
+import 'package:bookia/feature/home/data/repo/home_slider_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'home_state.dart';
