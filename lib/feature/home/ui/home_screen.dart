@@ -8,7 +8,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: BookCarousel()));
+    return const Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          // Added scroll view in case you add more content later
+          child: Column(
+            children: [
+              BookCarousel(),
+              // You can add your "Categories" or "Popular Books" sections here
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -20,50 +32,87 @@ class BookCarousel extends StatefulWidget {
 }
 
 class BookCarouselState extends State<BookCarousel> {
-  final List<Color> slideColors = [
-    Color(0xFFE58D7D), // Coral
-    Colors.blueAccent,
-    Colors.teal,
-  ];
+  // Track the current index for the dot indicator
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         if (state is GethomeSliderLoading) {
-          return CircularProgressIndicator();
+          return const SizedBox(
+            height: 200,
+            child: Center(child: CircularProgressIndicator()),
+          );
         } else if (state is GethomeSliderSucess) {
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
+              const SizedBox(height: 10),
               CarouselSlider(
-                items: List.generate(
-                  state.sliders.length,
-                  (index) => ClipRRect(
-                    child: Image.network(
-                      state.sliders[index].image ?? '',
-                      width: double.infinity,
-                      fit: BoxFit.cover,
+                items: state.sliders.map((slider) {
+                  return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                  ),
-                ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        slider.image ?? '',
+                        fit: BoxFit.cover, // Use cover to prevent stretching
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Center(child: Icon(Icons.broken_image)),
+                      ),
+                    ),
+                  );
+                }).toList(),
                 options: CarouselOptions(
-                  height: 250,
-                  viewportFraction: 0.9,
-                  enableInfiniteScroll: true,
+                  height: 200,
+                  viewportFraction:
+                      1.0, // Ensures only one image shows at a time
                   autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 4),
+                  enlargeCenterPage: false,
                   onPageChanged: (index, reason) {
                     setState(() {
-                      // _currentIndex = index;
+                      _currentIndex = index;
                     });
                   },
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 16),
+
+              // --- DOT INDICATORS ---
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  state.sliders.length,
+                  (index) => AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    height: 8,
+                    // Active dot is a rounded rectangle, inactive is a circle
+                    width: _currentIndex == index ? 28 : 8,
+                    decoration: BoxDecoration(
+                      color: _currentIndex == index
+                          ? const Color(
+                              0xFFB89B5E,
+                            ) // The golden color from your UI
+                          : Colors.grey.withOpacity(0.3),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                  ),
+                ),
+              ),
             ],
           );
         } else {
-          return Text('EROOOR');
+          return const SizedBox(
+            height: 200,
+            child: Center(child: Text('Failed to load sliders')),
+          );
         }
       },
     );
