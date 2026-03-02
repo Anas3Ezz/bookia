@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class SocialLoginButton extends StatelessWidget {
   final String iconPath;
@@ -26,7 +27,7 @@ class SocialLoginButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(iconPath, height: 24),
-            const SizedBox(width: 8),
+            const Gap(8),
             Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
           ],
         ),

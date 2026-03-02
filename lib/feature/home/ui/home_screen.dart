@@ -1,7 +1,5 @@
-import 'package:bookia/feature/home/cubit/home_cubit.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:bookia/feature/home/ui/widgets/book_carousel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,111 +8,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          // Added scroll view in case you add more content later
-          child: Column(
-            children: [
-              BookCarousel(),
-              // You can add your "Categories" or "Popular Books" sections here
-            ],
-          ),
-        ),
+        child: SingleChildScrollView(child: Column(children: [BookCarousel()])),
       ),
-    );
-  }
-}
-
-class BookCarousel extends StatefulWidget {
-  const BookCarousel({super.key});
-
-  @override
-  BookCarouselState createState() => BookCarouselState();
-}
-
-class BookCarouselState extends State<BookCarousel> {
-  // Track the current index for the dot indicator
-  int _currentIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
-      builder: (context, state) {
-        if (state is GethomeSliderLoading) {
-          return const SizedBox(
-            height: 200,
-            child: Center(child: CircularProgressIndicator()),
-          );
-        } else if (state is GethomeSliderSucess) {
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 10),
-              CarouselSlider(
-                items: state.sliders.map((slider) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        slider.image ?? '',
-                        fit: BoxFit.cover, // Use cover to prevent stretching
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Center(child: Icon(Icons.broken_image)),
-                      ),
-                    ),
-                  );
-                }).toList(),
-                options: CarouselOptions(
-                  height: 200,
-                  viewportFraction:
-                      1.0, // Ensures only one image shows at a time
-                  autoPlay: true,
-                  autoPlayInterval: const Duration(seconds: 4),
-                  enlargeCenterPage: false,
-                  onPageChanged: (index, reason) {
-                    setState(() {
-                      _currentIndex = index;
-                    });
-                  },
-                ),
-              ),
-              const SizedBox(height: 16),
-
-              // --- DOT INDICATORS ---
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(
-                  state.sliders.length,
-                  (index) => AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    height: 8,
-                    // Active dot is a rounded rectangle, inactive is a circle
-                    width: _currentIndex == index ? 28 : 8,
-                    decoration: BoxDecoration(
-                      color: _currentIndex == index
-                          ? const Color(
-                              0xFFB89B5E,
-                            ) // The golden color from your UI
-                          : Colors.grey.withOpacity(0.3),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          );
-        } else {
-          return const SizedBox(
-            height: 200,
-            child: Center(child: Text('Failed to load sliders')),
-          );
-        }
-      },
     );
   }
 }

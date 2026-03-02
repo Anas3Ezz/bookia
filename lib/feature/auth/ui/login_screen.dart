@@ -5,6 +5,7 @@ import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
 import 'package:bookia/feature/auth/ui/widgets/social_login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 
 import '../../../core/helper/extenstions.dart';
 import '../../../core/routs/app_routs.dart';
@@ -55,7 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const Gap(20),
                 Text(
                   'Welcome back! Glad to see you, Again!',
                   style: const TextStyle(
@@ -64,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Color(0xFF1E232C),
                   ),
                 ),
-                const SizedBox(height: 32),
+                const Gap(32),
                 CustomTextField(
                   hintText: 'Enter your email',
                   controller: _emailController,
@@ -83,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 15),
+                const Gap(15),
                 CustomTextField(
                   hintText: 'Enter your password',
                   controller: _passwordController,
@@ -107,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 30),
+                const Gap(30),
                 BlocListener<AuthCubit, AuthState>(
                   listener: (context, state) {
                     if (state is AuthErrorState) {
@@ -134,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   ),
                 ),
-                const SizedBox(height: 35),
+                const Gap(35),
                 Row(
                   children: [
                     const Expanded(child: Divider(color: Color(0xFFE8ECF4))),
@@ -145,19 +146,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Expanded(child: Divider(color: Color(0xFFE8ECF4))),
                   ],
                 ),
-                const SizedBox(height: 20),
+                const Gap(20),
                 SocialLoginButton(
                   iconPath: 'assets/icons/google.png',
                   label: 'Google',
                   onTap: () {},
                 ),
-                const SizedBox(height: 10),
+                const Gap(10),
                 SocialLoginButton(
                   iconPath: 'assets/icons/apple.png',
                   label: 'Apple',
                   onTap: () {},
                 ),
-                const SizedBox(height: 40),
+                const Gap(40),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

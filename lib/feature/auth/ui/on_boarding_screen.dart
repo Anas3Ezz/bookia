@@ -4,6 +4,7 @@ import 'package:bookia/core/widgets/customr_app_button.dart';
 import 'package:bookia/gen/assets.gen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 import '../../../core/routs/app_routs.dart';
 
@@ -26,7 +27,7 @@ class OnBoardingScreen extends StatelessWidget {
             children: [
               const Spacer(flex: 2),
               Assets.images.appLogo.image(),
-              const SizedBox(height: 12),
+              const Gap(12),
               Text(
                 'slogan'.tr(),
                 style: AppTextsStyles.text18Regular.copyWith(
@@ -42,7 +43,7 @@ class OnBoardingScreen extends StatelessWidget {
                   context.pushNamed(AppRoutes.login);
                 },
               ),
-              const SizedBox(height: 15),
+              const Gap(15),
               AppButton(
                 text: 'register'.tr(),
                 isFilled: false,
@@ -51,7 +52,7 @@ class OnBoardingScreen extends StatelessWidget {
                 },
               ),
 
-              const SizedBox(height: 40),
+              const Gap(40),
             ],
           ),
         ),
