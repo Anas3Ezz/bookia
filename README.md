@@ -9,3 +9,5 @@
 
 # regisger Screen
 <img width="390" height="834" alt="image" src="https://github.com/user-attachments/assets/f22e81a3-5f00-45fd-a8ad-1381c4ce80d4" />
+# Home 
+<img width="401" height="643" alt="image" src="https://github.com/user-attachments/assets/77d07756-bef4-4e62-af01-0f1595e93d0d" />
