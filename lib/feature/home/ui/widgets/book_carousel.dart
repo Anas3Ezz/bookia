@@ -17,12 +17,13 @@ class BookCarouselState extends State<BookCarousel> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen: (previous, current) =>
+          current is GethomeSliderError ||
+          current is GethomeSliderLoading ||
+          current is GethomeSliderSucess,
       builder: (context, state) {
         if (state is GethomeSliderLoading) {
-          return const SizedBox(
-            height: 200,
-            child: Center(child: CircularProgressIndicator()),
-          );
+          return Center(child: CircularProgressIndicator());
         } else if (state is GethomeSliderSucess) {
           return Column(
             mainAxisSize: MainAxisSize.min,
@@ -81,12 +82,11 @@ class BookCarouselState extends State<BookCarousel> {
               ),
             ],
           );
-        } else {
-          return const SizedBox(
-            height: 200,
-            child: Center(child: Text('Failed to load sliders')),
-          );
+        } else if (state is GethomeSliderError) {
+          return Center(child: Text("Something went wrong"));
         }
+
+        return SizedBox();
       },
     );
   }

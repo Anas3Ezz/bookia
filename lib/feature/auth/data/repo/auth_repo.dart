@@ -1,4 +1,4 @@
-import 'package:bookia/core/helper/constants.dart';
+import 'package:bookia/core/networking/api_constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
