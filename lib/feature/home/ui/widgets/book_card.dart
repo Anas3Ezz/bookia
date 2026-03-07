@@ -1,3 +1,4 @@
+import 'package:bookia/core/widgets/cashed_images.dart';
 import 'package:bookia/feature/home/data/models/books_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,17 +16,24 @@ class BookCard extends StatelessWidget {
         color: const Color(0xFFF5F1E6),
         borderRadius: BorderRadius.circular(16.r),
       ),
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.r),
-              child: Image.network(
-                books.image ?? '',
-                fit: BoxFit.cover,
+              child: CustomCachedImage(
+                url: books.image ?? '',
+                height: 200,
                 width: double.infinity,
               ),
+
+              // child: Image.network(
+              //   books.image ?? '',
+              //   fit: BoxFit.cover,
+              //   width: double.infinity,
+              // ),
             ),
           ),
           const Gap(8),

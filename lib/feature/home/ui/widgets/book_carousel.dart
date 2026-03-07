@@ -2,7 +2,9 @@ import 'package:bookia/feature/home/cubit/home_cubit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class BookCarousel extends StatefulWidget {
   const BookCarousel({super.key});
@@ -22,8 +24,16 @@ class BookCarouselState extends State<BookCarousel> {
           current is GethomeSliderLoading ||
           current is GethomeSliderSucess,
       builder: (context, state) {
-        if (state is GethomeSliderLoading) {
-          return Center(child: CircularProgressIndicator());
+        if (state is GethomeSliderLoading || state is BestSellerLoading) {
+          return Skeletonizer(
+            enabled: true,
+            child: Container(
+              height: 200.h,
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+              color: Colors.grey,
+            ),
+          );
         } else if (state is GethomeSliderSucess) {
           return Column(
             mainAxisSize: MainAxisSize.min,
@@ -49,7 +59,7 @@ class BookCarouselState extends State<BookCarousel> {
                   );
                 }).toList(),
                 options: CarouselOptions(
-                  height: 200,
+                  height: 200.h,
                   viewportFraction: 1.0,
                   autoPlay: true,
                   autoPlayInterval: const Duration(seconds: 4),
@@ -82,11 +92,9 @@ class BookCarouselState extends State<BookCarousel> {
               ),
             ],
           );
-        } else if (state is GethomeSliderError) {
+        } else {
           return Center(child: Text("Something went wrong"));
         }
-
-        return SizedBox();
       },
     );
   }

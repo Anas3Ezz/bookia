@@ -1,12 +1,14 @@
 import 'package:bookia/feature/home/cubit/home_cubit.dart';
+import 'package:bookia/feature/home/data/models/books_model.dart';
 import 'package:bookia/feature/home/ui/widgets/book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 class BestSellerGridView extends StatelessWidget {
   const BestSellerGridView({super.key});
-
+  //TODO Cached network Image
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
@@ -18,8 +20,22 @@ class BestSellerGridView extends StatelessWidget {
             current is BestSellerSucess,
         builder: (context, state) {
           if (state is BestSellerLoading) {
-            return SliverToBoxAdapter(
-              child: Center(child: CircularProgressIndicator()),
+            return SliverSkeletonizer(
+              enabled: true,
+              child: SliverGrid(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 0.65,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => BookCard(
+                    books: Products(name: 'test', price: '', image: ''),
+                  ),
+                  childCount: 5, // Your item count
+                ),
+              ),
             );
           } else if (state is BestSellerSucess) {
             return SliverGrid(
