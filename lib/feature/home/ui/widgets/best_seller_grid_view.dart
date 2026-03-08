@@ -8,7 +8,6 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class BestSellerGridView extends StatelessWidget {
   const BestSellerGridView({super.key});
-  //TODO Cached network Image
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
