@@ -32,7 +32,7 @@ class BestSellerGridView extends StatelessWidget {
                   (context, index) => BookCard(
                     books: Products(name: 'test', price: '', image: ''),
                   ),
-                  childCount: 5, // Your item count
+                  childCount: 5,
                 ),
               ),
             );
@@ -46,7 +46,7 @@ class BestSellerGridView extends StatelessWidget {
               ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) => BookCard(books: state.books[index]),
-                childCount: state.books.length, // Your item count
+                childCount: state.books.length,
               ),
             );
           } else {
