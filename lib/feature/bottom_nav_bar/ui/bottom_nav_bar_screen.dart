@@ -65,7 +65,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           ),
         ],
       ),
-      // body: _screens[_currentIndex],
+      //i used this to prevent rebuilding the home screen every time i nav to it
       body: IndexedStack(index: _currentIndex, children: _screens),
     );
   }
