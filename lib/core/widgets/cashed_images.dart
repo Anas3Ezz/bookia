@@ -22,13 +22,9 @@ class CustomCachedImage extends StatelessWidget {
       width: width,
       imageUrl: url,
       fit: fit,
-      // FIX: Use a simple colored box.
-      // Skeletonizer will automatically shimmer this box if enabled.
-      placeholder: (context, url) => Container(
-        height: height,
-        width: width,
-        color: Colors.white, // Use white/transparent so shimmer is visible
-      ),
+
+      placeholder: (context, url) =>
+          Container(height: height, width: width, color: Colors.grey[200]),
       errorWidget: (context, url, error) => Container(
         height: height,
         width: width,

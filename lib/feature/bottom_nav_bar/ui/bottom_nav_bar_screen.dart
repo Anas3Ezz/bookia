@@ -65,7 +65,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           ),
         ],
       ),
-      body: _screens[_currentIndex],
+      // body: _screens[_currentIndex],
+      body: IndexedStack(index: _currentIndex, children: _screens),
     );
   }
 }
