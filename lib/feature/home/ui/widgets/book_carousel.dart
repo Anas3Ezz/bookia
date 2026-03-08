@@ -41,7 +41,6 @@ class BookCarouselState extends State<BookCarousel> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Gap(10),
                 CarouselSlider(
                   items: state.sliders.map((slider) {
                     return Container(
