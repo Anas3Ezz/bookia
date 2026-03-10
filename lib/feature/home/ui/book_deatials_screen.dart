@@ -1,3 +1,4 @@
+import 'package:bookia/core/widgets/customr_app_button.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsScreen extends StatelessWidget {
@@ -142,25 +143,36 @@ class _BottomActionBar extends StatelessWidget {
           ),
           const SizedBox(width: 30),
           Expanded(
-            child: SizedBox(
-              height: 55,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xff2F2F2F),
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  elevation: 0,
-                ),
-                child: const Text(
-                  'Add To Cart',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-              ),
+            child: AppButton(
+              text: 'Add TO Cart',
+              onPressed: () {
+                // Your logic here
+              },
+              isFilled: true, // Ensures there's no border
+              backgroundColor: Colors.black,
+              textColor: Colors.white,
             ),
           ),
+          // Expanded(
+          //   child: SizedBox(
+          //     height: 55,
+          //     child: ElevatedButton(
+          //       onPressed: () {},
+          //       style: ElevatedButton.styleFrom(
+          //         backgroundColor: const Color(0xff2F2F2F),
+          //         foregroundColor: Colors.white,
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(8),
+          //         ),
+          //         elevation: 0,
+          //       ),
+          //       child: const Text(
+          //         'Add To Cart',
+          //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

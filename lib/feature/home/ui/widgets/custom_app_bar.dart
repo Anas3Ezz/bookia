@@ -14,6 +14,7 @@ class BookiaAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       backgroundColor: Colors.white,
       titleSpacing: 0,
+      automaticallyImplyLeading: false,
       title: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Row(

@@ -5,28 +5,42 @@ class AppButton extends StatelessWidget {
     super.key,
     required this.text,
     this.onPressed,
-    required this.isFilled,
+    this.isFilled = true,
+    this.backgroundColor,
+    this.textColor,
   });
+
   final String text;
   final void Function()? onPressed;
   final bool isFilled;
+  final Color? backgroundColor;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
+    // Determine effective colors based on provided values or defaults
+    final Color effectiveBgColor =
+        backgroundColor ?? (isFilled ? const Color(0xFFBB9457) : Colors.white);
+
+    final Color effectiveTextColor =
+        textColor ?? (isFilled ? Colors.white : Colors.black);
+
     return SizedBox(
       width: double.infinity,
       height: 60,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: isFilled ? const Color(0xFFBB9457) : Colors.white,
-          foregroundColor: isFilled ? Colors.white : Colors.black,
+          backgroundColor: effectiveBgColor,
+          foregroundColor: effectiveTextColor,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
             side: isFilled
                 ? BorderSide.none
-                : const BorderSide(color: Colors.black),
+                : BorderSide(
+                    color: effectiveTextColor,
+                  ), // Border matches text color
           ),
         ),
         child: Text(

@@ -131,7 +131,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         builder: (context) => AlertDialog(title: Text('Error')),
                       );
                     } else if (state is AuthSucessState) {
-                      context.pushNamed(AppRoutes.home);
+                      context.pushNamedAndRemoveUntil(AppRoutes.home);
                     }
                   },
                   child: AppButton(
