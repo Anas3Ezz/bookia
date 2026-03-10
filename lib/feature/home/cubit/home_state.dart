@@ -5,22 +5,38 @@ sealed class HomeState {}
 
 final class HomeInitial extends HomeState {}
 
-final class GethomeSliderLoading extends HomeState {}
+// ─── Slider States ───────────────────────────────────────
 
-final class GethomeSliderSucess extends HomeState {
+abstract class GetHomeSliderState extends HomeState {}
+
+final class GetHomeSliderLoading extends GetHomeSliderState {}
+
+final class GetHomeSliderSuccess extends GetHomeSliderState {
   final List<SliderImages> sliders;
 
-  GethomeSliderSucess(this.sliders);
+  GetHomeSliderSuccess(this.sliders);
 }
 
-final class GethomeSliderError extends HomeState {}
+final class GetHomeSliderError extends GetHomeSliderState {
+  final String message;
 
-final class BestSellerLoading extends HomeState {}
+  GetHomeSliderError({this.message = 'Failed to load sliders'});
+}
 
-final class BestSellerSucess extends HomeState {
+// ─── Best Seller States ──────────────────────────────────
+
+abstract class BestSellerState extends HomeState {}
+
+final class BestSellerLoading extends BestSellerState {}
+
+final class BestSellerSuccess extends BestSellerState {
   final List<Products> books;
 
-  BestSellerSucess(this.books);
+  BestSellerSuccess(this.books);
 }
 
-final class BestSellerError extends HomeState {}
+final class BestSellerError extends BestSellerState {
+  final String message;
+
+  BestSellerError({this.message = 'Failed to load best sellers'});
+}

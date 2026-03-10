@@ -119,7 +119,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     } else if (state is AuthLoadingState) {
                       CircularProgressIndicator(color: AppColors.primaryColor);
                     } else if (state is AuthSucessState) {
-                      context.pushNamedAndRemoveUntil(AppRoutes.home);
+                      context.pushNamedAndRemoveUntil(
+                        AppRoutes.bottomNavBarScreen,
+                      );
                     }
                   },
                   child: AppButton(

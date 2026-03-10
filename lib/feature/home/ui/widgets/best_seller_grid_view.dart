@@ -16,7 +16,7 @@ class BestSellerGridView extends StatelessWidget {
         buildWhen: (previous, current) =>
             current is BestSellerError ||
             current is BestSellerLoading ||
-            current is BestSellerSucess,
+            current is BestSellerSuccess,
         builder: (context, state) {
           if (state is BestSellerLoading) {
             return SliverSkeletonizer(
@@ -36,7 +36,7 @@ class BestSellerGridView extends StatelessWidget {
                 ),
               ),
             );
-          } else if (state is BestSellerSucess) {
+          } else if (state is BestSellerSuccess) {
             return SliverGrid(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,

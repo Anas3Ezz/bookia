@@ -18,15 +18,21 @@ class BottomNavBarScreen extends StatefulWidget {
 
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   int _currentIndex = 0;
-  final List<Widget> _screens = [
-    BlocProvider(
-      create: (context) => HomeCubit()..getHomeData(),
-      child: const HomeScreen(),
-    ),
-    const BookMarkScreen(),
-    const CartScreen(),
-    const ProfileScreen(),
-  ];
+  late final List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      BlocProvider(
+        create: (context) => HomeCubit()..getHomeData(),
+        child: const HomeScreen(),
+      ),
+      const BookMarkScreen(),
+      const CartScreen(),
+      const ProfileScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {

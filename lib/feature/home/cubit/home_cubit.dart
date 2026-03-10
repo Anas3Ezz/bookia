@@ -10,20 +10,24 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
   Future<void> getHomeSliders() async {
-    emit(GethomeSliderLoading());
+    emit(GetHomeSliderLoading());
     final response = await HomeRepo.gethomeSliders();
+    if (isClosed) return;
+
     if (response is SliderModel) {
-      emit(GethomeSliderSucess(response.data?.sliders ?? []));
+      emit(GetHomeSliderSuccess(response.data?.sliders ?? []));
     } else {
-      emit(GethomeSliderError());
+      emit(GetHomeSliderError());
     }
   }
 
   Future<void> getBestSellerBooks() async {
     emit(BestSellerLoading());
     final response = await HomeRepo.getBestSellerBooks();
+    if (isClosed) return;
+
     if (response is BooksModel) {
-      emit(BestSellerSucess(response.data?.products ?? []));
+      emit(BestSellerSuccess(response.data?.products ?? []));
     } else {
       emit(BestSellerError());
     }
