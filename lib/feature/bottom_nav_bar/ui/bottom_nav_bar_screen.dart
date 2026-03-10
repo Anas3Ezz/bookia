@@ -18,21 +18,15 @@ class BottomNavBarScreen extends StatefulWidget {
 
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   int _currentIndex = 0;
-  late final List<Widget> _screens;
-
-  @override
-  void initState() {
-    super.initState();
-    _screens = [
-      BlocProvider(
-        create: (context) => HomeCubit()..getHomeData(),
-        child: const HomeScreen(),
-      ),
-      const BookMarkScreen(),
-      const CartScreen(),
-      const ProfileScreen(),
-    ];
-  }
+  final List<Widget> _screens = [
+    BlocProvider(
+      create: (context) => HomeCubit()..getHomeData(),
+      child: const HomeScreen(),
+    ),
+    const BookMarkScreen(),
+    const CartScreen(),
+    const ProfileScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +66,9 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
         ],
       ),
       //i used this to prevent rebuilding the home screen every time i nav to it
-      body: IndexedStack(index: _currentIndex, children: _screens),
+      body: _screens[_currentIndex],
+
+      //      body: IndexedStack(index: _currentIndex, children: _screens),
     );
   }
 }
