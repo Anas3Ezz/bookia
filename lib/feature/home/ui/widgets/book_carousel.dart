@@ -25,17 +25,20 @@ class BookCarouselState extends State<BookCarousel> {
           current is GethomeSliderLoading ||
           current is GethomeSliderSucess,
       builder: (context, state) {
-        if (state is GethomeSliderLoading || state is BestSellerLoading) {
-          return Skeletonizer(
-            enabled: true,
-            child: Container(
-              height: 200.h,
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 5.0),
-              color: Colors.grey,
-            ),
-          );
-        } else if (state is GethomeSliderSucess) {
+        //TODO fix this issue about loading
+        // if (state is GethomeSliderLoading) {
+        //   return Skeletonizer(
+        //     enabled: true,
+        //     child: Container(
+        //       height: 200.h,
+        //       width: MediaQuery.of(context).size.width,
+        //       margin: const EdgeInsets.symmetric(horizontal: 5.0),
+        //       color: Colors.grey,
+        //     ),
+        //   );
+        // }
+        // else
+        if (state is GethomeSliderSucess) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.w),
             child: Column(
@@ -95,8 +98,18 @@ class BookCarouselState extends State<BookCarousel> {
               ],
             ),
           );
-        } else {
+        } else if (state is GethomeSliderError) {
           return Center(child: Text("Something went wrong"));
+        } else {
+          return Skeletonizer(
+            enabled: true,
+            child: Container(
+              height: 200.h,
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
+              color: Colors.grey,
+            ),
+          );
         }
       },
     );
