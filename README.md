@@ -1,5 +1,4 @@
 # bookia
-# set up localization 
 
 # OnBoarding Screen
 <img width="425" height="844" alt="image" src="https://github.com/user-attachments/assets/0e6b8034-df0f-4fdd-91df-67d0c6f7b2e7" />
@@ -12,3 +11,5 @@
 
 # Home 
 <img width="394" height="660" alt="image" src="https://github.com/user-attachments/assets/2cec3b10-c8f9-4bb1-8e64-2ef818495298" />
+
+# book Details 
