@@ -12,6 +12,3 @@
 
 # Home 
 <img width="394" height="660" alt="image" src="https://github.com/user-attachments/assets/2cec3b10-c8f9-4bb1-8e64-2ef818495298" />
-
-# Book details
-<img width="436" height="721" alt="image" src="https://github.com/user-attachments/assets/27f5433c-05ae-4370-9ff0-6f4fe258879a" />
