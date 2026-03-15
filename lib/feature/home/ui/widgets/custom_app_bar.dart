@@ -1,3 +1,5 @@
+import 'package:bookia/core/helper/extenstions.dart';
+import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +25,9 @@ class BookiaAppBar extends StatelessWidget implements PreferredSizeWidget {
             SizedBox(width: 8.w),
             const Spacer(),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.pushNamed(AppRoutes.searchScreen);
+              },
               icon: const Icon(size: 35, Icons.search, color: Colors.black),
             ),
           ],

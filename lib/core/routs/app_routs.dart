@@ -5,4 +5,5 @@ class AppRoutes {
   static const String home = '/home';
   static const String bottomNavBarScreen = '/buttomNavBarScreen';
   static const String booksDetails = '/booksDetails';
+  static const String searchScreen = '/searchScreen';
 }

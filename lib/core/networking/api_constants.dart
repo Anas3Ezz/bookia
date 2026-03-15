@@ -4,4 +4,5 @@ class ApiConstants {
   static const String registerEndpoint = "register";
   static const String homeSliderEndpoint = "sliders";
   static const String bestseller = "products-bestseller";
+  static const String productsSearch = "products-search";
 }
