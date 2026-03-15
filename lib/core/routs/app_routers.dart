@@ -4,6 +4,7 @@ import 'package:bookia/feature/auth/ui/login_screen.dart';
 import 'package:bookia/feature/auth/ui/on_boarding_screen.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
 import 'package:bookia/feature/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
+import 'package:bookia/feature/home/data/models/books_model.dart';
 import 'package:bookia/feature/home/ui/book_deatials_screen.dart';
 import 'package:bookia/feature/search/cubit/search_cubit.dart';
 import 'package:bookia/feature/search/ui/search_screen.dart';
@@ -39,7 +40,8 @@ class AppRouter {
       case AppRoutes.bottomNavBarScreen:
         return MaterialPageRoute(builder: (_) => BottomNavBarScreen());
       case AppRoutes.booksDetails:
-        return MaterialPageRoute(builder: (_) => BookDetailsScreen());
+        final book = settings.arguments as Products;
+        return MaterialPageRoute(builder: (_) => BookDetailsScreen(book: book));
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

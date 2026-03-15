@@ -5,4 +5,5 @@ class ApiConstants {
   static const String homeSliderEndpoint = "sliders";
   static const String bestseller = "products-bestseller";
   static const String productsSearch = "products-search";
+  static const String productDetails = "productDetails";
 }

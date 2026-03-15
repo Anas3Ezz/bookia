@@ -1,36 +1,46 @@
+import 'package:bookia/core/widgets/cashed_images.dart';
 import 'package:bookia/core/widgets/customr_app_button.dart';
+import 'package:bookia/feature/home/data/models/books_model.dart';
 import 'package:flutter/material.dart';
 
 class BookDetailsScreen extends StatelessWidget {
-  const BookDetailsScreen({super.key});
+  const BookDetailsScreen({super.key, required this.book});
+
+  final Products book;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const _CustomAppBar(),
+      appBar: _CustomAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
-            children: const [
-              SizedBox(height: 20),
-              _BookCoverImage(),
-              SizedBox(height: 25),
-              _BookTitles(),
-              SizedBox(height: 20),
-              _BookDescription(),
-              SizedBox(height: 30),
+            children: [
+              const SizedBox(height: 20),
+              _BookCoverImage(imageUrl: book.image ?? ''),
+              const SizedBox(height: 25),
+              _BookTitles(name: book.name ?? '', category: book.category ?? ''),
+              const SizedBox(height: 20),
+              _BookDescription(description: book.description ?? ''),
+              const SizedBox(height: 30),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const _BottomActionBar(),
+      bottomNavigationBar: _BottomActionBar(
+        price: book.price ?? '0',
+        priceAfterDiscount: book.priceAfterDiscount,
+        discount: book.discount,
+      ),
     );
   }
 }
 
-// --- Small Widgets ---
+// ─────────────────────────────────────────────
+// _CustomAppBar
+// ─────────────────────────────────────────────
 
 class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const _CustomAppBar();
@@ -62,17 +72,24 @@ class _CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
+// ─────────────────────────────────────────────
+// _BookCoverImage
+// ─────────────────────────────────────────────
+
 class _BookCoverImage extends StatelessWidget {
-  const _BookCoverImage();
+  const _BookCoverImage({required this.imageUrl});
+
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
-        child: Image.network(
-          'https://codingarabic.online/storage/product/l0kkykSGLKfrE90Vkah6LD8briUKwp0V5nvPvEI1.jpg', // Replace with your local asset
+        child: CustomCachedImage(
+          url: imageUrl,
           height: 350,
+          width: double.infinity,
           fit: BoxFit.cover,
         ),
       ),
@@ -80,16 +97,24 @@ class _BookCoverImage extends StatelessWidget {
   }
 }
 
+// ─────────────────────────────────────────────
+// _BookTitles
+// ─────────────────────────────────────────────
+
 class _BookTitles extends StatelessWidget {
-  const _BookTitles();
+  const _BookTitles({required this.name, required this.category});
+
+  final String name;
+  final String category;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Text(
-          'Black Heart',
-          style: TextStyle(
+          name,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
             fontSize: 32,
             fontWeight: FontWeight.bold,
             color: Colors.black,
@@ -97,10 +122,10 @@ class _BookTitles extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Text(
-          'Broché',
-          style: TextStyle(
+          category,
+          style: const TextStyle(
             fontSize: 18,
-            color: const Color(0xffB9935E),
+            color: Color(0xffB9935E),
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -109,15 +134,24 @@ class _BookTitles extends StatelessWidget {
   }
 }
 
+// ─────────────────────────────────────────────
+// _BookDescription
+// ─────────────────────────────────────────────
+
 class _BookDescription extends StatelessWidget {
-  const _BookDescription();
+  const _BookDescription({required this.description});
+
+  final String description;
 
   @override
   Widget build(BuildContext context) {
+    // Strip HTML tags from description (API returns <p>...</p>)
+    final cleanDescription = description.replaceAll(RegExp(r'<[^>]*>'), '');
+
     return Text(
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+      cleanDescription,
       textAlign: TextAlign.center,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 14,
         height: 1.6,
         color: Colors.black,
@@ -127,52 +161,73 @@ class _BookDescription extends StatelessWidget {
   }
 }
 
+// ─────────────────────────────────────────────
+// _BottomActionBar
+// ─────────────────────────────────────────────
+
 class _BottomActionBar extends StatelessWidget {
-  const _BottomActionBar();
+  const _BottomActionBar({
+    required this.price,
+    this.priceAfterDiscount,
+    this.discount,
+  });
+
+  final String price;
+  final double? priceAfterDiscount;
+  final int? discount;
 
   @override
   Widget build(BuildContext context) {
+    final bool hasDiscount =
+        discount != null && discount! > 0 && priceAfterDiscount != null;
+
     return Container(
       padding: const EdgeInsets.fromLTRB(25, 10, 25, 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            '₹285',
-            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (hasDiscount) ...[
+                Text(
+                  '\$$price',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
+                    decoration: TextDecoration.lineThrough,
+                  ),
+                ),
+                Text(
+                  '\$${priceAfterDiscount!.toStringAsFixed(2)}',
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ] else
+                Text(
+                  '\$$price',
+                  style: const TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+            ],
           ),
           const SizedBox(width: 30),
           Expanded(
             child: AppButton(
-              text: 'Add TO Cart',
-              onPressed: () {
-                // Your logic here
-              },
-              isFilled: true, // Ensures there's no border
+              text: 'Add To Cart',
+              onPressed: () {},
+              isFilled: true,
               backgroundColor: Colors.black,
               textColor: Colors.white,
             ),
           ),
-          // Expanded(
-          //   child: SizedBox(
-          //     height: 55,
-          //     child: ElevatedButton(
-          //       onPressed: () {},
-          //       style: ElevatedButton.styleFrom(
-          //         backgroundColor: const Color(0xff2F2F2F),
-          //         foregroundColor: Colors.white,
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(8),
-          //         ),
-          //         elevation: 0,
-          //       ),
-          //       child: const Text(
-          //         'Add To Cart',
-          //         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
