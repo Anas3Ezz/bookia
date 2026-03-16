@@ -41,11 +41,13 @@ class CartRepo {
 
   static Future<bool> removeFromCart(int itemId) async {
     try {
-      final response = await DioFactory.dio?.delete(
-        '${ApiConstants.removeFromCart}/$itemId',
+      final response = await DioFactory.dio?.post(
+        ApiConstants.removeFromCart,
+        data: {'cart_item_id': itemId},
       );
       debugPrint('>>> removeFromCart status: ${response?.statusCode}');
-      return response?.statusCode == 200 || response?.statusCode == 204;
+      debugPrint('>>> removeFromCart body: ${response?.data}');
+      return response?.statusCode == 200;
     } catch (e) {
       debugPrint('>>> removeFromCart error: $e');
       return false;
@@ -58,11 +60,12 @@ class CartRepo {
   }) async {
     try {
       final response = await DioFactory.dio?.post(
-        '${ApiConstants.updateCart}/$itemId',
-        data: {'quantity': quantity},
+        ApiConstants.updateCart,
+        data: {'cart_item_id': itemId, 'quantity': quantity},
       );
       debugPrint('>>> updateCartItem status: ${response?.statusCode}');
-      return response?.statusCode == 200;
+      debugPrint('>>> updateCartItem body: ${response?.data}');
+      return response?.statusCode == 200 || response?.statusCode == 201;
     } catch (e) {
       debugPrint('>>> updateCartItem error: $e');
       return false;

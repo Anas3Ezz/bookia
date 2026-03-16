@@ -18,6 +18,15 @@ class CartCubit extends Cubit<CartState> {
         : emit(GetCartSuccess(response.data ?? CartData()));
   }
 
+  // Refreshes cart data without showing loading skeleton
+  Future<void> _refreshCartSilently() async {
+    final response = await CartRepo.getCart();
+    if (isClosed) return;
+    if (response != null) {
+      emit(GetCartSuccess(response.data ?? CartData()));
+    }
+  }
+
   Future<void> addToCart(int productId) async {
     emit(AddToCartLoading());
     final response = await CartRepo.addToCart(productId);
@@ -48,7 +57,7 @@ class CartCubit extends Cubit<CartState> {
     required int itemId,
     required int quantity,
   }) async {
-    emit(UpdateCartLoading());
+    // No loading state emitted — UI stays as is
     final success = await CartRepo.updateCartItem(
       itemId: itemId,
       quantity: quantity,
@@ -58,8 +67,8 @@ class CartCubit extends Cubit<CartState> {
     if (!success) {
       emit(UpdateCartError());
     } else {
-      emit(UpdateCartSuccess());
-      await getCart();
+      // Silent refresh — no skeleton, just update the data
+      await _refreshCartSilently();
     }
   }
 }

@@ -50,10 +50,6 @@ final class RemoveFromCartError extends RemoveFromCartState {
 // ─── Update Cart Item ────────────────────────
 abstract class UpdateCartState extends CartState {}
 
-final class UpdateCartLoading extends UpdateCartState {}
-
-final class UpdateCartSuccess extends UpdateCartState {}
-
 final class UpdateCartError extends UpdateCartState {
   final String message;
   UpdateCartError({this.message = 'Failed to update quantity'});

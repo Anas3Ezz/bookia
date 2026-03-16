@@ -16,7 +16,6 @@ class ApiConstants {
   // ─── Cart ──────────────────────────────────
   static const String addToCart = "add-to-cart";
   static const String showCart = "cart";
-  static const String removeFromCart =
-      "remove-from-cart"; // update if different
-  static const String updateCart = "update-cart"; // update if different
+  static const String removeFromCart = "remove-from-cart";
+  static const String updateCart = "update-cart";
 }
