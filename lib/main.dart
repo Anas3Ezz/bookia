@@ -10,20 +10,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
-  DioFactory.initDio();
-
+  await DioFactory.initDio(); // now async — reads token before app starts
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-  String? token = prefs.getString('token');
+  final String? token = prefs.getString('token');
   await ScreenUtil.ensureScreenSize();
   await EasyLocalization.ensureInitialized();
   runApp(
     EasyLocalization(
-      supportedLocales: [Locale('en'), Locale('ar')],
+      supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/translation',
-      fallbackLocale: Locale('en'),
+      fallbackLocale: const Locale('en'),
       child: BookiaApp(token: token),
     ),
   );
 }
-//dart run build_runner build

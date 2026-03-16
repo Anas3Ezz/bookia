@@ -1,5 +1,6 @@
 import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/feature/book_mark/ui/book_mark_screen.dart';
+import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:bookia/feature/cart/ui/cart_screen.dart';
 import 'package:bookia/feature/home/cubit/home_cubit.dart';
 import 'package:bookia/feature/home/ui/home_screen.dart';
@@ -18,15 +19,24 @@ class BottomNavBarScreen extends StatefulWidget {
 
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   int _currentIndex = 0;
-  final List<Widget> _screens = [
-    BlocProvider(
-      create: (context) => HomeCubit()..getHomeData(),
-      child: const HomeScreen(),
-    ),
-    const BookMarkScreen(),
-    const CartScreen(),
-    const ProfileScreen(),
-  ];
+  late final List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      BlocProvider(
+        create: (_) => HomeCubit()..getHomeData(),
+        child: const HomeScreen(),
+      ),
+      const BookMarkScreen(),
+      BlocProvider(
+        create: (_) => CartCubit()..getCart(),
+        child: const CartScreen(),
+      ),
+      const ProfileScreen(),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +44,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+        onTap: (index) => setState(() => _currentIndex = index),
         backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
         showSelectedLabels: true,
@@ -65,10 +71,7 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           ),
         ],
       ),
-      //i used this to prevent rebuilding the home screen every time i nav to it
-      body: _screens[_currentIndex],
-
-      //      body: IndexedStack(index: _currentIndex, children: _screens),
+      body: IndexedStack(index: _currentIndex, children: _screens),
     );
   }
 }

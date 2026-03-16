@@ -1,14 +1,18 @@
 import 'package:bookia/core/widgets/customr_app_button.dart';
+import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookBottomActionBar extends StatelessWidget {
   const BookBottomActionBar({
     super.key,
+    required this.productId,
     required this.price,
     this.priceAfterDiscount,
     this.discount,
   });
 
+  final int productId;
   final String price;
   final double? priceAfterDiscount;
   final int? discount;
@@ -30,12 +34,38 @@ class BookBottomActionBar extends StatelessWidget {
           ),
           const SizedBox(width: 30),
           Expanded(
-            child: AppButton(
-              text: 'Add To Cart',
-              onPressed: () {},
-              isFilled: true,
-              backgroundColor: Colors.black,
-              textColor: Colors.white,
+            child: BlocConsumer<CartCubit, CartState>(
+              listenWhen: (_, current) => current is AddToCartState,
+              listener: (context, state) {
+                if (state is AddToCartSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message),
+                      backgroundColor: Colors.green,
+                    ),
+                  );
+                } else if (state is AddToCartError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(state.message),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              },
+              buildWhen: (_, current) => current is AddToCartState,
+              builder: (context, state) {
+                final isLoading = state is AddToCartLoading;
+                return AppButton(
+                  text: isLoading ? 'Adding...' : 'Add To Cart',
+                  onPressed: isLoading
+                      ? () {}
+                      : () => context.read<CartCubit>().addToCart(productId),
+                  isFilled: true,
+                  backgroundColor: Colors.black,
+                  textColor: Colors.white,
+                );
+              },
             ),
           ),
         ],

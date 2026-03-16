@@ -33,6 +33,7 @@ class BookDetailsScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BookBottomActionBar(
+        productId: book.id ?? 0,
         price: book.price ?? '0',
         priceAfterDiscount: book.priceAfterDiscount,
         discount: book.discount,

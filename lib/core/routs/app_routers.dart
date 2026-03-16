@@ -4,6 +4,7 @@ import 'package:bookia/feature/auth/ui/login_screen.dart';
 import 'package:bookia/feature/auth/ui/on_boarding_screen.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
 import 'package:bookia/feature/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
+import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:bookia/feature/home/data/models/books_model.dart';
 import 'package:bookia/feature/home/ui/book_details/book_deatials_screen.dart';
 import 'package:bookia/feature/search/cubit/search_cubit.dart';
@@ -16,6 +17,7 @@ class AppRouter {
     switch (settings.name) {
       case AppRoutes.onboarding:
         return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
+
       case AppRoutes.login:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -23,6 +25,7 @@ class AppRouter {
             child: LoginScreen(),
           ),
         );
+
       case AppRoutes.register:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -30,18 +33,27 @@ class AppRouter {
             child: RegisterScreen(),
           ),
         );
+
       case AppRoutes.searchScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (context) => SearchCubit(),
-            child: SearchScreen(),
+            create: (_) => SearchCubit(),
+            child: const SearchScreen(),
           ),
         );
+
       case AppRoutes.bottomNavBarScreen:
-        return MaterialPageRoute(builder: (_) => BottomNavBarScreen());
+        return MaterialPageRoute(builder: (_) => const BottomNavBarScreen());
+
       case AppRoutes.booksDetails:
         final book = settings.arguments as Products;
-        return MaterialPageRoute(builder: (_) => BookDetailsScreen(book: book));
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => CartCubit(),
+            child: BookDetailsScreen(book: book),
+          ),
+        );
+
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

@@ -15,8 +15,11 @@ class AuthRepo {
         data: {"email": email, "password": password},
       );
       if (response?.statusCode == 200) {
-        debugPrint(response?.data['data']['token'].toString());
-        await saveToken(response?.data['data']['token'].toString() ?? '');
+        final token = response?.data['data']['token'].toString() ?? '';
+        debugPrint(token);
+        await saveToken(token);
+        // Update Dio headers immediately so next requests use the new token
+        DioFactory.updateToken(token);
         return true;
       } else {
         return false;
