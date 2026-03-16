@@ -1,11 +1,22 @@
 class ApiConstants {
   static const String baseUrl = "https://codingarabic.online/api/";
+
+  // ─── Auth ──────────────────────────────────
   static const String loginEndpoint = "login";
   static const String registerEndpoint = "register";
+
+  // ─── Home ──────────────────────────────────
   static const String homeSliderEndpoint = "sliders";
   static const String bestseller = "products-bestseller";
-  static const String productsSearch = "products-search";
+
+  // ─── Products ──────────────────────────────
   static const String products = "products";
+  static const String productsSearch = "products-search";
+
+  // ─── Cart ──────────────────────────────────
   static const String addToCart = "add-to-cart";
   static const String showCart = "cart";
+  static const String removeFromCart =
+      "remove-from-cart"; // update if different
+  static const String updateCart = "update-cart"; // update if different
 }

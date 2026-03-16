@@ -4,8 +4,6 @@ import 'package:bookia/feature/auth/ui/login_screen.dart';
 import 'package:bookia/feature/auth/ui/on_boarding_screen.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
 import 'package:bookia/feature/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
-import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
-import 'package:bookia/feature/home/data/models/books_model.dart';
 import 'package:bookia/feature/home/ui/book_details/book_deatials_screen.dart';
 import 'package:bookia/feature/search/cubit/search_cubit.dart';
 import 'package:bookia/feature/search/ui/search_screen.dart';
@@ -20,18 +18,14 @@ class AppRouter {
 
       case AppRoutes.login:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => AuthCubit(),
-            child: LoginScreen(),
-          ),
+          builder: (_) =>
+              BlocProvider(create: (_) => AuthCubit(), child: LoginScreen()),
         );
 
       case AppRoutes.register:
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (context) => AuthCubit(),
-            child: RegisterScreen(),
-          ),
+          builder: (_) =>
+              BlocProvider(create: (_) => AuthCubit(), child: RegisterScreen()),
         );
 
       case AppRoutes.searchScreen:
@@ -46,11 +40,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const BottomNavBarScreen());
 
       case AppRoutes.booksDetails:
-        final book = settings.arguments as Products;
+        final args = settings.arguments as BookDetailsArgs;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => CartCubit(),
-            child: BookDetailsScreen(book: book),
+          builder: (_) => BlocProvider.value(
+            // Reuse the same CartCubit — no new instance created
+            value: args.cartCubit,
+            child: BookDetailsScreen(book: args.book),
           ),
         );
 

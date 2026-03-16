@@ -13,11 +13,9 @@ class CartCubit extends Cubit<CartState> {
     final response = await CartRepo.getCart();
     if (isClosed) return;
 
-    if (response == null) {
-      emit(GetCartError());
-    } else {
-      emit(GetCartSuccess(response.data ?? CartData()));
-    }
+    response == null
+        ? emit(GetCartError())
+        : emit(GetCartSuccess(response.data ?? CartData()));
   }
 
   Future<void> addToCart(int productId) async {
@@ -29,7 +27,38 @@ class CartCubit extends Cubit<CartState> {
       emit(AddToCartError());
     } else {
       emit(AddToCartSuccess(message: response.message ?? 'Added to cart'));
-      // Refresh cart after adding
+      await getCart();
+    }
+  }
+
+  Future<void> removeFromCart(int itemId) async {
+    emit(RemoveFromCartLoading());
+    final success = await CartRepo.removeFromCart(itemId);
+    if (isClosed) return;
+
+    if (!success) {
+      emit(RemoveFromCartError());
+    } else {
+      emit(RemoveFromCartSuccess());
+      await getCart();
+    }
+  }
+
+  Future<void> updateCartItem({
+    required int itemId,
+    required int quantity,
+  }) async {
+    emit(UpdateCartLoading());
+    final success = await CartRepo.updateCartItem(
+      itemId: itemId,
+      quantity: quantity,
+    );
+    if (isClosed) return;
+
+    if (!success) {
+      emit(UpdateCartError());
+    } else {
+      emit(UpdateCartSuccess());
       await getCart();
     }
   }

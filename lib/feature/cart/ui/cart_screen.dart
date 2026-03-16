@@ -7,28 +7,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class CartScreen extends StatefulWidget {
+class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
-
-  @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<CartCubit>().getCart();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: Text(
           'My Cart',
@@ -57,24 +46,22 @@ class _CartScreenState extends State<CartScreen> {
             );
           }
         },
-        buildWhen: (previous, current) => current is GetCartState,
+        buildWhen: (_, current) =>
+            current is GetCartState || current is CartInitial,
         builder: (context, state) {
           if (state is GetCartLoading || state is CartInitial) {
             return const _CartSkeletonList();
           } else if (state is GetCartSuccess) {
             final items = state.cart.cartItems ?? [];
-            if (items.isEmpty) {
-              return const _CartEmpty();
-            }
+            if (items.isEmpty) return const _CartEmpty();
             return _CartContent(cart: state.cart);
           } else if (state is GetCartError) {
             return _CartError(
               message: state.message,
               onRetry: () => context.read<CartCubit>().getCart(),
             );
-          } else {
-            return const SizedBox.shrink();
           }
+          return const SizedBox.shrink();
         },
       ),
     );
@@ -100,7 +87,7 @@ class _CartContent extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             itemCount: items.length,
             separatorBuilder: (_, __) => Gap(12.h),
-            itemBuilder: (context, index) => _CartItemCard(item: items[index]),
+            itemBuilder: (_, index) => _CartItemCard(item: items[index]),
           ),
         ),
         _CartCheckoutBar(total: cart.total ?? '0'),
@@ -156,13 +143,14 @@ class _CartItemCard extends StatelessWidget {
                 ),
               ),
               Gap(8.h),
-              _QuantityControls(quantity: item.itemQuantity ?? 1),
+              _QuantityControls(item: item),
             ],
           ),
         ),
         IconButton(
           icon: const Icon(Icons.cancel_outlined, color: Colors.grey),
-          onPressed: () {},
+          onPressed: () =>
+              context.read<CartCubit>().removeFromCart(item.itemId ?? 0),
         ),
       ],
     );
@@ -174,22 +162,39 @@ class _CartItemCard extends StatelessWidget {
 // ─────────────────────────────────────────────
 
 class _QuantityControls extends StatelessWidget {
-  const _QuantityControls({required this.quantity});
+  const _QuantityControls({required this.item});
 
-  final int quantity;
+  final CartItem item;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _QuantityButton(icon: Icons.add, onTap: () {}),
+        _QuantityButton(
+          icon: Icons.add,
+          onTap: () => context.read<CartCubit>().updateCartItem(
+            itemId: item.itemId ?? 0,
+            quantity: (item.itemQuantity ?? 1) + 1,
+          ),
+        ),
         Gap(8.w),
         Text(
-          quantity.toString().padLeft(2, '0'),
+          (item.itemQuantity ?? 1).toString().padLeft(2, '0'),
           style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
         ),
         Gap(8.w),
-        _QuantityButton(icon: Icons.remove, onTap: () {}),
+        _QuantityButton(
+          icon: Icons.remove,
+          onTap: () {
+            final current = item.itemQuantity ?? 1;
+            if (current > 1) {
+              context.read<CartCubit>().updateCartItem(
+                itemId: item.itemId ?? 0,
+                quantity: current - 1,
+              );
+            }
+          },
+        ),
       ],
     );
   }

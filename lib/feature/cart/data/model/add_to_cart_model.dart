@@ -77,9 +77,10 @@ class CartItem {
     itemProductImage = json['item_product_image'];
     itemProductPrice = json['item_product_price'];
     itemProductDiscount = json['item_product_discount'];
-    itemProductPriceAfterDiscount = json['item_product_price_after_discount'];
+    itemProductPriceAfterDiscount =
+        (json['item_product_price_after_discount'] as num?)?.toDouble();
     itemProductStock = json['item_product_stock'];
     itemQuantity = json['item_quantity'];
-    itemTotal = json['item_total'];
+    itemTotal = (json['item_total'] as num?)?.toDouble();
   }
 }

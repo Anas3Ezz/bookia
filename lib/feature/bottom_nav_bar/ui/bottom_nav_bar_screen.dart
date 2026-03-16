@@ -19,59 +19,67 @@ class BottomNavBarScreen extends StatefulWidget {
 
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   int _currentIndex = 0;
+  late final CartCubit _cartCubit;
   late final List<Widget> _screens;
 
   @override
   void initState() {
     super.initState();
+    _cartCubit = CartCubit()..getCart();
     _screens = [
       BlocProvider(
         create: (_) => HomeCubit()..getHomeData(),
         child: const HomeScreen(),
       ),
       const BookMarkScreen(),
-      BlocProvider(
-        create: (_) => CartCubit()..getCart(),
-        child: const CartScreen(),
-      ),
+      BlocProvider.value(value: _cartCubit, child: const CartScreen()),
       const ProfileScreen(),
     ];
   }
 
   @override
+  void dispose() {
+    _cartCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) => setState(() => _currentIndex = index),
+    return BlocProvider.value(
+      value: _cartCubit,
+      child: Scaffold(
         backgroundColor: Colors.white,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        selectedItemColor: AppColors.primaryColor,
-        unselectedItemColor: Colors.black87,
-        elevation: 0,
-        items: [
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(Assets.icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(Assets.icons.bookmark),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(Assets.icons.shop),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: SvgPicture.asset(Assets.icons.profile),
-            label: '',
-          ),
-        ],
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (index) => setState(() => _currentIndex = index),
+          backgroundColor: Colors.white,
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          selectedItemColor: AppColors.primaryColor,
+          unselectedItemColor: Colors.black87,
+          elevation: 0,
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.icons.home),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.icons.bookmark),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.icons.shop),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(Assets.icons.profile),
+              label: '',
+            ),
+          ],
+        ),
+        body: IndexedStack(index: _currentIndex, children: _screens),
       ),
-      body: IndexedStack(index: _currentIndex, children: _screens),
     );
   }
 }

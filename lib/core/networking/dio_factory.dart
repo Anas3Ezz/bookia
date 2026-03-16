@@ -1,5 +1,6 @@
 import 'package:bookia/core/networking/api_constants.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DioFactory {
@@ -20,6 +21,7 @@ class DioFactory {
         },
       ),
     );
+    debugPrint('>>> headers: ${DioFactory.dio?.options.headers}');
   }
 
   // Call this after login to update the token without restarting the app

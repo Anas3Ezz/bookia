@@ -5,7 +5,7 @@ sealed class CartState {}
 
 final class CartInitial extends CartState {}
 
-// ─── Get Cart States ─────────────────────────
+// ─── Get Cart ────────────────────────────────
 abstract class GetCartState extends CartState {}
 
 final class GetCartLoading extends GetCartState {}
@@ -20,7 +20,7 @@ final class GetCartError extends GetCartState {
   GetCartError({this.message = 'Failed to load cart'});
 }
 
-// ─── Add To Cart States ──────────────────────
+// ─── Add To Cart ─────────────────────────────
 abstract class AddToCartState extends CartState {}
 
 final class AddToCartLoading extends AddToCartState {}
@@ -33,4 +33,28 @@ final class AddToCartSuccess extends AddToCartState {
 final class AddToCartError extends AddToCartState {
   final String message;
   AddToCartError({this.message = 'Failed to add to cart'});
+}
+
+// ─── Remove From Cart ────────────────────────
+abstract class RemoveFromCartState extends CartState {}
+
+final class RemoveFromCartLoading extends RemoveFromCartState {}
+
+final class RemoveFromCartSuccess extends RemoveFromCartState {}
+
+final class RemoveFromCartError extends RemoveFromCartState {
+  final String message;
+  RemoveFromCartError({this.message = 'Failed to remove item'});
+}
+
+// ─── Update Cart Item ────────────────────────
+abstract class UpdateCartState extends CartState {}
+
+final class UpdateCartLoading extends UpdateCartState {}
+
+final class UpdateCartSuccess extends UpdateCartState {}
+
+final class UpdateCartError extends UpdateCartState {
+  final String message;
+  UpdateCartError({this.message = 'Failed to update quantity'});
 }
