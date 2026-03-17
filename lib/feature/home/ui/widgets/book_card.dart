@@ -62,16 +62,3 @@ class BookCard extends StatelessWidget {
     );
   }
 }
-
-//TODO i will refactor this
-class BookDetailsArgs {
-  final Products book;
-  final CartCubit cartCubit;
-  final WishlistCubit wishlistCubit;
-
-  const BookDetailsArgs({
-    required this.book,
-    required this.cartCubit,
-    required this.wishlistCubit,
-  });
-}
