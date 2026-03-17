@@ -1,38 +1,37 @@
-import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
+import 'package:bookia/feature/search/data/model/search_args.dart';
+import 'package:bookia/feature/wishlist/cubit/wishlist_cubit.dart';
 import 'package:bookia/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookiaAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BookiaAppBar({super.key});
 
   @override
-  Size get preferredSize => Size.fromHeight(56.h);
-
-  @override
   Widget build(BuildContext context) {
     return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.white,
-      titleSpacing: 0,
       automaticallyImplyLeading: false,
-      title: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Row(
-          children: [
-            Image.asset(Assets.images.appLogo.path, height: 28.h),
-            SizedBox(width: 8.w),
-            const Spacer(),
-            IconButton(
-              onPressed: () {
-                context.pushNamed(AppRoutes.searchScreen);
-              },
-              icon: const Icon(size: 35, Icons.search, color: Colors.black),
+      backgroundColor: Colors.white,
+      elevation: 0,
+      title: Image.asset(Assets.images.appLogo.path, height: 35),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.search, color: Colors.black),
+          onPressed: () => Navigator.pushNamed(
+            context,
+            AppRoutes.searchScreen,
+            arguments: SearchArgs(
+              cartCubit: context.read<CartCubit>(),
+              wishlistCubit: context.read<WishlistCubit>(),
             ),
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

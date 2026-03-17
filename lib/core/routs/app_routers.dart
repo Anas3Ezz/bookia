@@ -7,6 +7,7 @@ import 'package:bookia/feature/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
 import 'package:bookia/feature/home/ui/book_details/book_deatials_screen.dart';
 import 'package:bookia/feature/home/ui/widgets/book_card.dart';
 import 'package:bookia/feature/search/cubit/search_cubit.dart';
+import 'package:bookia/feature/search/data/model/search_args.dart';
 import 'package:bookia/feature/search/ui/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,9 +31,14 @@ class AppRouter {
         );
 
       case AppRoutes.searchScreen:
+        final args = settings.arguments as SearchArgs;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => SearchCubit(),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => SearchCubit()),
+              BlocProvider.value(value: args.cartCubit),
+              BlocProvider.value(value: args.wishlistCubit),
+            ],
             child: const SearchScreen(),
           ),
         );
