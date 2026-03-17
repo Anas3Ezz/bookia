@@ -1,6 +1,7 @@
 import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/core/widgets/cashed_images.dart';
 import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
+import 'package:bookia/feature/home/data/models/book_details_arg.dart';
 import 'package:bookia/feature/home/data/models/books_model.dart';
 import 'package:bookia/feature/wishlist/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
