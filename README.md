@@ -17,3 +17,10 @@
 
 # Search Screen
 <img width="298" height="623" alt="Image" src="https://github.com/user-attachments/assets/b20433c9-b7e0-42ac-903c-e36a43a4a05a" />
+
+# Cart Screen 
+<img width="333" height="734" alt="image" src="https://github.com/user-attachments/assets/1d8203a3-71a8-434c-9047-8d219066db75" />
+
+# Wishlist Screen
+<img width="332" height="735" alt="image" src="https://github.com/user-attachments/assets/20858f73-9b3d-4d5d-9331-b1243da59ae4" />
+
