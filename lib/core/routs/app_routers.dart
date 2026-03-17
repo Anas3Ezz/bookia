@@ -5,6 +5,7 @@ import 'package:bookia/feature/auth/ui/on_boarding_screen.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
 import 'package:bookia/feature/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
 import 'package:bookia/feature/home/ui/book_details/book_deatials_screen.dart';
+import 'package:bookia/feature/home/ui/widgets/book_card.dart';
 import 'package:bookia/feature/search/cubit/search_cubit.dart';
 import 'package:bookia/feature/search/ui/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -42,9 +43,11 @@ class AppRouter {
       case AppRoutes.booksDetails:
         final args = settings.arguments as BookDetailsArgs;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            // Reuse the same CartCubit — no new instance created
-            value: args.cartCubit,
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider.value(value: args.cartCubit),
+              BlocProvider.value(value: args.wishlistCubit),
+            ],
             child: BookDetailsScreen(book: args.book),
           ),
         );

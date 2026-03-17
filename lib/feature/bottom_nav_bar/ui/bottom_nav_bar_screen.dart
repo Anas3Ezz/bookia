@@ -1,10 +1,11 @@
 import 'package:bookia/core/theme/app_colors.dart';
-import 'package:bookia/feature/book_mark/ui/book_mark_screen.dart';
 import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:bookia/feature/cart/ui/cart_screen.dart';
 import 'package:bookia/feature/home/cubit/home_cubit.dart';
 import 'package:bookia/feature/home/ui/home_screen.dart';
 import 'package:bookia/feature/profile/ui/profile_screen.dart';
+import 'package:bookia/feature/wishlist/cubit/wishlist_cubit.dart';
+import 'package:bookia/feature/wishlist/ui/wishlist_screen.dart';
 import 'package:bookia/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,18 +21,20 @@ class BottomNavBarScreen extends StatefulWidget {
 class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   int _currentIndex = 0;
   late final CartCubit _cartCubit;
+  late final WishlistCubit _wishlistCubit;
   late final List<Widget> _screens;
 
   @override
   void initState() {
     super.initState();
     _cartCubit = CartCubit()..getCart();
+    _wishlistCubit = WishlistCubit()..getWishlist();
     _screens = [
       BlocProvider(
         create: (_) => HomeCubit()..getHomeData(),
         child: const HomeScreen(),
       ),
-      const BookMarkScreen(),
+      BlocProvider.value(value: _wishlistCubit, child: const WishlistScreen()),
       BlocProvider.value(value: _cartCubit, child: const CartScreen()),
       const ProfileScreen(),
     ];
@@ -40,13 +43,17 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   @override
   void dispose() {
     _cartCubit.close();
+    _wishlistCubit.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: _cartCubit,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: _cartCubit),
+        BlocProvider.value(value: _wishlistCubit),
+      ],
       child: Scaffold(
         backgroundColor: Colors.white,
         bottomNavigationBar: BottomNavigationBar(

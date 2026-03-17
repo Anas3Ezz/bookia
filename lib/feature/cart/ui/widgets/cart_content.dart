@@ -19,7 +19,7 @@ class CartContent extends StatelessWidget {
           child: ListView.separated(
             padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
             itemCount: items.length,
-            separatorBuilder: (_, __) => Gap(12.h),
+            separatorBuilder: (_, _) => Gap(12.h),
             itemBuilder: (_, index) => CartItemCard(item: items[index]),
           ),
         ),

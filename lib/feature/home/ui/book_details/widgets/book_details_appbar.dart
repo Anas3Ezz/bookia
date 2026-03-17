@@ -1,7 +1,11 @@
+import 'package:bookia/feature/wishlist/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const BookDetailsAppBar({super.key});
+  const BookDetailsAppBar({super.key, required this.productId});
+
+  final int productId;
 
   @override
   Widget build(BuildContext context) {
@@ -9,13 +13,39 @@ class BookDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.white,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back_ios_new, color: Colors.black, size: 20),
+        icon: const Icon(
+          Icons.arrow_back_ios_new,
+          color: Colors.black,
+          size: 20,
+        ),
         onPressed: () => Navigator.pop(context),
       ),
       actions: [
-        IconButton(
-          icon: const Icon(Icons.bookmark_border_rounded, color: Colors.black),
-          onPressed: () {},
+        BlocBuilder<WishlistCubit, WishlistState>(
+          buildWhen: (_, current) =>
+              current is AddToWishlistSuccess ||
+              current is RemoveFromWishlistSuccess ||
+              current is GetWishlistSuccess,
+          builder: (context, state) {
+            final isWishlisted = context.read<WishlistCubit>().isInWishlist(
+              productId,
+            );
+            return IconButton(
+              icon: Icon(
+                isWishlisted
+                    ? Icons.bookmark_rounded
+                    : Icons.bookmark_border_rounded,
+                color: isWishlisted ? const Color(0xFFB89B5E) : Colors.black,
+              ),
+              onPressed: () {
+                if (isWishlisted) {
+                  context.read<WishlistCubit>().removeFromWishlist(productId);
+                } else {
+                  context.read<WishlistCubit>().addToWishlist(productId);
+                }
+              },
+            );
+          },
         ),
         const SizedBox(width: 10),
       ],

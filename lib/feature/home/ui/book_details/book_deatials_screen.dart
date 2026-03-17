@@ -1,4 +1,3 @@
-import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:bookia/feature/home/data/models/books_model.dart';
 import 'package:bookia/feature/home/ui/book_details/widgets/book_cover_image.dart';
 import 'package:bookia/feature/home/ui/book_details/widgets/book_description.dart';
@@ -16,7 +15,7 @@ class BookDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const BookDetailsAppBar(),
+      appBar: BookDetailsAppBar(productId: book.id ?? 0),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -41,12 +40,4 @@ class BookDetailsScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-//TODO refactor this
-class BookDetailsArgs {
-  final Products book;
-  final CartCubit cartCubit;
-
-  const BookDetailsArgs({required this.book, required this.cartCubit});
 }

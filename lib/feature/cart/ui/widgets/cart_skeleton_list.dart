@@ -13,8 +13,8 @@ class CartSkeletonList extends StatelessWidget {
       child: ListView.separated(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         itemCount: 4,
-        separatorBuilder: (_, __) => Gap(12.h),
-        itemBuilder: (_, __) => Row(
+        separatorBuilder: (_, _) => Gap(12.h),
+        itemBuilder: (_, _) => Row(
           children: [
             Container(
               width: 80.w,
