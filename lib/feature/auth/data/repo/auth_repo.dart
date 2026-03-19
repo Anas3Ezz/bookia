@@ -1,8 +1,8 @@
+import 'package:bookia/core/helper/storge_services.dart';
 import 'package:bookia/core/networking/api_constants.dart';
 import 'package:bookia/core/networking/dio_factory.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRepo {
   static Future<bool> login({
@@ -15,17 +15,16 @@ class AuthRepo {
         data: {"email": email, "password": password},
       );
       if (response?.statusCode == 200) {
-        final token = response?.data['data']['token'].toString() ?? '';
-        debugPrint(token);
-        await saveToken(token);
-        // Update Dio headers immediately so next requests use the new token
+        final token = response?.data['data']['token'] as String? ?? '';
+        debugPrint('>>> token: $token');
+        await StorageService.saveToken(token);
         DioFactory.updateToken(token);
         return true;
       } else {
         return false;
       }
-    } on Exception catch (e) {
-      debugPrint(e.toString());
+    } on DioException catch (e) {
+      debugPrint('>>> login error: ${e.response?.data.toString()}');
       return false;
     }
   }
@@ -52,13 +51,13 @@ class AuthRepo {
         return false;
       }
     } on DioException catch (e) {
-      debugPrint(e.response?.data.toString());
+      debugPrint('>>> register error: ${e.response?.data.toString()}');
       return false;
     }
   }
 
-  static Future<void> saveToken(String token) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', token);
+  static Future<void> logout() async {
+    await StorageService.removeToken();
+    DioFactory.dio?.options.headers.remove('Authorization');
   }
 }

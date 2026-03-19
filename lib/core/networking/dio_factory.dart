@@ -1,14 +1,12 @@
+import 'package:bookia/core/helper/storge_services.dart';
 import 'package:bookia/core/networking/api_constants.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class DioFactory {
   static Dio? dio;
 
   static Future<void> initDio() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? token = prefs.getString('token');
+    final String? token = StorageService.getToken();
 
     dio = Dio(
       BaseOptions(
@@ -21,10 +19,8 @@ class DioFactory {
         },
       ),
     );
-    debugPrint('>>> headers: ${DioFactory.dio?.options.headers}');
   }
 
-  // Call this after login to update the token without restarting the app
   static void updateToken(String token) {
     dio?.options.headers['Authorization'] = 'Bearer $token';
   }
