@@ -24,24 +24,9 @@ class ProfileMenu extends StatelessWidget {
         ),
         child: Column(
           children: [
-            ProfileMenuItem(
-              title: 'My Orders',
-              onTap: () {
-                // TODO: navigate to orders screen
-              },
-            ),
-            ProfileMenuItem(
-              title: 'Edit Profile',
-              onTap: () {
-                // TODO: navigate to edit profile screen
-              },
-            ),
-            ProfileMenuItem(
-              title: 'Reset Password',
-              onTap: () {
-                // TODO: navigate to reset password screen
-              },
-            ),
+            ProfileMenuItem(title: 'My Orders', onTap: () {}),
+            ProfileMenuItem(title: 'Edit Profile', onTap: () {}),
+            ProfileMenuItem(title: 'Reset Password', onTap: () {}),
             ProfileMenuItem(title: 'FAQ', onTap: () {}),
             ProfileMenuItem(title: 'Contact Us', onTap: () {}),
             // Last item — no bottom border

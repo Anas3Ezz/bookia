@@ -31,7 +31,7 @@ class ProfileHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'User Name', // TODO: replace with real data
+                'User Name',
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
@@ -40,11 +40,8 @@ class ProfileHeader extends StatelessWidget {
               ),
               Gap(4.h),
               Text(
-                'user@email.com', // TODO: replace with real data
-                style: TextStyle(
-                  fontSize: 13.sp,
-                  color: Colors.grey.shade500,
-                ),
+                'user@email.com',
+                style: TextStyle(fontSize: 13.sp, color: Colors.grey.shade500),
               ),
             ],
           ),

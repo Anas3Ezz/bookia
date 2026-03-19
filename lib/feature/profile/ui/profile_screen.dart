@@ -24,24 +24,15 @@ class ProfileScreen extends StatelessWidget {
         ),
         actions: [
           IconButton(
-            icon: const Icon(
-              Icons.logout_rounded,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              // TODO: implement logout
-            },
+            icon: const Icon(Icons.logout_rounded, color: Colors.black),
+            onPressed: () {},
           ),
           SizedBox(width: 8.w),
         ],
       ),
       body: const SingleChildScrollView(
         child: Column(
-          children: [
-            ProfileHeader(),
-            SizedBox(height: 24),
-            ProfileMenu(),
-          ],
+          children: [ProfileHeader(), SizedBox(height: 24), ProfileMenu()],
         ),
       ),
     );
