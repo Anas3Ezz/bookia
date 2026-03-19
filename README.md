@@ -24,3 +24,5 @@
 # Wishlist Screen
 <img width="332" height="735" alt="image" src="https://github.com/user-attachments/assets/20858f73-9b3d-4d5d-9331-b1243da59ae4" />
 
+# profile screen
+<img width="302" height="642" alt="image" src="https://github.com/user-attachments/assets/1ba192f2-05fc-4850-80a6-4680a4fecdca" />
