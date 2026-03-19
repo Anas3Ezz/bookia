@@ -2,6 +2,7 @@ import 'package:bookia/feature/profile/ui/widgets/profile_header.dart';
 import 'package:bookia/feature/profile/ui/widgets/profile_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -25,7 +26,11 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.logout_rounded, color: Colors.black),
-            onPressed: () {},
+            onPressed: () async {
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+              prefs.clear();
+            },
           ),
           SizedBox(width: 8.w),
         ],
