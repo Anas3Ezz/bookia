@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//TODO : USE THIS IN THE CART AND WISHLIST.
 class AppButton extends StatelessWidget {
   const AppButton({
     super.key,

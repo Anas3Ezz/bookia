@@ -1,5 +1,6 @@
 import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
+import 'package:bookia/feature/auth/ui/forget_password_screen.dart';
 import 'package:bookia/feature/auth/ui/login_screen.dart';
 import 'package:bookia/feature/auth/ui/on_boarding_screen.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
@@ -29,7 +30,8 @@ class AppRouter {
           builder: (_) =>
               BlocProvider(create: (_) => AuthCubit(), child: RegisterScreen()),
         );
-
+      case AppRoutes.forgotPasswordScreen:
+        return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case AppRoutes.searchScreen:
         final args = settings.arguments as SearchArgs;
         return MaterialPageRoute(
