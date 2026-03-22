@@ -9,6 +9,9 @@
 # regisger Screen
 <img width="390" height="834" alt="image" src="https://github.com/user-attachments/assets/f22e81a3-5f00-45fd-a8ad-1381c4ce80d4" />
 
+# Forget Password Screen 
+<img width="330" height="728" alt="image" src="https://github.com/user-attachments/assets/63a0e464-7f28-44d1-9067-486bd875f7a1" />
+
 # Home 
 <img width="307" height="628" alt="Image" src="https://github.com/user-attachments/assets/9dedebfc-556f-4125-9223-b3d29d592a2b" />
 
@@ -26,6 +29,3 @@
 
 # profile screen
 <img width="339" height="724" alt="image" src="https://github.com/user-attachments/assets/51be03b1-6bba-4b15-bdb9-a621f107fc6b" />
-
-# Forget Password Screen 
-<img width="330" height="728" alt="image" src="https://github.com/user-attachments/assets/63a0e464-7f28-44d1-9067-486bd875f7a1" />
