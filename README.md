@@ -25,4 +25,7 @@
 <img width="332" height="735" alt="image" src="https://github.com/user-attachments/assets/20858f73-9b3d-4d5d-9331-b1243da59ae4" />
 
 # profile screen
-<img width="302" height="642" alt="image" src="https://github.com/user-attachments/assets/1ba192f2-05fc-4850-80a6-4680a4fecdca" />
+<img width="339" height="724" alt="image" src="https://github.com/user-attachments/assets/51be03b1-6bba-4b15-bdb9-a621f107fc6b" />
+
+# Forget Password Screen 
+<img width="330" height="728" alt="image" src="https://github.com/user-attachments/assets/63a0e464-7f28-44d1-9067-486bd875f7a1" />
