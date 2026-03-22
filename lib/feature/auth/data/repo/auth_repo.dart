@@ -46,6 +46,10 @@ class AuthRepo {
         },
       );
       if (response?.statusCode == 201) {
+        final token = response?.data['data']['token'] as String? ?? '';
+        debugPrint('>>> register token: $token');
+        await StorageService.saveToken(token);
+        DioFactory.updateToken(token);
         return true;
       } else {
         return false;
