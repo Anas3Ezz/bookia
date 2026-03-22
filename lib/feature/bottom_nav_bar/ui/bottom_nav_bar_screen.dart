@@ -70,19 +70,43 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
           elevation: 0,
           items: [
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(Assets.icons.home),
+              icon: SvgPicture.asset(
+                Assets.icons.home,
+                colorFilter: ColorFilter.mode(
+                  _currentIndex == 0 ? AppColors.primaryColor : Colors.black87,
+                  BlendMode.srcIn,
+                ),
+              ),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(Assets.icons.bookmark),
+              icon: SvgPicture.asset(
+                Assets.icons.bookmark,
+                colorFilter: ColorFilter.mode(
+                  _currentIndex == 1 ? AppColors.primaryColor : Colors.black87,
+                  BlendMode.srcIn,
+                ),
+              ),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(Assets.icons.shop),
+              icon: SvgPicture.asset(
+                Assets.icons.shop,
+                colorFilter: ColorFilter.mode(
+                  _currentIndex == 2 ? AppColors.primaryColor : Colors.black87,
+                  BlendMode.srcIn,
+                ),
+              ),
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: SvgPicture.asset(Assets.icons.profile),
+              icon: SvgPicture.asset(
+                Assets.icons.profile,
+                colorFilter: ColorFilter.mode(
+                  _currentIndex == 3 ? AppColors.primaryColor : Colors.black87,
+                  BlendMode.srcIn,
+                ),
+              ),
               label: '',
             ),
           ],
