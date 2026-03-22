@@ -1,9 +1,19 @@
+import 'package:bookia/core/widgets/cashed_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 class ProfileHeader extends StatelessWidget {
-  const ProfileHeader({super.key});
+  const ProfileHeader({
+    super.key,
+    required this.name,
+    required this.email,
+    required this.imageUrl,
+  });
+
+  final String name;
+  final String email;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -11,27 +21,25 @@ class ProfileHeader extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),
       child: Row(
         children: [
-          // Avatar
           Container(
             width: 64.w,
             height: 64.w,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.grey.shade200,
-            ),
-            child: Icon(
-              Icons.person_rounded,
-              size: 36.sp,
-              color: Colors.grey.shade400,
+            decoration: const BoxDecoration(shape: BoxShape.circle),
+            child: ClipOval(
+              child: CustomCachedImage(
+                url: imageUrl,
+                fit: BoxFit.cover,
+                width: 64.w,
+                height: 64.w,
+              ),
             ),
           ),
           Gap(16.w),
-          // Name & Email
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'User Name',
+                name,
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
@@ -40,7 +48,7 @@ class ProfileHeader extends StatelessWidget {
               ),
               Gap(4.h),
               Text(
-                'user@email.com',
+                email,
                 style: TextStyle(fontSize: 13.sp, color: Colors.grey.shade500),
               ),
             ],

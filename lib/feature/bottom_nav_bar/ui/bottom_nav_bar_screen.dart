@@ -3,6 +3,7 @@ import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:bookia/feature/cart/ui/cart_screen.dart';
 import 'package:bookia/feature/home/cubit/home_cubit.dart';
 import 'package:bookia/feature/home/ui/home_screen.dart';
+import 'package:bookia/feature/profile/cubit/profile_cubit.dart';
 import 'package:bookia/feature/profile/ui/profile_screen.dart';
 import 'package:bookia/feature/wishlist/cubit/wishlist_cubit.dart';
 import 'package:bookia/feature/wishlist/ui/wishlist_screen.dart';
@@ -36,7 +37,8 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       ),
       BlocProvider.value(value: _wishlistCubit, child: const WishlistScreen()),
       BlocProvider.value(value: _cartCubit, child: const CartScreen()),
-      const ProfileScreen(),
+      // ProfileCubit scoped to ProfileScreen only — no need to share it
+      BlocProvider(create: (_) => ProfileCubit(), child: const ProfileScreen()),
     ];
   }
 

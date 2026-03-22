@@ -1,13 +1,24 @@
-import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
-import 'package:bookia/feature/auth/data/repo/auth_repo.dart';
+import 'package:bookia/feature/profile/cubit/profile_cubit.dart';
 import 'package:bookia/feature/profile/ui/widgets/profile_header.dart';
 import 'package:bookia/feature/profile/ui/widgets/profile_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ProfileCubit>().getProfile();
+  }
 
   void _showLogoutDialog(BuildContext context) {
     showDialog(
@@ -29,12 +40,9 @@ class ProfileScreen extends StatelessWidget {
             child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
           ),
           TextButton(
-            onPressed: () async {
+            onPressed: () {
               Navigator.pop(dialogContext);
-              await AuthRepo.logout();
-              if (context.mounted) {
-                context.pushNamedAndRemoveUntil(AppRoutes.onboarding);
-              }
+              context.read<ProfileCubit>().logout();
             },
             child: const Text('Logout', style: TextStyle(color: Colors.red)),
           ),
@@ -45,33 +53,154 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
+    return BlocListener<ProfileCubit, ProfileState>(
+      listener: (context, state) {
+        if (state is LogoutSuccess) {
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.onboarding,
+            (route) => false,
+          );
+        } else if (state is LogoutError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
+          );
+        }
+      },
+      child: Scaffold(
         backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          'Profile',
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            'Profile',
+            style: TextStyle(
+              fontSize: 20.sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
+            ),
           ),
+          actions: [
+            BlocBuilder<ProfileCubit, ProfileState>(
+              buildWhen: (_, current) => current is LogoutState,
+              builder: (context, state) {
+                if (state is LogoutLoading) {
+                  return Padding(
+                    padding: EdgeInsets.only(right: 16.w),
+                    child: const SizedBox(
+                      width: 20,
+                      height: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: Colors.black,
+                      ),
+                    ),
+                  );
+                }
+                return IconButton(
+                  icon: const Icon(Icons.logout_rounded, color: Colors.black),
+                  onPressed: () => _showLogoutDialog(context),
+                );
+              },
+            ),
+            SizedBox(width: 8.w),
+          ],
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout_rounded, color: Colors.black),
-            onPressed: () => _showLogoutDialog(context),
-          ),
-          SizedBox(width: 8.w),
-        ],
+        body: BlocBuilder<ProfileCubit, ProfileState>(
+          buildWhen: (_, current) => current is GetProfileState,
+          builder: (context, state) {
+            if (state is GetProfileLoading || state is ProfileInitial) {
+              return const _ProfileSkeleton();
+            } else if (state is GetProfileSuccess) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ProfileHeader(
+                      name: state.profile.name ?? '',
+                      email: state.profile.email ?? '',
+                      imageUrl: state.profile.image ?? '',
+                    ),
+                    const SizedBox(height: 24),
+                    const ProfileMenu(),
+                  ],
+                ),
+              );
+            } else if (state is GetProfileError) {
+              return Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      state.message,
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        color: Colors.grey.shade500,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    TextButton(
+                      onPressed: () =>
+                          context.read<ProfileCubit>().getProfile(),
+                      child: const Text('Retry'),
+                    ),
+                  ],
+                ),
+              );
+            }
+            return const SizedBox.shrink();
+          },
+        ),
       ),
-      body: const SingleChildScrollView(
-        child: Column(
-          children: [ProfileHeader(), SizedBox(height: 24), ProfileMenu()],
-        ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────
+// _ProfileSkeleton
+// ─────────────────────────────────────────────
+
+class _ProfileSkeleton extends StatelessWidget {
+  const _ProfileSkeleton();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),
+      child: Row(
+        children: [
+          Container(
+            width: 64.w,
+            height: 64.w,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.grey.shade200,
+            ),
+          ),
+          SizedBox(width: 16.w),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 120.w,
+                height: 16.h,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+              SizedBox(height: 8.h),
+              Container(
+                width: 160.w,
+                height: 12.h,
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade200,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
