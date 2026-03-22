@@ -28,4 +28,4 @@
 <img width="332" height="735" alt="image" src="https://github.com/user-attachments/assets/20858f73-9b3d-4d5d-9331-b1243da59ae4" />
 
 # profile screen
-<img width="339" height="724" alt="image" src="https://github.com/user-attachments/assets/51be03b1-6bba-4b15-bdb9-a621f107fc6b" />
+<img width="341" height="735" alt="image" src="https://github.com/user-attachments/assets/ae8641be-490e-4541-bc4f-48ae874ffed5" />
