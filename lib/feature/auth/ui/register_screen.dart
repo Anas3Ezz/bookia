@@ -1,5 +1,6 @@
 import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/core/widgets/customr_app_button.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
@@ -31,6 +32,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _confirmPasswordController.dispose();
     super.dispose();
   }
+
+  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -95,9 +98,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 15),
                 CustomTextField(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      // 2. Toggle the state
+                      setState(() {
+                        isObscure = !isObscure;
+                      });
+                    },
+                    icon: Icon(
+                      // 3. Change icon based on state
+                      isObscure
+                          ? Icons.remove_red_eye_rounded
+                          : Icons.visibility_off_rounded,
+                      color: isObscure
+                          ? Colors.grey
+                          : AppColors
+                                .primaryColor, // Optional: change color when active
+                    ),
+                  ),
                   hintText: 'Enter your password',
                   controller: _passwordController,
-                  isPassword: true,
+                  isPassword: isObscure,
                   textInputAction: TextInputAction.next,
                   validator: (value) {
                     if (value == null || value.isEmpty) {

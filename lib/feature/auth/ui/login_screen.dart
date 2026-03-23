@@ -30,6 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  bool isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,9 +89,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const Gap(15),
                 CustomTextField(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      // 2. Toggle the state
+                      setState(() {
+                        isObscure = !isObscure;
+                      });
+                    },
+                    icon: Icon(
+                      // 3. Change icon based on state
+                      isObscure
+                          ? Icons.remove_red_eye_rounded
+                          : Icons.visibility_off_rounded,
+                      color: isObscure
+                          ? Colors.grey
+                          : AppColors
+                                .primaryColor, // Optional: change color when active
+                    ),
+                  ),
                   hintText: 'Enter your password',
                   controller: _passwordController,
-                  isPassword: true,
+                  isPassword: isObscure,
                   textInputAction: TextInputAction.next,
                   validator: (value) {
                     if (value == null || value.isEmpty) {

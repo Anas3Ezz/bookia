@@ -21,23 +21,18 @@ class PasswordChangedScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // 1. Success Icon
               Center(child: SvgPicture.asset('assets/icons/paymentsucces.svg')),
               const SizedBox(height: 32),
-
-              // 2. Main Title
               const Text(
                 'Password Changed!',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'Serif', // Using a serif font to match the image
+                  fontFamily: 'Serif',
                   color: Color(0xFF333333),
                 ),
               ),
               const SizedBox(height: 12),
-
-              // 3. Subtitle
               const Text(
                 'Your password has been changed\nsuccessfully.',
                 textAlign: TextAlign.center,
@@ -48,8 +43,6 @@ class PasswordChangedScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 48),
-
-              // 4. Action Button
               AppButton(
                 text: 'Back To Login',
                 onPressed: backToLogin,
