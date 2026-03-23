@@ -1,5 +1,6 @@
 import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
+import 'package:bookia/feature/auth/ui/create_new_password.dart';
 import 'package:bookia/feature/auth/ui/forget_password_screen.dart';
 import 'package:bookia/feature/auth/ui/login_screen.dart';
 import 'package:bookia/feature/auth/ui/on_boarding_screen.dart';
@@ -35,6 +36,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
       case AppRoutes.otpVerfication:
         return MaterialPageRoute(builder: (_) => OtpVerificationScreen());
+      case AppRoutes.createNewPasswordScreen:
+        return MaterialPageRoute(builder: (_) => CreateNewPasswordScreen());
       case AppRoutes.searchScreen:
         final args = settings.arguments as SearchArgs;
         return MaterialPageRoute(

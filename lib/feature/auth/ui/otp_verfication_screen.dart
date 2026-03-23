@@ -1,3 +1,5 @@
+import 'package:bookia/core/helper/extenstions.dart';
+import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/core/widgets/customr_app_button.dart';
 import 'package:bookia/core/widgets/customr_back_button.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +30,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   void _onVerify() {
     if (_pinController.text.length == 6) {
-      // TODO: wire to API
+      context.pushNamed(AppRoutes.createNewPasswordScreen);
     }
   }
 
