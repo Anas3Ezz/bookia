@@ -1,0 +1,66 @@
+import 'package:bookia/core/helper/extenstions.dart';
+import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/core/widgets/customr_app_button.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+class PasswordChangedScreen extends StatelessWidget {
+  const PasswordChangedScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    void backToLogin() {
+      context.pushNamedAndRemoveUntil(AppRoutes.login);
+    }
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // 1. Success Icon
+              Center(child: SvgPicture.asset('assets/icons/paymentsucces.svg')),
+              const SizedBox(height: 32),
+
+              // 2. Main Title
+              const Text(
+                'Password Changed!',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Serif', // Using a serif font to match the image
+                  color: Color(0xFF333333),
+                ),
+              ),
+              const SizedBox(height: 12),
+
+              // 3. Subtitle
+              const Text(
+                'Your password has been changed\nsuccessfully.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color(0xFF7F8C8D),
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 48),
+
+              // 4. Action Button
+              AppButton(
+                text: 'Back To Login',
+                onPressed: backToLogin,
+                isFilled: true,
+                backgroundColor: const Color(0xFFBB9457),
+                textColor: Colors.white,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

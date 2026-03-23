@@ -1,3 +1,5 @@
+import 'package:bookia/core/helper/extenstions.dart';
+import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/core/widgets/customr_app_button.dart';
 import 'package:bookia/core/widgets/customr_back_button.dart';
@@ -29,7 +31,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
 
   void _onResetPassword() {
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: wire to API
+      context.pushNamedAndRemoveUntil(AppRoutes.passwordChangedSuccess);
     }
   }
 
