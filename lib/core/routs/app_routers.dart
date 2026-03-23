@@ -3,6 +3,7 @@ import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
 import 'package:bookia/feature/auth/ui/forget_password_screen.dart';
 import 'package:bookia/feature/auth/ui/login_screen.dart';
 import 'package:bookia/feature/auth/ui/on_boarding_screen.dart';
+import 'package:bookia/feature/auth/ui/otp_verfication_screen.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
 import 'package:bookia/feature/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
 import 'package:bookia/feature/home/data/models/book_details_arg.dart';
@@ -32,6 +33,8 @@ class AppRouter {
         );
       case AppRoutes.forgotPasswordScreen:
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
+      case AppRoutes.otpVerfication:
+        return MaterialPageRoute(builder: (_) => OtpVerificationScreen());
       case AppRoutes.searchScreen:
         final args = settings.arguments as SearchArgs;
         return MaterialPageRoute(

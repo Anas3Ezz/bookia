@@ -5,6 +5,7 @@ import 'package:bookia/core/widgets/customr_app_button.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+//TODO add loading design while loading
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});

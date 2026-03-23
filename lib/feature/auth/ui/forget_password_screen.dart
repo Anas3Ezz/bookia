@@ -1,3 +1,4 @@
+import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/core/widgets/customr_app_button.dart';
@@ -5,6 +6,8 @@ import 'package:bookia/core/widgets/customr_back_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
+//TODO add loading design while loading
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -25,7 +28,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
   void _onSendCode() {
     if (_formKey.currentState?.validate() ?? false) {
-      // TODO: wire to API
+      context.pushNamed(AppRoutes.otpVerfication);
     }
   }
 
@@ -104,11 +107,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () => Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        AppRoutes.login,
-                        (route) => false,
-                      ),
+                      onTap: () =>
+                          context.pushNamedAndRemoveUntil(AppRoutes.login),
                       child: Text(
                         'Login',
                         style: TextStyle(
