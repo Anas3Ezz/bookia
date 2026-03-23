@@ -7,10 +7,19 @@
 <img width="425" height="838" alt="image" src="https://github.com/user-attachments/assets/8e1b7d7d-308b-4e2b-bae4-fd2681cdd06b" />
 
 # regisger Screen
-<img width="390" height="834" alt="image" src="https://github.com/user-attachments/assets/f22e81a3-5f00-45fd-a8ad-1381c4ce80d4" />
+<img width="346" height="759" alt="image" src="https://github.com/user-attachments/assets/b3fec3b6-9b5d-42bc-aabf-9861e1847df1" />
 
 # Forget Password Screen 
 <img width="330" height="728" alt="image" src="https://github.com/user-attachments/assets/63a0e464-7f28-44d1-9067-486bd875f7a1" />
+
+# Otp Verfication Screen
+<img width="338" height="749" alt="image" src="https://github.com/user-attachments/assets/ec8b844b-433b-41cc-a11c-08d861f3ece7" />
+
+# Create a new password 
+<img width="362" height="758" alt="image" src="https://github.com/user-attachments/assets/79ba1e06-0535-47c3-9f71-e47fd5629df1" />
+
+# Password Changed successfully
+<img width="352" height="767" alt="image" src="https://github.com/user-attachments/assets/09e2eda2-357c-4c1b-959d-85140ea99605" />
 
 # Home 
 <img width="307" height="628" alt="Image" src="https://github.com/user-attachments/assets/9dedebfc-556f-4125-9223-b3d29d592a2b" />
