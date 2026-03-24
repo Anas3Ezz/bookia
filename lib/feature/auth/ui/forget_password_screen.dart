@@ -1,13 +1,12 @@
 import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
-
-//TODO add loading design while loading
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -19,6 +18,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -26,9 +26,20 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     super.dispose();
   }
 
-  void _onSendCode() {
+  Future<void> _onSendCode() async {
+    FocusScope.of(context).unfocus();
     if (_formKey.currentState?.validate() ?? false) {
-      context.pushNamed(AppRoutes.otpVerfication);
+      setState(() => _isLoading = true);
+      try {
+        await Future.delayed(const Duration(seconds: 2));
+        if (mounted) {
+          context.pushNamed(AppRoutes.otpVerfication);
+        }
+      } finally {
+        if (mounted) {
+          setState(() => _isLoading = false);
+        }
+      }
     }
   }
 
@@ -69,42 +80,40 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   hintText: 'Enter your email',
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  autofillHints: const [AutofillHints.email],
-                  textInputAction: TextInputAction.done,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
                       return 'Please enter your email';
                     }
-                    if (!RegExp(
-                      r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$',
-                    ).hasMatch(value.trim())) {
-                      return 'Please enter a valid email';
-                    }
+                    final bool emailValid = RegExp(
+                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+                    ).hasMatch(value.trim());
+                    if (!emailValid) return 'Please enter a valid email';
                     return null;
                   },
                 ),
               ),
               Gap(24.h),
-              AppButton(
-                text: 'Send Code',
-                onPressed: _onSendCode,
-                isFilled: true,
-                backgroundColor: const Color(0xFFBB9457),
-                textColor: Colors.white,
-              ),
+              _isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primaryColor,
+                      ),
+                    )
+                  : AppButton(
+                      text: 'Send Code',
+                      onPressed: _onSendCode,
+                      isFilled: true,
+                      backgroundColor: const Color(0xFFBB9457),
+                      textColor: Colors.white,
+                    ),
               const Spacer(),
-              // Remember Password row
               Center(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       'Remember Password? ',
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: TextStyle(fontSize: 14.sp, color: Colors.black),
                     ),
                     GestureDetector(
                       onTap: () =>

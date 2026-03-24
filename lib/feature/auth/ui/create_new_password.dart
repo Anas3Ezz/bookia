@@ -1,5 +1,6 @@
 import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
@@ -21,6 +22,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   final _confirmPasswordController = TextEditingController();
   bool _showNewPassword = false;
   bool _showConfirmPassword = false;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -29,10 +31,24 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
     super.dispose();
   }
 
-  void _onResetPassword() {
+  void _onResetPassword() async {
+    FocusScope.of(context).unfocus();
     if (_formKey.currentState?.validate() ?? false) {
-      context.pushNamedAndRemoveUntil(AppRoutes.passwordChangedSuccess);
+      setState(() => _isLoading = true);
+      try {
+        await Future.delayed(const Duration(seconds: 2));
+        if (mounted) {
+          context.pushNamed(AppRoutes.passwordChangedSuccess);
+        }
+      } finally {
+        if (mounted) {
+          setState(() => _isLoading = false);
+        }
+      }
     }
+    // if (_formKey.currentState?.validate() ?? false) {
+    //   context.pushNamedAndRemoveUntil(AppRoutes.passwordChangedSuccess);
+    // }
   }
 
   @override
@@ -130,13 +146,19 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 ),
               ),
               Gap(24.h),
-              AppButton(
-                text: 'Reset Password',
-                onPressed: _onResetPassword,
-                isFilled: true,
-                backgroundColor: const Color(0xFFBB9457),
-                textColor: Colors.white,
-              ),
+              _isLoading
+                  ? Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primaryColor,
+                      ),
+                    )
+                  : AppButton(
+                      text: 'Reset Password',
+                      onPressed: _onResetPassword,
+                      isFilled: true,
+                      backgroundColor: const Color(0xFFBB9457),
+                      textColor: Colors.white,
+                    ),
             ],
           ),
         ),
