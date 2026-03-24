@@ -33,6 +33,9 @@
 # Cart Screen 
 <img width="333" height="734" alt="image" src="https://github.com/user-attachments/assets/1d8203a3-71a8-434c-9047-8d219066db75" />
 
+# CheckOut Screen
+<img width="304" height="665" alt="image" src="https://github.com/user-attachments/assets/bd0d5e44-f297-4e9a-9fa6-07642c3a8678" />
+
 # Wishlist Screen
 <img width="332" height="735" alt="image" src="https://github.com/user-attachments/assets/20858f73-9b3d-4d5d-9331-b1243da59ae4" />
 
