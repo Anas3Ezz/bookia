@@ -1,3 +1,5 @@
+import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/core/widgets/customr_app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -42,23 +44,16 @@ class CartCheckoutBar extends StatelessWidget {
             ],
           ),
           Gap(12.h),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFB89B5E),
-                foregroundColor: Colors.white,
-                padding: EdgeInsets.symmetric(vertical: 14.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              child: Text(
-                'Checkout',
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
-              ),
-            ),
+          AppButton(
+            text: 'Check Out',
+            isFilled: true,
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                AppRoutes.placeOrder,
+                arguments: total, // already a String from CartData
+              );
+            },
           ),
         ],
       ),

@@ -10,4 +10,6 @@ class AppRoutes {
   static const String bottomNavBarScreen = '/buttomNavBarScreen';
   static const String booksDetails = '/booksDetails';
   static const String searchScreen = '/searchScreen';
+  static const String placeOrder = '/placeOrder';
+  static const String congrates = '/congrates';
 }
