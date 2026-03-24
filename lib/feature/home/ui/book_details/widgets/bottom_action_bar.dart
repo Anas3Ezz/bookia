@@ -1,4 +1,4 @@
-import 'package:bookia/core/widgets/customr_app_button.dart';
+import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,5 +1,5 @@
 import 'package:bookia/core/routs/app_routs.dart';
-import 'package:bookia/core/widgets/customr_app_button.dart';
+import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';

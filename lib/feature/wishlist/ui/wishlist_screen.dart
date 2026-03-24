@@ -1,3 +1,4 @@
+import 'package:bookia/core/widgets/custom_app_bar.dart';
 import 'package:bookia/feature/wishlist/cubit/wishlist_cubit.dart';
 import 'package:bookia/feature/wishlist/ui/widgets/wishlist_empty.dart';
 import 'package:bookia/feature/wishlist/ui/widgets/wishlist_error.dart';
@@ -6,7 +7,6 @@ import 'package:bookia/feature/wishlist/ui/widgets/wishlist_skeleton_grid.dart';
 import 'package:bookia/feature/wishlist/ui/widgets/wishlist_sync_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({super.key});
@@ -18,20 +18,7 @@ class WishlistScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          'Wishlist',
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'Wishlist'),
       body: BlocConsumer<WishlistCubit, WishlistState>(
         listener: (context, state) {
           if (state is RemoveFromWishlistError) {

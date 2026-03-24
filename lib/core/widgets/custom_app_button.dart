@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-//TODO : USE THIS IN THE CART AND WISHLIST.
 class AppButton extends StatelessWidget {
   const AppButton({
     super.key,
@@ -19,7 +18,6 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Determine effective colors based on provided values or defaults
     final Color effectiveBgColor =
         backgroundColor ?? (isFilled ? const Color(0xFFBB9457) : Colors.white);
 

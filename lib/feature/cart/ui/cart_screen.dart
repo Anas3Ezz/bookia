@@ -1,3 +1,4 @@
+import 'package:bookia/core/widgets/custom_app_bar.dart';
 import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:bookia/feature/cart/ui/widgets/cart_content.dart';
 import 'package:bookia/feature/cart/ui/widgets/cart_empty.dart';
@@ -5,7 +6,6 @@ import 'package:bookia/feature/cart/ui/widgets/cart_error.dart';
 import 'package:bookia/feature/cart/ui/widgets/cart_skeleton_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -14,20 +14,7 @@ class CartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          'My Cart',
-          style: TextStyle(
-            fontSize: 20.sp,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
-      ),
+      appBar: CustomAppBar(title: 'My Cart'),
       body: BlocConsumer<CartCubit, CartState>(
         listener: (context, state) {
           if (state is AddToCartSuccess) {
