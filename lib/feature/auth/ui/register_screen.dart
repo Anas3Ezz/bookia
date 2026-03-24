@@ -145,7 +145,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 const SizedBox(height: 30),
-                BlocListener<AuthCubit, AuthState>(
+
+                BlocConsumer<AuthCubit, AuthState>(
                   listener: (context, state) {
                     if (state is AuthErrorState) {
                       showDialog(
@@ -158,21 +159,33 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       );
                     }
                   },
-                  child: AppButton(
-                    text: 'Register',
-                    isFilled: true,
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        context.read<AuthCubit>().authRegister(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                          passwordConfirmation: _confirmPasswordController.text,
-                          name: _userNameController.text,
-                        );
-                      }
-                    },
-                  ),
+                  builder: (context, state) {
+                    // Check if the state is loading to show the design
+                    if (state is AuthLoadingState) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primaryColor,
+                        ),
+                      );
+                    }
+                    return AppButton(
+                      text: 'Register',
+                      isFilled: true,
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          context.read<AuthCubit>().authRegister(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            passwordConfirmation:
+                                _confirmPasswordController.text,
+                            name: _userNameController.text,
+                          );
+                        }
+                      },
+                    );
+                  },
                 ),
+
                 const SizedBox(height: 35),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

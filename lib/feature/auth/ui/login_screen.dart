@@ -132,7 +132,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const Gap(30),
-                BlocListener<AuthCubit, AuthState>(
+                BlocConsumer<AuthCubit, AuthState>(
                   listener: (context, state) {
                     if (state is AuthErrorState) {
                       showDialog(
@@ -147,18 +147,27 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     }
                   },
-                  child: AppButton(
-                    text: 'login',
-                    isFilled: true,
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        context.read<AuthCubit>().authLogin(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                        );
-                      }
-                    },
-                  ),
+                  builder: (context, state) {
+                    if (state is AuthLoadingState) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.primaryColor,
+                        ),
+                      );
+                    }
+                    return AppButton(
+                      text: 'login',
+                      isFilled: true,
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          context.read<AuthCubit>().authLogin(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          );
+                        }
+                      },
+                    );
+                  },
                 ),
                 const Gap(35),
                 Row(

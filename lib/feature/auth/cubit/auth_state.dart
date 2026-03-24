@@ -9,4 +9,8 @@ final class AuthLoadingState extends AuthState {}
 
 final class AuthSucessState extends AuthState {}
 
-final class AuthErrorState extends AuthState {}
+final class AuthErrorState extends AuthState {
+  final String errormessage;
+
+  AuthErrorState({required this.errormessage});
+}
