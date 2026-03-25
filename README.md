@@ -39,6 +39,9 @@
 # CheckOut Screen
 <img width="315" height="668" alt="image" src="https://github.com/user-attachments/assets/cf8a03cf-e2dc-4de0-baac-f9d6d205fb3d" />
 
+#Congrats Screen 
+<img width="293" height="628" alt="image" src="https://github.com/user-attachments/assets/f59211d7-14c0-495d-95b1-fe2579c9279e" />
+
 # Wishlist Screen
 <img width="332" height="735" alt="image" src="https://github.com/user-attachments/assets/20858f73-9b3d-4d5d-9331-b1243da59ae4" />
 
