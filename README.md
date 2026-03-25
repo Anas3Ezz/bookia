@@ -1,5 +1,8 @@
 # bookia
 
+# Logo App
+<img width="63" height="84" alt="image" src="https://github.com/user-attachments/assets/eec4c2ff-2821-4a9e-a9ed-c86dde528204" />
+
 # OnBoarding Screen
 <img width="425" height="844" alt="image" src="https://github.com/user-attachments/assets/0e6b8034-df0f-4fdd-91df-67d0c6f7b2e7" />
 
