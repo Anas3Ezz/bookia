@@ -1,4 +1,103 @@
-# bookia
+📚 Bookia – Book Store App
+
+Bookia is a modern and user-friendly mobile application built with Flutter that allows users to explore, discover, and purchase books بسهولة.
+The app focuses on clean UI, smooth performance, and scalable architecture.
+
+🚀 Features
+🔐 Authentication
+User registration & login
+Secure authentication flow
+Session management
+
+🏠 Home
+Dynamic sliders for featured books
+Best sellers section
+Smooth and responsive UI
+
+📖 Book Details
+Detailed view for each book
+Includes title, description, price, and image
+Easy navigation from home to details
+
+🛒 Cart
+Add/remove books from cart
+View selected items
+Prepare for checkout
+
+❤️ Wishlist
+Save favorite books
+Easily access saved items anytime
+
+👤 Profile
+User profile management
+Personalized experience
+
+🛠️ Tech Stack
+Flutter – UI Development
+Dart – Programming Language
+Bloc / Cubit – State Management
+REST APIs – Data handling (if applicable)
+Clean Architecture (optional if you used it)
+
+lib/
+├── core/               
+│   ├── helper/          
+│   ├── networking/     
+│   ├── routs/        
+│   ├── theme/       
+│   └── widgets/      
+│
+├── feature/          
+│   ├── auth/         
+│   ├── home/        
+│   ├── cart/          
+│   ├── wishlist/     
+│   ├── book_details/   
+│   └── profile/       
+│
+├── gen/                
+├── bookia_app.dart 
+└── main.dart
+
+
+⚙️ Getting Started
+Prerequisites
+Flutter SDK installed
+Android Studio / VS Code
+Emulator or physical device
+
+Installation
+git clone https://github.com/your-username/bookia.git
+cd bookia
+flutter pub get
+flutter run
+
+
+🎯 Goals of the Project
+Build a real-world scalable Flutter app
+Practice state management using Bloc/Cubit
+Improve UI/UX implementation skills
+Apply clean code principles
+
+📌 Future Improvements
+Payment integration
+Search functionality
+Book categories & filters
+Reviews & ratings system
+Dark mode 🌙
+🤝 Contributing
+
+Contributions are welcome!
+Feel free to open issues or submit pull requests.
+
+📄 License
+
+This project is open-source and available under the MIT License.
+
+👨‍💻 Author
+
+Anas
+Flutter Developer 🚀
 
 # Logo App
 <img width="63" height="84" alt="image" src="https://github.com/user-attachments/assets/eec4c2ff-2821-4a9e-a9ed-c86dde528204" />
