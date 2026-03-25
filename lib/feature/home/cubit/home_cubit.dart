@@ -11,26 +11,24 @@ class HomeCubit extends Cubit<HomeState> {
 
   Future<void> getHomeSliders() async {
     emit(GetHomeSliderLoading());
-    final response = await HomeRepo.gethomeSliders();
+    final (response, error) = await HomeRepo.getHomeSliders();
     if (isClosed) return;
 
-    if (response is SliderModel) {
-      emit(GetHomeSliderSuccess(response.data?.sliders ?? []));
-    } else {
-      emit(GetHomeSliderError());
-    }
+    response == null
+        ? emit(GetHomeSliderError(message: error ?? 'Failed to load sliders.'))
+        : emit(GetHomeSliderSuccess(response.data?.sliders ?? []));
   }
 
   Future<void> getBestSellerBooks() async {
     emit(BestSellerLoading());
-    final response = await HomeRepo.getBestSellerBooks();
+    final (response, error) = await HomeRepo.getBestSellerBooks();
     if (isClosed) return;
 
-    if (response is BooksModel) {
-      emit(BestSellerSuccess(response.data?.products ?? []));
-    } else {
-      emit(BestSellerError());
-    }
+    response == null
+        ? emit(
+            BestSellerError(message: error ?? 'Failed to load best sellers.'),
+          )
+        : emit(BestSellerSuccess(response.data?.products ?? []));
   }
 
   Future<void> getHomeData() async {

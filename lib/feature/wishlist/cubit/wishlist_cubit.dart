@@ -8,21 +8,18 @@ part 'wishlist_state.dart';
 class WishlistCubit extends Cubit<WishlistState> {
   WishlistCubit() : super(WishlistInitial());
 
-  // Tracks wishlist product ids locally for instant icon toggle
   final Set<int> _wishlistIds = {};
-
-  // Keeps last known items so UI doesn't flash during sync operations
   List<WishlistItem>? currentItems;
 
   bool isInWishlist(int productId) => _wishlistIds.contains(productId);
 
   Future<void> getWishlist() async {
     emit(GetWishlistLoading());
-    final response = await WishlistRepo.getWishlist();
+    final (response, error) = await WishlistRepo.getWishlist();
     if (isClosed) return;
 
     if (response == null) {
-      emit(GetWishlistError());
+      emit(GetWishlistError(message: error ?? 'Failed to load wishlist.'));
     } else {
       final items = response.data?.items ?? [];
       _syncIds(items);
@@ -33,11 +30,11 @@ class WishlistCubit extends Cubit<WishlistState> {
 
   Future<void> addToWishlist(int productId) async {
     emit(AddToWishlistLoading());
-    final success = await WishlistRepo.addToWishlist(productId);
+    final (success, error) = await WishlistRepo.addToWishlist(productId);
     if (isClosed) return;
 
     if (!success) {
-      emit(AddToWishlistError());
+      emit(AddToWishlistError(message: error ?? 'Failed to add to wishlist.'));
     } else {
       _wishlistIds.add(productId);
       emit(AddToWishlistSuccess());
@@ -47,11 +44,15 @@ class WishlistCubit extends Cubit<WishlistState> {
 
   Future<void> removeFromWishlist(int productId) async {
     emit(RemoveFromWishlistLoading());
-    final success = await WishlistRepo.removeFromWishlist(productId);
+    final (success, error) = await WishlistRepo.removeFromWishlist(productId);
     if (isClosed) return;
 
     if (!success) {
-      emit(RemoveFromWishlistError());
+      emit(
+        RemoveFromWishlistError(
+          message: error ?? 'Failed to remove from wishlist.',
+        ),
+      );
     } else {
       _wishlistIds.remove(productId);
       emit(RemoveFromWishlistSuccess());
@@ -59,9 +60,8 @@ class WishlistCubit extends Cubit<WishlistState> {
     }
   }
 
-  // Refreshes wishlist without showing loading skeleton
   Future<void> _refreshWishlistSilently() async {
-    final response = await WishlistRepo.getWishlist();
+    final (response, _) = await WishlistRepo.getWishlist();
     if (isClosed) return;
     if (response != null) {
       final items = response.data?.items ?? [];

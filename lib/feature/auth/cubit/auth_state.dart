@@ -7,10 +7,9 @@ final class AuthInitial extends AuthState {}
 
 final class AuthLoadingState extends AuthState {}
 
-final class AuthSucessState extends AuthState {}
+final class AuthSuccessState extends AuthState {}
 
 final class AuthErrorState extends AuthState {
-  final String errormessage;
-
-  AuthErrorState({required this.errormessage});
+  final String message;
+  AuthErrorState({this.message = 'Something went wrong. Please try again.'});
 }

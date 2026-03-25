@@ -23,21 +23,19 @@ class SearchCubit extends Cubit<SearchState> {
     }
 
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      // distinct — skip if same query after trim
       if (query.trim() == _lastQuery) return;
       _lastQuery = query.trim();
-      searchBooks(_lastQuery);
+      _executeSearch(_lastQuery);
     });
   }
 
-  Future<void> searchBooks(String query) async {
+  Future<void> _executeSearch(String query) async {
     emit(SearchLoading());
-
-    final response = await SearchRepo.searchBooks(query);
+    final (response, error) = await SearchRepo.searchBooks(query);
     if (isClosed) return;
 
     if (response == null) {
-      emit(SearchError());
+      emit(SearchError(message: error ?? 'Search failed.'));
     } else {
       final books = response.data?.products ?? [];
       books.isEmpty ? emit(SearchEmpty()) : emit(SearchSuccess(books));

@@ -1,11 +1,13 @@
+import 'package:bookia/core/helper/error_handler.dart';
 import 'package:bookia/core/helper/storge_services.dart';
 import 'package:bookia/core/networking/api_constants.dart';
+import 'package:bookia/core/networking/api_result.dart';
 import 'package:bookia/core/networking/dio_factory.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class AuthRepo {
-  static Future<bool> login({
+  static Future<ApiResult<bool>> login({
     required String email,
     required String password,
   }) async {
@@ -19,17 +21,15 @@ class AuthRepo {
         debugPrint('>>> token: $token');
         await StorageService.saveToken(token);
         DioFactory.updateToken(token);
-        return true;
-      } else {
-        return false;
+        return const ApiResult.success(true);
       }
+      return const ApiResult.failure('Login failed. Please try again.');
     } on DioException catch (e) {
-      debugPrint('>>> login error: ${e.response?.data.toString()}');
-      return false;
+      return ApiResult.failure(ErrorHandler.handle(e));
     }
   }
 
-  static Future<bool> register({
+  static Future<ApiResult<bool>> register({
     required String email,
     required String password,
     required String passwordConfirmation,
@@ -50,13 +50,11 @@ class AuthRepo {
         debugPrint('>>> register token: $token');
         await StorageService.saveToken(token);
         DioFactory.updateToken(token);
-        return true;
-      } else {
-        return false;
+        return const ApiResult.success(true);
       }
+      return const ApiResult.failure('Registration failed. Please try again.');
     } on DioException catch (e) {
-      debugPrint('>>> register error: ${e.response?.data.toString()}');
-      return false;
+      return ApiResult.failure(ErrorHandler.handle(e));
     }
   }
 
