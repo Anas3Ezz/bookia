@@ -1,103 +1,129 @@
-📚 Bookia – Book Store App
+<div align="center">
 
-Bookia is a modern and user-friendly mobile application built with Flutter that allows users to explore, discover, and purchase books بسهولة.
-The app focuses on clean UI, smooth performance, and scalable architecture.
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0F766E,0EA5E9&height=160&section=header&text=Bookia&fontSize=52&fontColor=ffffff&fontAlignY=42&desc=Flutter%20E-Commerce%20Bookstore%20App&descAlignY=62&descSize=18&animation=fadeIn" width="100%"/>
 
-🚀 Features
-🔐 Authentication
-User registration & login
-Secure authentication flow
-Session management
+</div>
 
-🏠 Home
-Dynamic sliders for featured books
-Best sellers section
-Smooth and responsive UI
+---
 
-📖 Book Details
-Detailed view for each book
-Includes title, description, price, and image
-Easy navigation from home to details
+## 📖 Overview
 
-🛒 Cart
-Add/remove books from cart
-View selected items
-Prepare for checkout
+**Bookia** is a production-quality Flutter e-commerce app for discovering and purchasing books. Built with a **feature-first architecture**, **Bloc/Cubit** state management, and a real **REST API** backend — featuring type-safe error handling with a custom `ApiResult<T>` Freezed sealed union, shared Cubits scoped across tabs, and smooth `IndexedStack` navigation.
 
-❤️ Wishlist
-Save favorite books
-Easily access saved items anytime
+---
 
-👤 Profile
-User profile management
-Personalized experience
+## ✨ Features
 
-🛠️ Tech Stack
-Flutter – UI Development
-Dart – Programming Language
-Bloc / Cubit – State Management
-REST APIs – Data handling (if applicable)
-Clean Architecture (optional if you used it)
+### 🔐 Authentication
+- User registration & login
+- Forget password with OTP verification
+- Create new password flow
+- Session management with secure token handling
 
+### 🏠 Home
+- Dynamic featured book sliders
+- Best sellers section
+- Smooth and responsive UI
+
+### 📖 Book Details
+- Full book info — title, description, author, price, cover image
+- Add to cart or wishlist directly from details
+
+### 🛒 Cart
+- Add / remove books
+- Checkout flow with order confirmation
+
+### ❤️ Wishlist
+- Save and manage favorite books
+- Persisted across sessions
+
+### 🔍 Search
+- Search books by title
+
+### 👤 Profile
+- View and manage user information
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| UI | Flutter (Dart) |
+| State Management | Bloc / Cubit |
+| Networking | Dio + REST APIs |
+| Error Handling | `ApiResult<T>` — Freezed sealed union |
+| Architecture | Feature-first layered architecture (cubit / data / ui) |
+| Navigation | Named Routes + `IndexedStack` for tab persistence |
+| Shared State | `BlocProvider.value` for CartCubit & WishlistCubit across tabs |
+| Code Generation | Freezed + json_serializable |
+| Splash Screen | flutter_native_splash |
+
+---
+
+## 🗂️ Project Structure
+
+```
 lib/
-├── core/               
-│   ├── helper/          
-│   ├── networking/     
-│   ├── routs/        
-│   ├── theme/       
-│   └── widgets/      
+├── core/
+│   ├── helper/
+│   │   ├── bloc_observer.dart
+│   │   ├── error_handler.dart
+│   │   ├── extensions.dart
+│   │   └── storage_services.dart
+│   ├── networking/
+│   │   ├── api_constants.dart
+│   │   ├── api_result.dart
+│   │   ├── api_result.freezed.dart
+│   │   └── dio_factory.dart
+│   ├── routes/
+│   │   ├── app_routers.dart
+│   │   └── app_routes.dart
+│   ├── theme/
+│   └── widgets/
 │
-├── feature/          
-│   ├── auth/         
-│   ├── home/        
-│   ├── cart/          
-│   ├── wishlist/     
-│   ├── book_details/   
-│   └── profile/       
+├── features/
+│   ├── auth/
+│   │   ├── cubit/
+│   │   ├── data/
+│   │   │   ├── models/
+│   │   │   └── repo/
+│   │   └── ui/
+│   │       └── widgets/
+│   ├── home/
+│   │   ├── cubit/
+│   │   ├── data/
+│   │   └── ui/
+│   ├── book_details/
+│   │   ├── cubit/
+│   │   ├── data/
+│   │   └── ui/
+│   ├── cart/
+│   │   ├── cubit/
+│   │   ├── data/
+│   │   └── ui/
+│   ├── wishlist/
+│   │   ├── cubit/
+│   │   ├── data/
+│   │   └── ui/
+│   ├── search/
+│   │   ├── cubit/
+│   │   ├── data/
+│   │   └── ui/
+│   ├── profile/
+│   │   ├── cubit/
+│   │   ├── data/
+│   │   └── ui/
+│   ├── book_mark/
+│   └── bottom_nav_bar/
 │
-├── gen/                
-├── bookia_app.dart 
+├── bookia_app.dart
 └── main.dart
+```
 
+---
 
-⚙️ Getting Started
-Prerequisites
-Flutter SDK installed
-Android Studio / VS Code
-Emulator or physical device
-
-Installation
-git clone https://github.com/your-username/bookia.git
-cd bookia
-flutter pub get
-flutter run
-
-
-🎯 Goals of the Project
-Build a real-world scalable Flutter app
-Practice state management using Bloc/Cubit
-Improve UI/UX implementation skills
-Apply clean code principles
-
-📌 Future Improvements
-Payment integration
-Search functionality
-Book categories & filters
-Reviews & ratings system
-Dark mode 🌙
-🤝 Contributing
-
-Contributions are welcome!
-Feel free to open issues or submit pull requests.
-
-📄 License
-
-This project is open-source and available under the MIT License.
-
-👨‍💻 Author
-
-Anas
-Flutter Developer 🚀
+## 📸 Screenshots
 
 # Logo App
 <img width="63" height="84" alt="image" src="https://github.com/user-attachments/assets/eec4c2ff-2821-4a9e-a9ed-c86dde528204" />
@@ -146,3 +172,43 @@ Flutter Developer 🚀
 
 # profile screen
 <img width="341" height="735" alt="image" src="https://github.com/user-attachments/assets/ae8641be-490e-4541-bc4f-48ae874ffed5" />
+
+---
+
+## ⚙️ Getting Started
+
+### Prerequisites
+- Flutter SDK (3.x+)
+- Android Studio or VS Code
+- Android emulator or physical device
+
+### Installation
+
+```bash
+git clone https://github.com/Anas3Ezz/bookia.git
+cd bookia
+flutter pub get
+flutter run
+```
+
+---
+
+## 🔮 Planned Improvements
+
+- [ ] Payment gateway integration
+- [ ] Advanced search with filters & categories
+- [ ] Reviews & ratings system
+- [ ] Unit & widget tests
+- [ ] Dark mode 🌙
+
+---
+
+## 👨‍💻 Author
+
+**Anas Ezz** — Flutter Developer 🇪🇬
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/YOUR_LINKEDIN_HANDLE)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/Anas3Ezz)
+
+---
+\div>
