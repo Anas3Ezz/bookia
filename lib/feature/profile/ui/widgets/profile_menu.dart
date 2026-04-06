@@ -1,6 +1,9 @@
+import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/feature/profile/ui/widgets/profile_menu_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/helper/extenstions.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({super.key});
@@ -24,7 +27,12 @@ class ProfileMenu extends StatelessWidget {
         ),
         child: Column(
           children: [
-            ProfileMenuItem(title: 'My Orders', onTap: () {}),
+            ProfileMenuItem(
+              title: 'My Orders',
+              onTap: () {
+                context.pushNamed(AppRoutes.showMyorders);
+              },
+            ),
             ProfileMenuItem(title: 'Edit Profile', onTap: () {}),
             ProfileMenuItem(title: 'Reset Password', onTap: () {}),
             ProfileMenuItem(title: 'FAQ', onTap: () {}),
