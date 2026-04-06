@@ -21,6 +21,9 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   static const _primaryColor = Color(0xFFBB9457);
   static const _borderColor = Color(0xFFE8ECF4);
 
+  // 1. Add a state variable to track the loading state
+  bool _isResending = false;
+
   @override
   void dispose() {
     _pinController.dispose();
@@ -31,6 +34,30 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   void _onVerify() {
     if (_pinController.text.length == 6) {
       context.pushNamed(AppRoutes.createNewPasswordScreen);
+    }
+  }
+
+  // 2. Extract the resend logic into a dedicated async method
+  Future<void> _onResend() async {
+    if (_isResending) return; // Prevent multiple taps
+
+    setState(() {
+      _isResending = true;
+    });
+
+    try {
+      // TODO: Replace with your actual API call to resend the code
+      await Future.delayed(const Duration(seconds: 2));
+    } finally {
+      // 3. Always check if the widget is mounted after an async gap
+      if (mounted) {
+        setState(() {
+          _isResending = false;
+        });
+
+        // Optional: Show a success snackbar here
+        // ScaffoldMessenger.of(context).showSnackBar(...);
+      }
     }
   }
 
@@ -128,16 +155,29 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        // TODO: resend code
-                      },
-                      child: Text(
-                        'Resend',
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          color: _primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      // Disable tap if already loading
+                      onTap: _isResending ? null : _onResend,
+                      child: Container(
+                        // Added a subtle transparent color to increase the tap target area
+                        color: Colors.transparent,
+                        // 4. Conditionally render the loader or the text
+                        child: _isResending
+                            ? SizedBox(
+                                width: 16.sp,
+                                height: 16.sp,
+                                child: const CircularProgressIndicator(
+                                  color: _primaryColor,
+                                  strokeWidth: 2,
+                                ),
+                              )
+                            : Text(
+                                'Resend',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  color: _primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                       ),
                     ),
                   ],
