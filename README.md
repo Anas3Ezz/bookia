@@ -52,12 +52,7 @@
 | UI | Flutter (Dart) |
 | State Management | Bloc / Cubit |
 | Networking | Dio + REST APIs |
-| Error Handling | `ApiResult<T>` — Freezed sealed union |
 | Architecture | Feature-first layered architecture (cubit / data / ui) |
-| Navigation | Named Routes + `IndexedStack` for tab persistence |
-| Shared State | `BlocProvider.value` for CartCubit & WishlistCubit across tabs |
-| Code Generation | Freezed + json_serializable |
-| Splash Screen | flutter_native_splash |
 
 ---
 
