@@ -8,7 +8,7 @@
 
 ## 📖 Overview
 
-**Bookia** is a production-quality Flutter e-commerce app for discovering and purchasing books. Built with a **feature-first architecture**, **Bloc/Cubit** state management, and a real **REST API** backend — featuring type-safe error handling with a custom `ApiResult<T>` Freezed sealed union, shared Cubits scoped across tabs, and smooth `IndexedStack` navigation.
+**Bookia** is a production-quality Flutter e-commerce app for discovering and purchasing books. Built with a **feature-first architecture**, **Bloc/Cubit** state management, and a real **REST API** backend
 
 ---
 
