@@ -168,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     );
                   },
                 ),
-                const Gap(35),
+                const Gap(20),
                 Row(
                   children: [
                     const Expanded(child: Divider(color: Color(0xFFE8ECF4))),
@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Expanded(child: Divider(color: Color(0xFFE8ECF4))),
                   ],
                 ),
-                const Gap(20),
+                const Gap(10),
                 SocialLoginButton(
                   iconPath: 'assets/icons/google.png',
                   label: 'Google',
@@ -191,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   label: 'Apple',
                   onTap: () {},
                 ),
-                const Gap(40),
+                const Gap(10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

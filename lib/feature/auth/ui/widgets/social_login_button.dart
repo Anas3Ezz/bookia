@@ -28,7 +28,13 @@ class SocialLoginButton extends StatelessWidget {
           children: [
             Image.asset(iconPath, height: 24),
             const Gap(8),
-            Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
+            Text(
+              label,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+            ),
           ],
         ),
       ),

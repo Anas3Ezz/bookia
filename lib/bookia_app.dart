@@ -17,7 +17,7 @@ class BookiaApp extends StatelessWidget {
       builder: (_, child) {
         return MaterialApp(
           theme: ThemeData(fontFamily: 'DMSerifDisplay'),
-          darkTheme: ThemeData.dark(),
+          darkTheme: ThemeData.light(),
           debugShowCheckedModeBanner: false,
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
