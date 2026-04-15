@@ -4,7 +4,6 @@ import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -47,6 +46,9 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
         }
       }
     }
+    // if (_formKey.currentState?.validate() ?? false) {
+    //   context.pushNamedAndRemoveUntil(AppRoutes.passwordChangedSuccess);
+    // }
   }
 
   @override
@@ -63,7 +65,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
               const CustomBackButton(),
               Gap(32.h),
               Text(
-                'create_new_password_title'.tr(),
+                'Create new password',
                 style: TextStyle(
                   fontSize: 28.sp,
                   fontWeight: FontWeight.bold,
@@ -72,7 +74,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
               ),
               Gap(12.h),
               Text(
-                'create_new_password_subtitle'.tr(),
+                'Your new password must be unique from those\npreviously used.',
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: Colors.grey.shade500,
@@ -85,7 +87,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                 child: Column(
                   children: [
                     CustomTextField(
-                      hintText: 'new_password_hint'.tr(),
+                      hintText: 'New Password',
                       controller: _newPasswordController,
                       isPassword: !_showNewPassword,
                       textInputAction: TextInputAction.next,
@@ -103,17 +105,17 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'enter_new_password_error'.tr();
+                          return 'Please enter a new password';
                         }
                         if (value.trim().length < 8) {
-                          return 'password_min_length_error'.tr();
+                          return 'Password must be at least 8 characters';
                         }
                         return null;
                       },
                     ),
                     Gap(16.h),
                     CustomTextField(
-                      hintText: 'confirm_password_hint'.tr(),
+                      hintText: 'Confirm Password',
                       controller: _confirmPasswordController,
                       isPassword: !_showConfirmPassword,
                       textInputAction: TextInputAction.done,
@@ -131,11 +133,11 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                       ),
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
-                          return 'confirm_password_empty_error'.tr();
+                          return 'Please confirm your password';
                         }
                         if (value.trim() !=
                             _newPasswordController.text.trim()) {
-                          return 'passwords_not_match_error'.tr();
+                          return 'Passwords do not match';
                         }
                         return null;
                       },
@@ -151,7 +153,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                       ),
                     )
                   : AppButton(
-                      text: 'reset_password_button'.tr(),
+                      text: 'Reset Password',
                       onPressed: _onResetPassword,
                       isFilled: true,
                       backgroundColor: const Color(0xFFBB9457),
