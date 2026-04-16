@@ -3,12 +3,9 @@ import 'package:bookia/core/helper/storge_services.dart';
 import 'package:bookia/core/networking/api_constants.dart';
 import 'package:bookia/core/networking/api_result.dart';
 import 'package:bookia/core/networking/dio_factory.dart';
-import 'package:bookia/core/networking/fire_store_service.dart';
-import 'package:bookia/feature/auth/data/models/user_model.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 //TODO: REFACTOR THIS CLASS TO BE MORE CLEAN AND TESTABLE
 class AuthRepo {
@@ -16,102 +13,102 @@ class AuthRepo {
 
   static final AuthRepo instance = AuthRepo._();
 
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final FirestoreService _firestoreService = FirestoreService.instance;
+  // final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  // final GoogleSignIn _googleSignIn = GoogleSignIn();
+  // final FirestoreService _firestoreService = FirestoreService.instance;
 
-  // ── Current user ──────────────────────────────────────────────────────────────
+  // // ── Current user ──────────────────────────────────────────────────────────────
 
-  User? get currentUser => _firebaseAuth.currentUser;
+  // User? get currentUser => _firebaseAuth.currentUser;
 
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+  // Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
 
-  // ── Email Sign In ─────────────────────────────────────────────────────────────
+  // // ── Email Sign In ─────────────────────────────────────────────────────────────
 
-  Future<UserCredential> signInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    return await _firebaseAuth.signInWithEmailAndPassword(
-      email: email.trim(),
-      password: password.trim(),
-    );
-  }
+  // Future<UserCredential> signInWithEmailAndPassword({
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   return await _firebaseAuth.signInWithEmailAndPassword(
+  //     email: email.trim(),
+  //     password: password.trim(),
+  //   );
+  // }
 
-  // ── Register ──────────────────────────────────────────────────────────────────
+  // // ── Register ──────────────────────────────────────────────────────────────────
 
-  /// Creates the Firebase Auth account, updates the display name,
-  /// then saves the user document to Firestore.
-  Future<UserCredential> createUserWithEmailAndPassword({
-    required String name,
-    required String email,
-    required String password,
-  }) async {
-    final credential = await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email.trim(),
-      password: password.trim(),
-    );
+  // /// Creates the Firebase Auth account, updates the display name,
+  // /// then saves the user document to Firestore.
+  // Future<UserCredential> createUserWithEmailAndPassword({
+  //   required String name,
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   final credential = await _firebaseAuth.createUserWithEmailAndPassword(
+  //     email: email.trim(),
+  //     password: password.trim(),
+  //   );
 
-    // Update display name on Firebase Auth
-    await credential.user?.updateDisplayName(name.trim());
+  //   // Update display name on Firebase Auth
+  //   await credential.user?.updateDisplayName(name.trim());
 
-    // Save to Firestore
-    final user = UserModel(
-      uid: credential.user!.uid,
-      name: name.trim(),
-      email: email.trim(),
-      createdAt: DateTime.now(),
-    );
-    await _firestoreService.addUser(user);
+  //   // Save to Firestore
+  //   final user = UserModel(
+  //     uid: credential.user!.uid,
+  //     name: name.trim(),
+  //     email: email.trim(),
+  //     createdAt: DateTime.now(),
+  //   );
+  //   await _firestoreService.addUser(user);
 
-    return credential;
-  }
+  //   return credential;
+  // }
 
-  // ── Google Sign In ────────────────────────────────────────────────────────────
+  // // ── Google Sign In ────────────────────────────────────────────────────────────
 
-  /// Signs in with Google. If this is a new user (first time),
-  /// saves their profile to Firestore automatically.
-  Future<UserCredential?> signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    if (googleUser == null) return null;
+  // /// Signs in with Google. If this is a new user (first time),
+  // /// saves their profile to Firestore automatically.
+  // Future<UserCredential?> signInWithGoogle() async {
+  //   final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+  //   if (googleUser == null) return null;
 
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
+  //   final GoogleSignInAuthentication googleAuth =
+  //       await googleUser.authentication;
 
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+  //   final credential = GoogleAuthProvider.credential(
+  //     accessToken: googleAuth.accessToken,
+  //     idToken: googleAuth.idToken,
+  //   );
 
-    final userCredential = await _firebaseAuth.signInWithCredential(credential);
+  //   final userCredential = await _firebaseAuth.signInWithCredential(credential);
 
-    // Only save to Firestore if this is a brand new user
-    if (userCredential.additionalUserInfo?.isNewUser == true) {
-      final user = UserModel(
-        uid: userCredential.user!.uid,
-        name: userCredential.user?.displayName ?? 'User',
-        email: userCredential.user?.email ?? '',
-        createdAt: DateTime.now(),
-      );
-      await _firestoreService.addUser(user);
-    }
+  //   // Only save to Firestore if this is a brand new user
+  //   if (userCredential.additionalUserInfo?.isNewUser == true) {
+  //     final user = UserModel(
+  //       uid: userCredential.user!.uid,
+  //       name: userCredential.user?.displayName ?? 'User',
+  //       email: userCredential.user?.email ?? '',
+  //       createdAt: DateTime.now(),
+  //     );
+  //     await _firestoreService.addUser(user);
+  //   }
 
-    return userCredential;
-  }
+  //   return userCredential;
+  // }
 
-  // ── Forgot Password ───────────────────────────────────────────────────────────
+  // // ── Forgot Password ───────────────────────────────────────────────────────────
 
-  Future<void> sendPasswordResetEmail({required String email}) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: email.trim());
-  }
+  // Future<void> sendPasswordResetEmail({required String email}) async {
+  //   await _firebaseAuth.sendPasswordResetEmail(email: email.trim());
+  // }
 
-  // ── Sign Out ──────────────────────────────────────────────────────────────────
+  // // ── Sign Out ──────────────────────────────────────────────────────────────────
 
-  Future<void> signOut() async {
-    await Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
-  }
+  // Future<void> signOut() async {
+  //   await Future.wait([_firebaseAuth.signOut(), _googleSignIn.signOut()]);
+  // }
 
-  // ── Error Handling ────────────────────────────────────────────────────────────
+  // // ── Error Handling ────────────────────────────────────────────────────────────
 
   static String getErrorMessage(FirebaseAuthException e) {
     switch (e.code) {

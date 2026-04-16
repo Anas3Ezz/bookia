@@ -33,7 +33,12 @@ class ProfileMenu extends StatelessWidget {
                 context.pushNamed(AppRoutes.showMyorders);
               },
             ),
-            ProfileMenuItem(title: 'Edit Profile', onTap: () {}),
+            ProfileMenuItem(
+              title: 'Edit Profile',
+              onTap: () {
+                context.pushNamed(AppRoutes.editProfile);
+              },
+            ),
             ProfileMenuItem(title: 'Reset Password', onTap: () {}),
             ProfileMenuItem(title: 'FAQ', onTap: () {}),
             ProfileMenuItem(title: 'Contact Us', onTap: () {}),

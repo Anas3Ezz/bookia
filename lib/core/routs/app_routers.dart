@@ -13,6 +13,7 @@ import 'package:bookia/feature/home/data/models/book_details_arg.dart';
 import 'package:bookia/feature/home/ui/book_details/book_deatials_screen.dart';
 import 'package:bookia/feature/on_boarding_screen.dart';
 import 'package:bookia/feature/profile/ui/order_history_screen.dart';
+import 'package:bookia/feature/profile/ui/update_profile_screen.dart';
 import 'package:bookia/feature/search/cubit/search_cubit.dart';
 import 'package:bookia/feature/search/data/model/search_args.dart';
 import 'package:bookia/feature/search/ui/search_screen.dart';
@@ -48,6 +49,10 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => CongratesScreen());
       case AppRoutes.showMyorders:
         return MaterialPageRoute(builder: (_) => MyOrdersScreen());
+      case AppRoutes.editProfile:
+        return MaterialPageRoute(builder: (_) => EditProfileScreen());
+      case AppRoutes.editPassword:
+      // return MaterialPageRoute(builder: (_) => EditPasswordScreen());
       case AppRoutes.placeOrder:
         final total = settings.arguments as String;
         return MaterialPageRoute(

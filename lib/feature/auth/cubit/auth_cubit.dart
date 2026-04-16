@@ -11,90 +11,90 @@ class AuthCubit extends Cubit<AuthState> {
 
   final AuthRepo _authRepository = AuthRepo.instance;
 
-  // ── Email Sign In ────────────────────────────────────────────────────────────
+  // // ── Email Sign In ────────────────────────────────────────────────────────────
 
-  Future<void> signInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
-    emit(AuthLoadingState());
-    try {
-      await _authRepository.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      emit(AuthSuccess('Signed in successfully! 👋'));
-    } on FirebaseAuthException catch (e) {
-      emit(AuthFailure(AuthRepo.getErrorMessage(e)));
-    }
-  }
+  // Future<void> signInWithEmailAndPassword({
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   emit(AuthLoadingState());
+  //   try {
+  //     await _authRepository.signInWithEmailAndPassword(
+  //       email: email,
+  //       password: password,
+  //     );
+  //     emit(AuthSuccess('Signed in successfully! 👋'));
+  //   } on FirebaseAuthException catch (e) {
+  //     emit(AuthFailure(AuthRepo.getErrorMessage(e)));
+  //   }
+  // }
 
-  // ── Register ─────────────────────────────────────────────────────────────────
+  // // ── Register ─────────────────────────────────────────────────────────────────
 
-  Future<void> createUserWithEmailAndPassword({
-    required String name,
-    required String email,
-    required String password,
-  }) async {
-    emit(AuthLoadingState());
-    try {
-      final credential = await _authRepository.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-        name: name,
-      );
-      await credential.user?.updateDisplayName(name.trim());
-      emit(AuthSuccess('Welcome, ${name.trim()}! 🎉'));
-    } on FirebaseAuthException catch (e) {
-      emit(AuthFailure(AuthRepo.getErrorMessage(e)));
-    }
-  }
+  // Future<void> createUserWithEmailAndPassword({
+  //   required String name,
+  //   required String email,
+  //   required String password,
+  // }) async {
+  //   emit(AuthLoadingState());
+  //   try {
+  //     final credential = await _authRepository.createUserWithEmailAndPassword(
+  //       email: email,
+  //       password: password,
+  //       name: name,
+  //     );
+  //     await credential.user?.updateDisplayName(name.trim());
+  //     emit(AuthSuccess('Welcome, ${name.trim()}! 🎉'));
+  //   } on FirebaseAuthException catch (e) {
+  //     emit(AuthFailure(AuthRepo.getErrorMessage(e)));
+  //   }
+  // }
 
-  // ── Google Sign In ───────────────────────────────────────────────────────────
+  // // ── Google Sign In ───────────────────────────────────────────────────────────
 
-  Future<void> signInWithGoogle() async {
-    emit(AuthGoogleLoading());
-    try {
-      final credential = await _authRepository.signInWithGoogle();
+  // Future<void> signInWithGoogle() async {
+  //   emit(AuthGoogleLoading());
+  //   try {
+  //     final credential = await _authRepository.signInWithGoogle();
 
-      // User cancelled the Google picker
-      if (credential == null) {
-        emit(AuthInitial());
-        return;
-      }
+  //     // User cancelled the Google picker
+  //     if (credential == null) {
+  //       emit(AuthInitial());
+  //       return;
+  //     }
 
-      emit(
-        AuthSuccess('Welcome, ${credential.user?.displayName ?? 'User'}! 🎉'),
-      );
-    } on FirebaseAuthException catch (e) {
-      emit(AuthFailure(AuthRepo.getErrorMessage(e)));
-    } catch (_) {
-      emit(AuthFailure('Google sign-in failed. Please try again.'));
-    }
-  }
+  //     emit(
+  //       AuthSuccess('Welcome, ${credential.user?.displayName ?? 'User'}! 🎉'),
+  //     );
+  //   } on FirebaseAuthException catch (e) {
+  //     emit(AuthFailure(AuthRepo.getErrorMessage(e)));
+  //   } catch (_) {
+  //     emit(AuthFailure('Google sign-in failed. Please try again.'));
+  //   }
+  // }
 
-  // ── Forgot Password ───────────────────────────────────────────────────────────
+  // // ── Forgot Password ───────────────────────────────────────────────────────────
 
-  Future<void> sendPasswordResetEmail({required String email}) async {
-    emit(AuthLoadingState());
-    try {
-      await _authRepository.sendPasswordResetEmail(email: email);
-      emit(AuthSuccess('Reset email sent! Check your inbox.'));
-    } on FirebaseAuthException catch (e) {
-      emit(AuthFailure(AuthRepo.getErrorMessage(e)));
-    }
-  }
+  // Future<void> sendPasswordResetEmail({required String email}) async {
+  //   emit(AuthLoadingState());
+  //   try {
+  //     await _authRepository.sendPasswordResetEmail(email: email);
+  //     emit(AuthSuccess('Reset email sent! Check your inbox.'));
+  //   } on FirebaseAuthException catch (e) {
+  //     emit(AuthFailure(AuthRepo.getErrorMessage(e)));
+  //   }
+  // }
 
-  // ── Sign Out ──────────────────────────────────────────────────────────────────
+  // // ── Sign Out ──────────────────────────────────────────────────────────────────
 
-  Future<void> signOut() async {
-    await _authRepository.signOut();
-    emit(AuthInitial());
-  }
+  // Future<void> signOut() async {
+  //   await _authRepository.signOut();
+  //   emit(AuthInitial());
+  // }
 
-  // ── Reset state ───────────────────────────────────────────────────────────────
+  // // ── Reset state ───────────────────────────────────────────────────────────────
 
-  void reset() => emit(AuthInitial());
+  // void reset() => emit(AuthInitial());
   Future<void> authLogin({
     required String email,
     required String password,

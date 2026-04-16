@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     }
                     return AppButton(
-                      text: 'login',
+                      text: 'Login',
                       isFilled: true,
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
