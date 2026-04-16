@@ -2,8 +2,8 @@ import 'package:bookia/core/helper/validators.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:flutter/material.dart';
 
-class NewPasswordScreen extends StatelessWidget {
-  const NewPasswordScreen({super.key});
+class UpdateNewPasswordScreen extends StatelessWidget {
+  const UpdateNewPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
