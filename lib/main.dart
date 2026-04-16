@@ -14,6 +14,7 @@ Future<void> main() async {
   await ScreenUtil.ensureScreenSize();
 
   runApp(BookiaApp(token: StorageService.getToken()));
+
   //TODO : add firebase and push notification &
   // finish edit profile screen &
   // add a payment feature & dark mode &

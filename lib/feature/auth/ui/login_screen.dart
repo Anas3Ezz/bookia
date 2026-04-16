@@ -133,14 +133,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Gap(30),
                 BlocConsumer<AuthCubit, AuthState>(
                   listener: (context, state) {
-                    if (state is AuthErrorState) {
+                    if (state is AuthFailure) {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(title: Text('Error')),
                       );
                     } else if (state is AuthLoadingState) {
                       CircularProgressIndicator(color: AppColors.primaryColor);
-                    } else if (state is AuthSuccessState) {
+                    } else if (state is AuthSuccess) {
                       context.pushNamedAndRemoveUntil(
                         AppRoutes.bottomNavBarScreen,
                       );

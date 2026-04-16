@@ -21,7 +21,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   static const _primaryColor = Color(0xFFBB9457);
   static const _borderColor = Color(0xFFE8ECF4);
 
-  // 1. Add a state variable to track the loading state
   bool _isResending = false;
 
   @override

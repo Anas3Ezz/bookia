@@ -1,10 +1,10 @@
 import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
-import 'package:bookia/feature/auth/ui/create_new_password.dart';
-import 'package:bookia/feature/auth/ui/forget_password_screen.dart';
+import 'package:bookia/feature/auth/ui/forgot_password/create_new_password.dart';
+import 'package:bookia/feature/auth/ui/forgot_password/forget_password_screen.dart';
+import 'package:bookia/feature/auth/ui/forgot_password/otp_verfication_screen.dart';
+import 'package:bookia/feature/auth/ui/forgot_password/password_changed_screen.dart';
 import 'package:bookia/feature/auth/ui/login_screen.dart';
-import 'package:bookia/feature/auth/ui/otp_verfication_screen.dart';
-import 'package:bookia/feature/auth/ui/password_changed_screen.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
 import 'package:bookia/feature/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
 import 'package:bookia/feature/cart/ui/congrates_screen.dart';
