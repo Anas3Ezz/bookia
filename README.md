@@ -185,7 +185,10 @@ cd bookia
 flutter pub get
 flutter run
 ```
-
+To run this project:
+1. Create a Firebase project
+2. Run: flutterfire configure
+3. Add google-services.json to android/app
 ---
 
 ## 🔮 Planned Improvements
