@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+//TODO: stop using this file and use the colors from the theme instead
 class AppColors {
   static const Color primaryColor = Color(0xFFBB9457);
   static const Color secondaryColor = Color(0xFFB89B5E);

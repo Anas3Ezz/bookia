@@ -70,7 +70,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         }
       },
       child: Scaffold(
-        // backgroundColor: Colors.white,
         appBar: ProfileAppBar(onLogoutTap: _showLogoutDialog),
         body: BlocBuilder<ProfileCubit, ProfileState>(
           buildWhen: (_, current) => current is GetProfileState,

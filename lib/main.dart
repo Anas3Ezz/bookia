@@ -22,7 +22,6 @@ Future<void> main() async {
   await DioFactory.initDio();
   await ScreenUtil.ensureScreenSize();
 
-  // ✅ NEW: Theme init
   final themeLocalDataSource = ThemeLocalDataSource();
   await themeLocalDataSource.init();
 
@@ -36,4 +35,7 @@ Future<void> main() async {
       child: BookiaApp(token: StorageService.getToken()),
     ),
   );
+  //TODO: finish the Darkmode for the app with good ui
+  //TODO: add text style class for the app
+  //TODO: add the payment feature to the app
 }
