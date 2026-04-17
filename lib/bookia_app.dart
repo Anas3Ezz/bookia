@@ -1,6 +1,10 @@
 import 'package:bookia/core/routs/app_routers.dart';
 import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/core/theme/app_theme.dart';
+import 'package:bookia/core/theme/cubit/theme_cubit.dart';
+import 'package:bookia/core/theme/cubit/theme_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BookiaApp extends StatelessWidget {
@@ -14,12 +18,23 @@ class BookiaApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
-          theme: ThemeData(fontFamily: 'DMSerifDisplay'),
-          darkTheme: ThemeData.light(),
-          debugShowCheckedModeBanner: false,
-          initialRoute: startRout(),
-          onGenerateRoute: AppRouter.generateRoute,
+        return BlocBuilder<ThemeCubit, ThemeState>(
+          builder: (context, state) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+
+              // ✅ THEMES
+              theme: AppThemes.lightTheme,
+              darkTheme: AppThemes.darkTheme,
+
+              // ✅ CONTROLLED BY CUBIT
+              themeMode: state.themeMode,
+
+              // ✅ YOUR ROUTING
+              initialRoute: startRout(),
+              onGenerateRoute: AppRouter.generateRoute,
+            );
+          },
         );
       },
     );

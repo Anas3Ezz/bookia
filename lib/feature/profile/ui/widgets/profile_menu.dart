@@ -1,6 +1,9 @@
 import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/core/theme/cubit/theme_cubit.dart';
+import 'package:bookia/core/theme/cubit/theme_state.dart';
 import 'package:bookia/feature/profile/ui/widgets/profile_menu_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helper/extenstions.dart';
@@ -14,7 +17,6 @@ class ProfileMenu extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: Colors.grey.shade200),
           boxShadow: [
@@ -65,6 +67,23 @@ class ProfileMenu extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+            ),
+            ListTile(
+              title: const Text("Dark Mode"),
+              trailing: BlocBuilder<ThemeCubit, ThemeState>(
+                builder: (context, state) {
+                  final isDark = state.themeMode == ThemeMode.dark;
+
+                  return Switch(
+                    value: isDark,
+                    onChanged: (value) {
+                      context.read<ThemeCubit>().changeTheme(
+                        value ? ThemeMode.dark : ThemeMode.light,
+                      );
+                    },
+                  );
+                },
               ),
             ),
           ],

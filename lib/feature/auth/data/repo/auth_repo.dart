@@ -1,5 +1,5 @@
 import 'package:bookia/core/helper/error_handler.dart';
-import 'package:bookia/core/helper/storge_services.dart';
+import 'package:bookia/core/helper/storage_services.dart';
 import 'package:bookia/core/networking/api_constants.dart';
 import 'package:bookia/core/networking/api_result.dart';
 import 'package:bookia/core/networking/dio_factory.dart';
