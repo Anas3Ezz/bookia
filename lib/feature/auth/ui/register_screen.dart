@@ -4,8 +4,10 @@ import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
+import 'package:bookia/feature/auth/ui/widgets/social_login_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -16,12 +18,12 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  bool isObscure = true;
 
   @override
   void dispose() {
@@ -31,8 +33,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _confirmPasswordController.dispose();
     super.dispose();
   }
-
-  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -61,23 +61,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
-                const SizedBox(height: 20),
-                Text(
+                const Gap(20),
+                const Text(
                   'Hello! Register to get started',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF1E232C),
                   ),
                 ),
-                const SizedBox(height: 32),
+                const Gap(32),
                 CustomTextField(
                   hintText: 'User name',
                   controller: _userNameController,
+                  textInputAction: TextInputAction.next,
                   validator: (value) =>
                       value!.isEmpty ? 'Username is required' : null,
                 ),
-                const SizedBox(height: 15),
+                const Gap(15),
                 CustomTextField(
                   hintText: 'Enter your email',
                   controller: _emailController,
@@ -95,24 +96,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 15),
+                const Gap(15),
                 CustomTextField(
                   suffixIcon: IconButton(
-                    onPressed: () {
-                      // 2. Toggle the state
-                      setState(() {
-                        isObscure = !isObscure;
-                      });
-                    },
+                    onPressed: () => setState(() => isObscure = !isObscure),
                     icon: Icon(
-                      // 3. Change icon based on state
                       isObscure
                           ? Icons.remove_red_eye_rounded
                           : Icons.visibility_off_rounded,
-                      color: isObscure
-                          ? Colors.grey
-                          : AppColors
-                                .primaryColor, // Optional: change color when active
+                      color: isObscure ? Colors.grey : AppColors.primaryColor,
                     ),
                   ),
                   hintText: 'Enter your password',
@@ -127,7 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 15),
+                const Gap(15),
                 CustomTextField(
                   hintText: 'Confirm your password',
                   controller: _confirmPasswordController,
@@ -143,24 +135,32 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return null;
                   },
                 ),
-                const SizedBox(height: 30),
-
+                const Gap(30),
                 BlocConsumer<AuthCubit, AuthState>(
                   listener: (context, state) {
-                    if (state is AuthFailure) {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(title: Text('Error')),
-                      );
-                    } else if (state is AuthSuccess) {
+                    if (state is AuthSuccess) {
                       context.pushNamedAndRemoveUntil(
                         AppRoutes.bottomNavBarScreen,
+                      );
+                    } else if (state is AuthFailure) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: const Text('Error'),
+                          content: Text(state.message), // ✅ shows actual error
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
                       );
                     }
                   },
                   builder: (context, state) {
-                    // Check if the state is loading to show the design
-                    if (state is AuthLoadingState) {
+                    if (state is AuthLoadingState ||
+                        state is AuthGoogleLoading) {
                       return const Center(
                         child: CircularProgressIndicator(
                           color: AppColors.primaryColor,
@@ -173,29 +173,64 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           context.read<AuthCubit>().authRegister(
+                            name: _userNameController.text,
                             email: _emailController.text,
                             password: _passwordController.text,
                             passwordConfirmation:
                                 _confirmPasswordController.text,
-                            name: _userNameController.text,
                           );
                         }
                       },
                     );
                   },
                 ),
-
-                const SizedBox(height: 35),
+                const Gap(20),
+                Row(
+                  children: const [
+                    Expanded(child: Divider(color: Color(0xFFE8ECF4))),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('Or'),
+                    ),
+                    Expanded(child: Divider(color: Color(0xFFE8ECF4))),
+                  ],
+                ),
+                const Gap(10),
+                // ── Google Sign In ────────────────────────────────────────────
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    return SocialLoginButton(
+                      iconPath: 'assets/icons/google.png',
+                      label: 'Continue with Google',
+                      onTap:
+                          (state is AuthLoadingState ||
+                              state is AuthGoogleLoading)
+                          ? null
+                          : () => context.read<AuthCubit>().signInWithGoogle(),
+                    );
+                  },
+                ),
+                const Gap(10),
+                SocialLoginButton(
+                  iconPath: 'assets/icons/apple.png',
+                  label: 'Continue with Apple',
+                  onTap: null,
+                ),
+                const Gap(20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account?  "),
-                    Text(
-                      'Login Now',
-                      style: TextStyle(color: Color(0xFFBB9457)),
+                    const Text('Already have an account?  '),
+                    InkWell(
+                      onTap: () => Navigator.pop(context), // back to login
+                      child: const Text(
+                        'Login Now',
+                        style: TextStyle(color: Color(0xFFBB9457)),
+                      ),
                     ),
                   ],
                 ),
+                const Gap(20),
               ],
             ),
           ),

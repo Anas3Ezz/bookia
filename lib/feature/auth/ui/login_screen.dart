@@ -21,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool isObscure = true;
 
   @override
   void dispose() {
@@ -28,8 +29,6 @@ class _LoginScreenState extends State<LoginScreen> {
     _passwordController.dispose();
     super.dispose();
   }
-
-  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +58,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const Gap(20),
-                Text(
+                const Text(
                   'Welcome back! Glad to see you, Again!',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF1E232C),
@@ -78,7 +77,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (value == null || value.isEmpty) {
                       return 'Email is required';
                     }
-                    // Professional Regex for email validation
                     final bool emailValid = RegExp(
                       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+",
                     ).hasMatch(value);
@@ -89,27 +87,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Gap(15),
                 CustomTextField(
                   suffixIcon: IconButton(
-                    onPressed: () {
-                      // 2. Toggle the state
-                      setState(() {
-                        isObscure = !isObscure;
-                      });
-                    },
+                    onPressed: () => setState(() => isObscure = !isObscure),
                     icon: Icon(
-                      // 3. Change icon based on state
                       isObscure
                           ? Icons.remove_red_eye_rounded
                           : Icons.visibility_off_rounded,
-                      color: isObscure
-                          ? Colors.grey
-                          : AppColors
-                                .primaryColor, // Optional: change color when active
+                      color: isObscure ? Colors.grey : AppColors.primaryColor,
                     ),
                   ),
                   hintText: 'Enter your password',
                   controller: _passwordController,
                   isPassword: isObscure,
-                  textInputAction: TextInputAction.next,
+                  textInputAction: TextInputAction.done,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Password is required';
@@ -121,33 +110,41 @@ class _LoginScreenState extends State<LoginScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () {
-                      context.pushNamed(AppRoutes.forgotPasswordScreen);
-                    },
-                    child: Text(
+                    onPressed: () =>
+                        context.pushNamed(AppRoutes.forgotPasswordScreen),
+                    child: const Text(
                       'Forgot Password?',
-                      style: const TextStyle(color: Color(0xFF6A707C)),
+                      style: TextStyle(color: Color(0xFF6A707C)),
                     ),
                   ),
                 ),
                 const Gap(30),
                 BlocConsumer<AuthCubit, AuthState>(
                   listener: (context, state) {
-                    if (state is AuthFailure) {
-                      showDialog(
-                        context: context,
-                        builder: (context) => AlertDialog(title: Text('Error')),
-                      );
-                    } else if (state is AuthLoadingState) {
-                      CircularProgressIndicator(color: AppColors.primaryColor);
-                    } else if (state is AuthSuccess) {
+                    if (state is AuthSuccess) {
                       context.pushNamedAndRemoveUntil(
                         AppRoutes.bottomNavBarScreen,
+                      );
+                    } else if (state is AuthFailure) {
+                      showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          title: const Text('Error'),
+                          content: Text(state.message),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
                       );
                     }
                   },
                   builder: (context, state) {
-                    if (state is AuthLoadingState) {
+                    // Both email login and Google show a loader
+                    if (state is AuthLoadingState ||
+                        state is AuthGoogleLoading) {
                       return const Center(
                         child: CircularProgressIndicator(
                           color: AppColors.primaryColor,
@@ -172,33 +169,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   children: [
                     const Expanded(child: Divider(color: Color(0xFFE8ECF4))),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Text('Or'),
                     ),
                     const Expanded(child: Divider(color: Color(0xFFE8ECF4))),
                   ],
                 ),
                 const Gap(10),
-                SocialLoginButton(
-                  iconPath: 'assets/icons/google.png',
-                  label: 'Google',
-                  onTap: () {},
+                // ── Google Sign In ────────────────────────────────────────────
+                BlocBuilder<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    return SocialLoginButton(
+                      iconPath: 'assets/icons/google.png',
+                      label: 'Google',
+                      onTap:
+                          (state is AuthLoadingState ||
+                              state is AuthGoogleLoading)
+                          ? null
+                          : () => context.read<AuthCubit>().signInWithGoogle(),
+                    );
+                  },
                 ),
                 const Gap(10),
+                // Apple is UI-only for now
                 SocialLoginButton(
                   iconPath: 'assets/icons/apple.png',
                   label: 'Apple',
-                  onTap: () {},
+                  onTap: null,
                 ),
                 const Gap(10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Don't have an account?  "),
+                    const Text("Don't have an account?  "),
                     InkWell(
                       onTap: () => context.pushNamed(AppRoutes.register),
-                      child: Text(
+                      child: const Text(
                         'Register Now',
                         style: TextStyle(color: Color(0xFFBB9457)),
                       ),

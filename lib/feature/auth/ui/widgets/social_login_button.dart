@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 class SocialLoginButton extends StatelessWidget {
   final String iconPath;
   final String label;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   const SocialLoginButton({
     super.key,

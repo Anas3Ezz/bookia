@@ -28,15 +28,17 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const OnBoardingScreen());
 
       case AppRoutes.login:
+        final cubit = AuthCubit();
         return MaterialPageRoute(
           builder: (_) =>
-              BlocProvider(create: (_) => AuthCubit(), child: LoginScreen()),
+              BlocProvider.value(value: cubit, child: const LoginScreen()),
         );
 
       case AppRoutes.register:
+        final cubit = AuthCubit();
         return MaterialPageRoute(
           builder: (_) =>
-              BlocProvider(create: (_) => AuthCubit(), child: RegisterScreen()),
+              BlocProvider.value(value: cubit, child: const RegisterScreen()),
         );
       case AppRoutes.forgotPasswordScreen:
         return MaterialPageRoute(builder: (_) => ForgotPasswordScreen());
