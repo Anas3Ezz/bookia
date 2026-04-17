@@ -53,9 +53,9 @@ class BookCard extends StatelessWidget {
           Text(
             '\$${books.price ?? ''}',
             style: const TextStyle(
-              fontSize: 13,
+              fontSize: 18,
               color: Color(0xFFB89B5E),
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.w800,
             ),
           ),
         ],

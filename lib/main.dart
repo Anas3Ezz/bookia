@@ -21,8 +21,7 @@ Future<void> main() async {
 
   runApp(BookiaApp(token: StorageService.getToken()));
 
-  //TODO : add firebase and push notification &
-  // finish edit profile screen &
+  //TODO : push notification & firestore
   // add a payment feature & dark mode &
   //  appColors and appTextStyles
 }

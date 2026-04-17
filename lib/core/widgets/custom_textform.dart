@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -48,8 +49,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   static const _borderRadius = BorderRadius.all(Radius.circular(8));
-  static const _primaryColor = Color(0xFFBB9457);
-  static const _defaultBorderColor = Color(0xFFE8ECF4);
 
   @override
   Widget build(BuildContext context) {
@@ -65,24 +64,24 @@ class _CustomTextFieldState extends State<CustomTextField> {
       autofillHints: widget.autofillHints,
       textInputAction: widget.textInputAction,
       obscureText: widget.isPassword,
-      cursorColor: _primaryColor,
+      cursorColor: AppColors.primaryColor,
       decoration: InputDecoration(
         hintText: widget.hintText,
-        hintStyle: const TextStyle(color: Color(0xFF8391A1)),
-        fillColor: const Color(0xFFF7F8F9),
+        hintStyle: const TextStyle(color: AppColors.hintColor),
+        fillColor: AppColors.fillColor,
         filled: true,
         suffixIcon: widget.suffixIcon,
         border: const OutlineInputBorder(
           borderRadius: _borderRadius,
-          borderSide: BorderSide(color: _defaultBorderColor),
+          borderSide: BorderSide(color: AppColors.borderColor),
         ),
         enabledBorder: const OutlineInputBorder(
           borderRadius: _borderRadius,
-          borderSide: BorderSide(color: _defaultBorderColor),
+          borderSide: BorderSide(color: AppColors.borderColor),
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: _borderRadius,
-          borderSide: BorderSide(color: _primaryColor, width: 1.5),
+          borderSide: BorderSide(color: AppColors.primaryColor, width: 1.5),
         ),
         errorBorder: const OutlineInputBorder(
           borderRadius: _borderRadius,

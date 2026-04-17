@@ -1,5 +1,6 @@
 import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,6 @@ class OtpVerificationScreen extends StatefulWidget {
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
   final _pinController = TextEditingController();
   final _focusNode = FocusNode();
-
-  static const _primaryColor = Color(0xFFBB9457);
-  static const _borderColor = Color(0xFFE8ECF4);
 
   bool _isResending = false;
 
@@ -48,14 +46,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       // TODO: Replace with your actual API call to resend the code
       await Future.delayed(const Duration(seconds: 2));
     } finally {
-      // 3. Always check if the widget is mounted after an async gap
       if (mounted) {
         setState(() {
           _isResending = false;
         });
-
-        // Optional: Show a success snackbar here
-        // ScaffoldMessenger.of(context).showSnackBar(...);
       }
     }
   }
@@ -68,30 +62,30 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       textStyle: TextStyle(
         fontSize: 20.sp,
         fontWeight: FontWeight.bold,
-        color: Colors.black,
+        color: AppColors.black,
       ),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: _borderColor),
+        border: Border.all(color: AppColors.borderColor),
       ),
     );
 
     final focusedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
-        border: Border.all(color: _primaryColor, width: 1.5),
+        border: Border.all(color: AppColors.primaryColor, width: 1.5),
       ),
     );
 
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
-        border: Border.all(color: _primaryColor),
-        color: const Color(0xFFFDF6EC),
+        border: Border.all(color: AppColors.primaryColor),
+        color: AppColors.lightBackground,
       ),
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -106,7 +100,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 style: TextStyle(
                   fontSize: 28.sp,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: AppColors.black,
                 ),
               ),
               Gap(12.h),
@@ -137,8 +131,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 text: 'Verify',
                 onPressed: _onVerify,
                 isFilled: true,
-                backgroundColor: _primaryColor,
-                textColor: Colors.white,
+                backgroundColor: AppColors.primaryColor,
+                textColor: AppColors.white,
               ),
               const Spacer(),
               Center(
@@ -149,23 +143,20 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       "Didn't received code? ",
                       style: TextStyle(
                         fontSize: 14.sp,
-                        color: Colors.black,
+                        color: AppColors.black,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     GestureDetector(
-                      // Disable tap if already loading
                       onTap: _isResending ? null : _onResend,
                       child: Container(
-                        // Added a subtle transparent color to increase the tap target area
                         color: Colors.transparent,
-                        // 4. Conditionally render the loader or the text
                         child: _isResending
                             ? SizedBox(
                                 width: 16.sp,
                                 height: 16.sp,
                                 child: const CircularProgressIndicator(
-                                  color: _primaryColor,
+                                  color: AppColors.primaryColor,
                                   strokeWidth: 2,
                                 ),
                               )
@@ -173,7 +164,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                 'Resend',
                                 style: TextStyle(
                                   fontSize: 14.sp,
-                                  color: _primaryColor,
+                                  color: AppColors.primaryColor,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),

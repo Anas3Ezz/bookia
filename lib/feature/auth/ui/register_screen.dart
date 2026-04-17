@@ -37,7 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -49,14 +49,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xFFE8ECF4)),
+                    border: Border.all(color: AppColors.borderColor),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: IconButton(
                     icon: const Icon(
                       Icons.arrow_back_ios_new,
                       size: 18,
-                      color: Colors.black,
+                      color: AppColors.black,
                     ),
                     onPressed: () => Navigator.pop(context),
                   ),
@@ -67,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFF1E232C),
+                    color: AppColors.textPrimary,
                   ),
                 ),
                 const Gap(32),
@@ -187,12 +187,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 const Gap(20),
                 Row(
                   children: const [
-                    Expanded(child: Divider(color: Color(0xFFE8ECF4))),
+                    Expanded(child: Divider(color: AppColors.borderColor)),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Text('Or'),
                     ),
-                    Expanded(child: Divider(color: Color(0xFFE8ECF4))),
+                    Expanded(child: Divider(color: AppColors.borderColor)),
                   ],
                 ),
                 const Gap(10),
@@ -225,7 +225,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       onTap: () => Navigator.pop(context), // back to login
                       child: const Text(
                         'Login Now',
-                        style: TextStyle(color: Color(0xFFBB9457)),
+                        style: TextStyle(color: AppColors.primaryColor),
                       ),
                     ),
                   ],

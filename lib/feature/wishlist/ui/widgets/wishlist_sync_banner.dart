@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -54,13 +55,13 @@ class _WishlistSyncBannerState extends State<WishlistSyncBanner>
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  const Color(0xFFB89B5E).withValues(alpha: 0.15),
-                  const Color(0xFFB89B5E).withValues(alpha: 0.08),
+                  AppColors.secondaryColor.withValues(alpha: 0.15),
+                  AppColors.secondaryColor.withValues(alpha: 0.08),
                 ],
               ),
               border: Border(
                 bottom: BorderSide(
-                  color: const Color(0xFFB89B5E).withValues(alpha: 0.3),
+                  color: AppColors.secondaryColor.withValues(alpha: 0.3),
                   width: 1,
                 ),
               ),
@@ -76,9 +77,9 @@ class _WishlistSyncBannerState extends State<WishlistSyncBanner>
                     begin: Alignment(_shimmer.value - 1, 0),
                     end: Alignment(_shimmer.value, 0),
                     colors: const [
-                      Color(0xFFB89B5E),
-                      Color(0xFFD4B978),
-                      Color(0xFFB89B5E),
+                      AppColors.secondaryColor,
+                      AppColors.primaryLight,
+                      AppColors.secondaryColor,
                     ],
                   ).createShader(bounds),
                   child: Text(
@@ -86,7 +87,7 @@ class _WishlistSyncBannerState extends State<WishlistSyncBanner>
                     style: TextStyle(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w600,
-                      color: Colors.white,
+                      color: AppColors.white,
                       letterSpacing: 0.3,
                     ),
                   ),
@@ -120,7 +121,9 @@ class _ShimmerDots extends StatelessWidget {
           width: 5.w * scale,
           height: 5.w * scale,
           decoration: BoxDecoration(
-            color: const Color(0xFFB89B5E).withValues(alpha: 0.7 + 0.3 * scale),
+            color: AppColors.secondaryColor.withValues(
+              alpha: 0.7 + 0.3 * scale,
+            ),
             shape: BoxShape.circle,
           ),
         );

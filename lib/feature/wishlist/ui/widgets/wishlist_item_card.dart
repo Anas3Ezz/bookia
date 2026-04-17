@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/cashed_images.dart';
 import 'package:bookia/feature/wishlist/cubit/wishlist_cubit.dart';
 import 'package:bookia/feature/wishlist/data/model/wishlist_model.dart';
@@ -14,7 +15,7 @@ class WishlistItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade200),
       ),
@@ -46,7 +47,7 @@ class WishlistItemCard extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 13.sp,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: AppColors.black,
                   ),
                 ),
                 SizedBox(height: 4.h),
@@ -57,7 +58,7 @@ class WishlistItemCard extends StatelessWidget {
                       '\$${item.price ?? ''}',
                       style: TextStyle(
                         fontSize: 13.sp,
-                        color: const Color(0xFFB89B5E),
+                        color: AppColors.secondaryColor,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

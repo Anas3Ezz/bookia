@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
@@ -19,10 +20,11 @@ class AppButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color effectiveBgColor =
-        backgroundColor ?? (isFilled ? const Color(0xFFBB9457) : Colors.white);
+        backgroundColor ??
+        (isFilled ? AppColors.primaryColor : AppColors.white);
 
     final Color effectiveTextColor =
-        textColor ?? (isFilled ? Colors.white : Colors.black);
+        textColor ?? (isFilled ? AppColors.white : AppColors.black);
 
     return SizedBox(
       width: double.infinity,

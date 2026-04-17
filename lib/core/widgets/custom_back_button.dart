@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class CustomBackButton extends StatelessWidget {
@@ -11,14 +12,14 @@ class CustomBackButton extends StatelessWidget {
         width: 40,
         height: 40,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: const Color(0xFFE8ECF4)),
+          border: Border.all(color: AppColors.borderColor),
         ),
         child: const Icon(
           Icons.arrow_back_ios_new_rounded,
           size: 16,
-          color: Colors.black,
+          color: AppColors.black,
         ),
       ),
     );

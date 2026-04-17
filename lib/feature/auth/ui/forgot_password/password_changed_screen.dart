@@ -1,5 +1,6 @@
 import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -14,7 +15,7 @@ class PasswordChangedScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -29,7 +30,7 @@ class PasswordChangedScreen extends StatelessWidget {
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Serif',
-                  color: Color(0xFF333333),
+                  color: AppColors.darkText,
                 ),
               ),
               const SizedBox(height: 12),
@@ -38,7 +39,7 @@ class PasswordChangedScreen extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
-                  color: Color(0xFF7F8C8D),
+                  color: AppColors.secondaryGray,
                   height: 1.5,
                 ),
               ),
@@ -47,8 +48,8 @@ class PasswordChangedScreen extends StatelessWidget {
                 text: 'Back To Login',
                 onPressed: backToLogin,
                 isFilled: true,
-                backgroundColor: const Color(0xFFBB9457),
-                textColor: Colors.white,
+                backgroundColor: AppColors.primaryColor,
+                textColor: AppColors.white,
               ),
             ],
           ),

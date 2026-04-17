@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/feature/home/cubit/home_cubit.dart';
 import 'package:bookia/feature/home/ui/widgets/best_seller_grid.dart';
 import 'package:bookia/feature/home/ui/widgets/best_seller_header.dart';
@@ -17,10 +18,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       appBar: const BookiaAppBar(),
       body: RefreshIndicator(
-        color: const Color(0xFFB89B5E),
+        color: AppColors.secondaryColor,
         onRefresh: () => _onRefresh(context),
         child: const CustomScrollView(
           slivers: [

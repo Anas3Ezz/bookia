@@ -18,7 +18,7 @@ class BestSellerSkeletonGrid extends StatelessWidget {
           (context, index) => BookCard(
             books: Products(name: 'test', price: '', image: ''),
           ),
-          childCount: 5,
+          childCount: 6,
         ),
       ),
     );

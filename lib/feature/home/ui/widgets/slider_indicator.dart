@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SliderIndicator extends StatelessWidget {
@@ -23,7 +24,7 @@ class SliderIndicator extends StatelessWidget {
           width: currentIndex == index ? 28 : 8,
           decoration: BoxDecoration(
             color: currentIndex == index
-                ? const Color(0xFFB89B5E)
+                ? AppColors.secondaryColor
                 : Colors.grey.withValues(alpha: 0.3),
             borderRadius: BorderRadius.circular(4),
           ),
