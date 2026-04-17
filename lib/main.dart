@@ -15,13 +15,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter(); // FIRST
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
   Bloc.observer = MyBlocObserver();
-
   await StorageService.init();
   await DioFactory.initDio();
   await ScreenUtil.ensureScreenSize();
-
   final themeLocalDataSource = ThemeLocalDataSource();
   await themeLocalDataSource.init();
 

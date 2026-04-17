@@ -1,6 +1,6 @@
 import 'package:bookia/core/theme/app_colors.dart';
+import 'package:bookia/core/theme/app_texts_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -22,14 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       centerTitle: true,
       title: title != null
-          ? Text(
-              title!,
-              style: TextStyle(
-                fontSize: 20.sp,
-                fontWeight: FontWeight.bold,
-                color: AppColors.black,
-              ),
-            )
+          ? Text(title!, style: AppTextStyle.title20Bold)
           : null,
       actions: actions,
     );

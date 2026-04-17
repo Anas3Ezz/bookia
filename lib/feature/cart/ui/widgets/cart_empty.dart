@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_texts_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -19,7 +20,7 @@ class CartEmpty extends StatelessWidget {
           Gap(16.h),
           Text(
             'Your cart is empty',
-            style: TextStyle(
+            style: AppTextStyle.style(
               fontSize: 18.sp,
               color: Colors.grey.shade400,
               fontWeight: FontWeight.w500,

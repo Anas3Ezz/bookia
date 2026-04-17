@@ -1,4 +1,5 @@
 import 'package:bookia/core/routs/app_routs.dart';
+import 'package:bookia/core/theme/app_texts_styles.dart';
 import 'package:bookia/core/widgets/cashed_images.dart';
 import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:bookia/feature/home/data/models/book_details_arg.dart';
@@ -43,20 +44,12 @@ class BookCard extends StatelessWidget {
             books.name ?? '',
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: AppTextStyle.title14BoldConst,
           ),
           const SizedBox(height: 4),
           Text(
             '\$${books.price ?? ''}',
-            style: const TextStyle(
-              fontSize: 18,
-              color: Color(0xFFB89B5E),
-              fontWeight: FontWeight.w800,
-            ),
+            style: AppTextStyle.price18SecondaryConst,
           ),
         ],
       ),

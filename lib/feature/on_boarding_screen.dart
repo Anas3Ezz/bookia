@@ -4,6 +4,7 @@ import 'package:bookia/core/theme/app_texts_styles.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../core/routs/app_routs.dart';
@@ -30,7 +31,8 @@ class OnBoardingScreen extends StatelessWidget {
               const Gap(12),
               Text(
                 'Order Your Book Now!',
-                style: AppTextsStyles.text18Regular.copyWith(
+                style: AppTextStyle.style(
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColors.textColor,
                 ),

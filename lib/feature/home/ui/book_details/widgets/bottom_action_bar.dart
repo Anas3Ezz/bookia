@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_texts_styles.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
@@ -98,31 +99,18 @@ class _PriceSection extends StatelessWidget {
         children: [
           Text(
             '\$$price',
-            style: const TextStyle(
-              fontSize: 14,
-              color: Colors.grey,
+            style: AppTextStyle.body14GreyConst.copyWith(
               decoration: TextDecoration.lineThrough,
             ),
           ),
           Text(
             '\$${priceAfterDiscount!.toStringAsFixed(2)}',
-            style: const TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
+            style: AppTextStyle.title32BoldConst,
           ),
         ],
       );
     }
 
-    return Text(
-      '\$$price',
-      style: const TextStyle(
-        fontSize: 26,
-        fontWeight: FontWeight.bold,
-        color: Colors.black,
-      ),
-    );
+    return Text('\$$price', style: AppTextStyle.title32BoldConst);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bookia/core/theme/app_colors.dart';
+import 'package:bookia/core/theme/app_texts_styles.dart';
 import 'package:flutter/material.dart';
 
 class AppButton extends StatelessWidget {
@@ -44,10 +45,7 @@ class AppButton extends StatelessWidget {
                   ), // Border matches text color
           ),
         ),
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
+        child: Text(text, style: AppTextStyle.button16Const),
       ),
     );
   }

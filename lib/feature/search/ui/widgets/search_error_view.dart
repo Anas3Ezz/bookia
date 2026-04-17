@@ -1,3 +1,4 @@
+import 'package:bookia/core/theme/app_texts_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
@@ -26,7 +27,10 @@ class SearchErrorView extends StatelessWidget {
           Gap(16.h),
           Text(
             message,
-            style: TextStyle(fontSize: 14.sp, color: Colors.grey.shade500),
+            style: AppTextStyle.style(
+              fontSize: 14.sp,
+              color: Colors.grey.shade500,
+            ),
             textAlign: TextAlign.center,
           ),
           Gap(12.h),
