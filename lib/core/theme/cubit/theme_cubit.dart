@@ -7,32 +7,32 @@ import 'theme_state.dart';
 class ThemeCubit extends Cubit<ThemeState> {
   final ThemeLocalDataSource localDataSource;
 
-  ThemeCubit(this.localDataSource) : super(const ThemeState(ThemeMode.light));
+  ThemeCubit(this.localDataSource)
+    : super(ThemeState(_parseTheme(localDataSource.getTheme())));
 
-  Future<void> loadTheme() async {
+  void loadTheme() {
     final savedTheme = localDataSource.getTheme();
-
-    if (savedTheme == 'dark') {
-      emit(const ThemeState(ThemeMode.dark));
-    } else if (savedTheme == 'system') {
-      emit(const ThemeState(ThemeMode.system));
-    } else {
-      emit(const ThemeState(ThemeMode.light));
-    }
+    emit(ThemeState(_parseTheme(savedTheme)));
   }
 
   Future<void> changeTheme(ThemeMode mode) async {
     emit(ThemeState(mode));
+    await localDataSource.cacheTheme(_serializeTheme(mode));
+  }
 
-    String value;
-    if (mode == ThemeMode.dark) {
-      value = 'dark';
-    } else if (mode == ThemeMode.system) {
-      value = 'system';
-    } else {
-      value = 'light';
-    }
+  static ThemeMode _parseTheme(String value) {
+    return switch (value) {
+      'dark' => ThemeMode.dark,
+      'system' => ThemeMode.system,
+      _ => ThemeMode.light,
+    };
+  }
 
-    await localDataSource.cacheTheme(value);
+  static String _serializeTheme(ThemeMode mode) {
+    return switch (mode) {
+      ThemeMode.dark => 'dark',
+      ThemeMode.system => 'system',
+      ThemeMode.light => 'light',
+    };
   }
 }

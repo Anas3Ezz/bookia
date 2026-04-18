@@ -1,4 +1,5 @@
 import 'package:bookia/core/theme/app_texts_styles.dart';
+import 'package:bookia/core/theme/app_theme.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,10 @@ class BookBottomActionBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(25, 10, 25, 30),
+      decoration: BoxDecoration(
+        color: context.appColors.surface,
+        border: Border(top: BorderSide(color: context.appColors.borderColor)),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -63,8 +68,8 @@ class BookBottomActionBar extends StatelessWidget {
                       ? () {}
                       : () => context.read<CartCubit>().addToCart(productId),
                   isFilled: true,
-                  backgroundColor: Colors.black,
-                  textColor: Colors.white,
+                  backgroundColor: AppColors.primaryColor,
+                  textColor: AppColors.white,
                 );
               },
             ),
@@ -101,16 +106,23 @@ class _PriceSection extends StatelessWidget {
             '\$$price',
             style: AppTextStyle.body14GreyConst.copyWith(
               decoration: TextDecoration.lineThrough,
+              color: context.appColors.hint,
             ),
           ),
           Text(
             '\$${priceAfterDiscount!.toStringAsFixed(2)}',
-            style: AppTextStyle.title32BoldConst,
+            style: AppTextStyle.title32BoldConst.copyWith(
+              color: context.appColors.textPrimary,
+            ),
           ),
         ],
       );
     }
-
-    return Text('\$$price', style: AppTextStyle.title32BoldConst);
+    return Text(
+      '\$$price',
+      style: AppTextStyle.title32BoldConst.copyWith(
+        color: context.appColors.textPrimary,
+      ),
+    );
   }
 }

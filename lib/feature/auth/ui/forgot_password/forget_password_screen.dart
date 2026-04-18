@@ -1,12 +1,14 @@
 import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
-import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
+import '../../../../core/helper/validators.dart';
+import '../../../../core/theme/app_theme.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   const ForgotPasswordScreen({super.key});
@@ -46,7 +48,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -58,20 +60,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               Gap(32.h),
               Text(
                 'Forgot Password?',
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold),
               ),
               Gap(12.h),
               Text(
                 "Don't worry! It occurs. Please enter the email\naddress linked with your account.",
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: Colors.grey.shade500,
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 14.sp, height: 1.5),
               ),
               Gap(32.h),
               Form(
@@ -80,16 +74,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   hintText: 'Enter your email',
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    final bool emailValid = RegExp(
-                      r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-                    ).hasMatch(value.trim());
-                    if (!emailValid) return 'Please enter a valid email';
-                    return null;
-                  },
+                  validator: AppValidators.email,
                 ),
               ),
               Gap(24.h),
@@ -113,7 +98,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   children: [
                     Text(
                       'Remember Password? ',
-                      style: TextStyle(fontSize: 14.sp, color: Colors.black),
+                      style: TextStyle(fontSize: 14.sp),
                     ),
                     GestureDetector(
                       onTap: () =>

@@ -1,4 +1,5 @@
-import 'package:bookia/core/theme/app_colors.dart';
+import 'package:bookia/core/helper/validators.dart';
+import 'package:bookia/core/theme/app_theme.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
@@ -33,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: context.appColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -43,27 +44,13 @@ class _LoginScreenState extends State<LoginScreen> {
               spacing: 7,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.borderColor),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new,
-                      size: 18,
-                      color: AppColors.black,
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                ),
-                const Gap(20),
-                const Text(
+                const Gap(40),
+                Text(
                   'Welcome back! Glad to see you, Again!',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: context.appColors.textPrimary,
                   ),
                 ),
                 const Gap(32),
@@ -73,16 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.emailAddress,
                   autofillHints: const [AutofillHints.email],
                   textInputAction: TextInputAction.next,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Email is required';
-                    }
-                    final bool emailValid = RegExp(
-                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+",
-                    ).hasMatch(value);
-                    if (!emailValid) return 'Enter a valid email';
-                    return null;
-                  },
+                  validator: AppValidators.email,
                 ),
                 const Gap(15),
                 CustomTextField(
@@ -99,22 +77,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _passwordController,
                   isPassword: isObscure,
                   textInputAction: TextInputAction.done,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Password is required';
-                    }
-                    if (value.length < 6) return 'Password too short';
-                    return null;
-                  },
+                  validator: AppValidators.password,
                 ),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: () =>
                         context.pushNamed(AppRoutes.forgotPasswordScreen),
-                    child: const Text(
+                    child: Text(
                       'Forgot Password?',
-                      style: TextStyle(color: AppColors.subtitleColor),
+                      style: TextStyle(color: context.appColors.subtitle),
                     ),
                   ),
                 ),
@@ -168,12 +140,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Gap(20),
                 Row(
                   children: [
-                    const Expanded(child: Divider(color: AppColors.borderColor)),
+                    Expanded(
+                      child: Divider(color: context.appColors.borderColor),
+                    ),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Text('Or'),
                     ),
-                    const Expanded(child: Divider(color: AppColors.borderColor)),
+                    Expanded(
+                      child: Divider(color: context.appColors.borderColor),
+                    ),
                   ],
                 ),
                 const Gap(10),

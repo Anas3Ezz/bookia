@@ -1,5 +1,5 @@
-import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/theme/app_texts_styles.dart';
+import 'package:bookia/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -56,13 +56,15 @@ class _WishlistSyncBannerState extends State<WishlistSyncBanner>
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  AppColors.secondaryColor.withValues(alpha: 0.15),
-                  AppColors.secondaryColor.withValues(alpha: 0.08),
+                  context.appColors.secondaryColor.withValues(alpha: 0.15),
+                  context.appColors.secondaryColor.withValues(alpha: 0.08),
                 ],
               ),
               border: Border(
                 bottom: BorderSide(
-                  color: AppColors.secondaryColor.withValues(alpha: 0.3),
+                  color: context.appColors.secondaryColor.withValues(
+                    alpha: 0.3,
+                  ),
                   width: 1,
                 ),
               ),
@@ -88,7 +90,7 @@ class _WishlistSyncBannerState extends State<WishlistSyncBanner>
                     style: AppTextStyle.style(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w600,
-                      color: AppColors.white,
+                      color: context.appColors.surface,
                       letterSpacing: 0.3,
                     ),
                   ),
@@ -122,7 +124,7 @@ class _ShimmerDots extends StatelessWidget {
           width: 5.w * scale,
           height: 5.w * scale,
           decoration: BoxDecoration(
-            color: AppColors.secondaryColor.withValues(
+            color: context.appColors.secondaryColor.withValues(
               alpha: 0.7 + 0.3 * scale,
             ),
             shape: BoxShape.circle,

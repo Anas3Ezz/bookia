@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../core/theme/app_theme.dart';
+
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({
     super.key,
@@ -18,7 +20,7 @@ class ProfileHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(20.w, 24.h, 20.w, 0),
+      padding: EdgeInsets.fromLTRB(20.w, 5.h, 20.w, 0),
       child: Row(
         children: [
           Container(
@@ -43,13 +45,16 @@ class ProfileHeader extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: context.appColors.textColor,
                 ),
               ),
               Gap(4.h),
               Text(
                 email,
-                style: TextStyle(fontSize: 13.sp, color: Colors.grey.shade500),
+                style: TextStyle(
+                  fontSize: 13.sp,
+                  color: context.appColors.textColor,
+                ),
               ),
             ],
           ),

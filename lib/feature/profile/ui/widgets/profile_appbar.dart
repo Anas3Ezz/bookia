@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/theme/app_theme.dart';
+
 class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ProfileAppBar({super.key, required this.onLogoutTap});
 
@@ -11,7 +13,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       elevation: 0,
       centerTitle: true,
       title: Text(
@@ -19,7 +21,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: TextStyle(
           fontSize: 20.sp,
           fontWeight: FontWeight.bold,
-          color: Colors.black,
+          color: context.appColors.textPrimary,
         ),
       ),
       actions: [
@@ -32,15 +34,12 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
                 child: const SizedBox(
                   width: 20,
                   height: 20,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: Colors.black,
-                  ),
+                  child: CircularProgressIndicator(strokeWidth: 2),
                 ),
               );
             }
             return IconButton(
-              icon: const Icon(Icons.logout_rounded, color: Colors.black),
+              icon: const Icon(Icons.logout_rounded),
               onPressed: onLogoutTap,
             );
           },

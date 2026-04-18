@@ -54,7 +54,7 @@ class _QuantityButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Icon(icon, size: 20.sp, color: Colors.black),
+      child: Icon(icon, size: 20.sp),
     );
   }
 }

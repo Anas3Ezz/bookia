@@ -1,6 +1,6 @@
 import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
-import 'package:bookia/core/theme/app_colors.dart';
+import 'package:bookia/core/theme/app_theme.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +15,7 @@ class PasswordChangedScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: context.appColors.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -24,22 +24,22 @@ class PasswordChangedScreen extends StatelessWidget {
             children: [
               Center(child: SvgPicture.asset('assets/icons/paymentsucces.svg')),
               const SizedBox(height: 32),
-              const Text(
+              Text(
                 'Password Changed!',
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Serif',
-                  color: AppColors.darkText,
+                  color: context.appColors.textPrimary,
                 ),
               ),
               const SizedBox(height: 12),
-              const Text(
+              Text(
                 'Your password has been changed\nsuccessfully.',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 16,
-                  color: AppColors.secondaryGray,
+                  color: context.appColors.secondaryGray,
                   height: 1.5,
                 ),
               ),

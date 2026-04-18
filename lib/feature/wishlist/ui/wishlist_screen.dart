@@ -8,6 +8,8 @@ import 'package:bookia/feature/wishlist/ui/widgets/wishlist_sync_banner.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 class WishlistScreen extends StatelessWidget {
   const WishlistScreen({super.key});
 
@@ -17,7 +19,7 @@ class WishlistScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       appBar: CustomAppBar(title: 'Wishlist'),
       body: BlocConsumer<WishlistCubit, WishlistState>(
         listener: (context, state) {

@@ -1,6 +1,6 @@
 import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
-import 'package:bookia/core/theme/app_colors.dart';
+import 'package:bookia/core/theme/app_theme.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:flutter/material.dart';
@@ -59,15 +59,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     final defaultPinTheme = PinTheme(
       width: 50.w,
       height: 56.h,
-      textStyle: TextStyle(
-        fontSize: 20.sp,
-        fontWeight: FontWeight.bold,
-        color: AppColors.black,
-      ),
+      textStyle: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
       decoration: BoxDecoration(
-        color: AppColors.white,
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.borderColor),
+        border: Border.all(color: context.appColors.borderColor),
       ),
     );
 
@@ -80,12 +75,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration!.copyWith(
         border: Border.all(color: AppColors.primaryColor),
-        color: AppColors.lightBackground,
+        color: context.appColors.background,
       ),
     );
 
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: context.appColors.background,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -97,20 +92,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
               Gap(32.h),
               Text(
                 'OTP Verification',
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.black,
-                ),
+                style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold),
               ),
               Gap(12.h),
               Text(
                 'Enter the verification code we just sent on\nyour email address.',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: Colors.grey.shade500,
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 14.sp, height: 1.5),
               ),
               Gap(40.h),
               Center(
@@ -143,7 +130,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       "Didn't received code? ",
                       style: TextStyle(
                         fontSize: 14.sp,
-                        color: AppColors.black,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

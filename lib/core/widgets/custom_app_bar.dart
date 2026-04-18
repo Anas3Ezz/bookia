@@ -1,6 +1,6 @@
-import 'package:bookia/core/theme/app_colors.dart';
-import 'package:bookia/core/theme/app_texts_styles.dart';
 import 'package:flutter/material.dart';
+
+import '../theme/app_theme.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String? title;
@@ -18,11 +18,17 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: showLeading,
-      backgroundColor: AppColors.white,
+      backgroundColor: context.appColors.background,
       elevation: 0,
       centerTitle: true,
       title: title != null
-          ? Text(title!, style: AppTextStyle.title20Bold)
+          ? Text(
+              title!,
+              style: TextStyle(
+                color: context.appColors.textColor,
+                fontWeight: FontWeight.bold,
+              ),
+            )
           : null,
       actions: actions,
     );

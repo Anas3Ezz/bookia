@@ -4,6 +4,8 @@ import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 class CongratesScreen extends StatelessWidget {
   const CongratesScreen({super.key});
 
@@ -14,7 +16,7 @@ class CongratesScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -29,18 +31,13 @@ class CongratesScreen extends StatelessWidget {
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Serif',
-                  color: Color(0xFF333333),
                 ),
               ),
               const SizedBox(height: 12),
               const Text(
                 'Your order will be delivered soon.\nThank you for choosing our app!',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color(0xFF7F8C8D),
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 16, height: 1.5),
               ),
               const SizedBox(height: 48),
               AppButton(

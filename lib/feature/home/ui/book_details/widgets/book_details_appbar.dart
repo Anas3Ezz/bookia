@@ -2,6 +2,8 @@ import 'package:bookia/feature/wishlist/cubit/wishlist_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/theme/app_theme.dart';
+
 class BookDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
   const BookDetailsAppBar({super.key, required this.productId});
 
@@ -10,14 +12,10 @@ class BookDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       elevation: 0,
       leading: IconButton(
-        icon: const Icon(
-          Icons.arrow_back_ios_new,
-          color: Colors.black,
-          size: 20,
-        ),
+        icon: const Icon(Icons.arrow_back_ios_new, size: 20),
         onPressed: () => Navigator.pop(context),
       ),
       actions: [
@@ -35,7 +33,9 @@ class BookDetailsAppBar extends StatelessWidget implements PreferredSizeWidget {
                 isWishlisted
                     ? Icons.bookmark_rounded
                     : Icons.bookmark_border_rounded,
-                color: isWishlisted ? const Color(0xFFB89B5E) : Colors.black,
+                color: isWishlisted
+                    ? const Color(0xFFB89B5E)
+                    : AppColors.primaryColor,
               ),
               onPressed: () {
                 if (isWishlisted) {

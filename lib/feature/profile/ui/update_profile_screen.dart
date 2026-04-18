@@ -4,24 +4,22 @@ import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/feature/profile/ui/widgets/profile_image_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.appColors.background,
         elevation: 0,
-        leading: const BackButton(color: Colors.black),
+        leading: const BackButton(),
         title: const Text(
           "Edit Profile",
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
         ),
         centerTitle: true,
       ),

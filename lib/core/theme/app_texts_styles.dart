@@ -40,7 +40,7 @@ class AppTextStyle {
   static final TextStyle title30Bold = style(
     fontSize: 30.sp,
     fontWeight: FontWeight.bold,
-    color: AppColors.textPrimary,
+    color: AppColors.lightTextPrimary,
   );
 
   static final TextStyle title28Bold = style(
@@ -67,12 +67,12 @@ class AppTextStyle {
 
   static final TextStyle body14Gray = style(
     fontSize: 14.sp,
-    color: AppColors.secondaryGray,
+    color: AppColors.lightSecGray,
   );
 
   static final TextStyle body16Gray = style(
     fontSize: 16.sp,
-    color: AppColors.secondaryGray,
+    color: AppColors.lightSecGray,
   );
 
   static final TextStyle body16 = style(
@@ -92,7 +92,7 @@ class AppTextStyle {
 
   static final TextStyle caption13Gray = style(
     fontSize: 13.sp,
-    color: AppColors.secondaryGray,
+    color: AppColors.lightSecGray,
   );
 
   static final TextStyle caption13Primary = style(
@@ -141,16 +141,16 @@ class AppTextStyle {
 
   static const TextStyle body14GreyConst = TextStyle(
     fontSize: 14,
-    color: AppColors.secondaryGray,
+    color: AppColors.lightSecGray,
   );
 
   static const TextStyle body16GreyConst = TextStyle(
     fontSize: 16,
-    color: AppColors.secondaryGray,
+    color: AppColors.lightSecGray,
   );
 
   static const TextStyle caption13GreyConst = TextStyle(
     fontSize: 13,
-    color: AppColors.secondaryGray,
+    color: AppColors.lightSecGray,
   );
 }

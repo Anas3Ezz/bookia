@@ -1,4 +1,4 @@
-import 'package:bookia/core/theme/app_colors.dart';
+import 'package:bookia/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -67,17 +67,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
       cursorColor: AppColors.primaryColor,
       decoration: InputDecoration(
         hintText: widget.hintText,
-        hintStyle: const TextStyle(color: AppColors.hintColor),
-        fillColor: AppColors.fillColor,
+        hintStyle: TextStyle(color: context.appColors.hint),
+        fillColor: context.appColors.fillColor,
         filled: true,
         suffixIcon: widget.suffixIcon,
-        border: const OutlineInputBorder(
+        border: OutlineInputBorder(
           borderRadius: _borderRadius,
-          borderSide: BorderSide(color: AppColors.borderColor),
+          borderSide: BorderSide(color: context.appColors.borderColor),
         ),
-        enabledBorder: const OutlineInputBorder(
+        enabledBorder: OutlineInputBorder(
           borderRadius: _borderRadius,
-          borderSide: BorderSide(color: AppColors.borderColor),
+          borderSide: BorderSide(color: context.appColors.borderColor),
         ),
         focusedBorder: const OutlineInputBorder(
           borderRadius: _borderRadius,

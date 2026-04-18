@@ -1,4 +1,5 @@
 import 'package:bookia/core/helper/extenstions.dart';
+import 'package:bookia/core/helper/validators.dart';
 import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
@@ -6,6 +7,8 @@ import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
+import '../../../core/theme/app_theme.dart';
 
 class PlaceOrderScreen extends StatefulWidget {
   const PlaceOrderScreen({super.key, required this.total});
@@ -24,7 +27,6 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   final _phoneController = TextEditingController();
   String? _selectedGovernorate;
 
-  // Static list for now — replace with API call when ready
   static const List<String> _governorates = [
     'Cairo',
     'Alexandria',
@@ -65,7 +67,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       body: SafeArea(
         child: Column(
           children: [
@@ -85,7 +87,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         style: TextStyle(
                           fontSize: 28.sp,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                          color: context.appColors.textPrimary,
                         ),
                       ),
                       Gap(12.h),
@@ -93,8 +95,8 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         'Fill in your details to complete your order.',
                         style: TextStyle(
                           fontSize: 14.sp,
-                          color: Colors.grey.shade500,
                           height: 1.5,
+                          color: context.appColors.subtitle,
                         ),
                       ),
                       Gap(32.h),
@@ -103,12 +105,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         controller: _fullNameController,
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your full name';
-                          }
-                          return null;
-                        },
+                        validator: AppValidators.name,
                       ),
                       Gap(16.h),
                       CustomTextField(
@@ -117,17 +114,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
                         autofillHints: const [AutofillHints.email],
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          if (!RegExp(
-                            r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$',
-                          ).hasMatch(value.trim())) {
-                            return 'Please enter a valid email';
-                          }
-                          return null;
-                        },
+                        validator: AppValidators.email,
                       ),
                       Gap(16.h),
                       CustomTextField(
@@ -148,12 +135,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                         controller: _phoneController,
                         keyboardType: TextInputType.phone,
                         textInputAction: TextInputAction.done,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            return 'Please enter your phone number';
-                          }
-                          return null;
-                        },
+                        validator: AppValidators.phone,
                       ),
                       Gap(16.h),
                       _GovernorateDropdown(
@@ -168,7 +150,6 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
                 ),
               ),
             ),
-            // Bottom bar — total + submit button
             _OrderBottomBar(total: widget.total, onSubmit: _onSubmitOrder),
           ],
         ),
@@ -197,31 +178,34 @@ class _GovernorateDropdown extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
       decoration: BoxDecoration(
-        color: const Color(0xFFF7F8F9),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: const Color(0xFFE8ECF4)),
+        color: context.appColors.fillColor,
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(color: context.appColors.borderColor),
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: value,
           isExpanded: true,
+          dropdownColor: context.appColors.surface,
           hint: Text(
             'Governorate',
-            style: TextStyle(color: const Color(0xFF8391A1), fontSize: 14.sp),
+            style: TextStyle(fontSize: 14.sp, color: context.appColors.hint),
           ),
-          icon: const Icon(
+          icon: Icon(
             Icons.keyboard_arrow_down_rounded,
-            color: Color(0xFF8391A1),
+            color: context.appColors.hint,
           ),
-          dropdownColor: Colors.white,
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8.r),
           items: governorates
               .map(
                 (gov) => DropdownMenuItem<String>(
                   value: gov,
                   child: Text(
                     gov,
-                    style: TextStyle(fontSize: 14.sp, color: Colors.black),
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      color: context.appColors.textColor,
+                    ),
                   ),
                 ),
               )
@@ -248,14 +232,8 @@ class _OrderBottomBar extends StatelessWidget {
     return Container(
       padding: EdgeInsets.fromLTRB(24.w, 12.h, 24.w, 28.h),
       decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, -4),
-          ),
-        ],
+        color: context.appColors.surface,
+        border: Border(top: BorderSide(color: context.appColors.borderColor)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -265,14 +243,17 @@ class _OrderBottomBar extends StatelessWidget {
             children: [
               Text(
                 'Total:',
-                style: TextStyle(fontSize: 16.sp, color: Colors.grey),
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  color: context.appColors.subtitle,
+                ),
               ),
               Text(
                 '\$ $total',
                 style: TextStyle(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: context.appColors.textPrimary,
                 ),
               ),
             ],
@@ -282,8 +263,8 @@ class _OrderBottomBar extends StatelessWidget {
             text: 'Submit Order',
             onPressed: onSubmit,
             isFilled: true,
-            backgroundColor: const Color(0xFFBB9457),
-            textColor: Colors.white,
+            backgroundColor: AppColors.primaryColor,
+            textColor: AppColors.white,
           ),
         ],
       ),

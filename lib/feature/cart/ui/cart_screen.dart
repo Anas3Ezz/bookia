@@ -7,13 +7,15 @@ import 'package:bookia/feature/cart/ui/widgets/cart_skeleton_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       appBar: CustomAppBar(title: 'My Cart'),
       body: BlocConsumer<CartCubit, CartState>(
         listener: (context, state) {

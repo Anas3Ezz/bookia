@@ -6,6 +6,8 @@ import 'package:bookia/feature/home/ui/book_details/widgets/book_title.dart';
 import 'package:bookia/feature/home/ui/book_details/widgets/bottom_action_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../core/theme/app_theme.dart';
+
 class BookDetailsScreen extends StatelessWidget {
   const BookDetailsScreen({super.key, required this.book});
 
@@ -14,7 +16,7 @@ class BookDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       appBar: BookDetailsAppBar(productId: book.id ?? 0),
       body: SingleChildScrollView(
         child: Padding(

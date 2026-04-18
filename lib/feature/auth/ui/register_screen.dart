@@ -1,6 +1,6 @@
 import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
-import 'package:bookia/core/theme/app_colors.dart';
+import 'package:bookia/core/theme/app_theme.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
@@ -37,7 +37,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: context.appColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -49,25 +49,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.borderColor),
+                    border: Border.all(color: context.appColors.borderColor),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new,
-                      size: 18,
-                      color: AppColors.black,
-                    ),
-                    onPressed: () => Navigator.pop(context),
-                  ),
+                  child: BackButton(),
                 ),
                 const Gap(20),
-                const Text(
+                Text(
                   'Hello! Register to get started',
                   style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: context.appColors.textPrimary,
                   ),
                 ),
                 const Gap(32),
@@ -186,13 +179,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const Gap(20),
                 Row(
-                  children: const [
-                    Expanded(child: Divider(color: AppColors.borderColor)),
-                    Padding(
+                  children: [
+                    Expanded(
+                      child: Divider(color: context.appColors.borderColor),
+                    ),
+                    const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Text('Or'),
                     ),
-                    Expanded(child: Divider(color: AppColors.borderColor)),
+                    Expanded(
+                      child: Divider(color: context.appColors.borderColor),
+                    ),
                   ],
                 ),
                 const Gap(10),

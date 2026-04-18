@@ -25,14 +25,10 @@ Future<void> main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (_) => ThemeCubit(themeLocalDataSource)..loadTheme(),
-        ),
+        BlocProvider(create: (_) => ThemeCubit(themeLocalDataSource)),
       ],
       child: BookiaApp(token: StorageService.getToken()),
     ),
   );
-  //TODO: finish the Darkmode for the app with good ui
-  //TODO: add text style class for the app
   //TODO: add the payment feature to the app
 }

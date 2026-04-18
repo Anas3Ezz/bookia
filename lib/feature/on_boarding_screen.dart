@@ -1,6 +1,6 @@
 import 'package:bookia/core/helper/extenstions.dart';
-import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/theme/app_texts_styles.dart';
+import 'package:bookia/core/theme/app_theme.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,7 @@ class OnBoardingScreen extends StatelessWidget {
                 style: AppTextStyle.style(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.textColor,
+                  color: context.appColors.textColor,
                 ),
               ),
               const Spacer(flex: 5),

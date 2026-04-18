@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../../core/theme/app_theme.dart';
+
 class CartCheckoutBar extends StatelessWidget {
   const CartCheckoutBar({super.key, required this.total});
 
@@ -14,7 +16,7 @@ class CartCheckoutBar extends StatelessWidget {
     return Container(
       padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 28.h),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: context.appColors.surface,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
@@ -29,16 +31,13 @@ class CartCheckoutBar extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Total:',
-                style: TextStyle(fontSize: 16.sp, color: Colors.grey),
-              ),
+              Text('Total:', style: TextStyle(fontSize: 16.sp)),
               Text(
                 '\$ $total',
                 style: TextStyle(
                   fontSize: 20.sp,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
+                  color: context.appColors.textColor,
                 ),
               ),
             ],

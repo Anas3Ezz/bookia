@@ -2,17 +2,19 @@ import 'package:bookia/core/helper/validators.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 class UpdateNewPasswordScreen extends StatelessWidget {
   const UpdateNewPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.appColors.background,
         elevation: 0,
-        leading: const BackButton(color: Colors.black),
+        leading: const BackButton(),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 22.0),
@@ -22,12 +24,7 @@ class UpdateNewPasswordScreen extends StatelessWidget {
             const SizedBox(height: 20),
             const Text(
               "New Password",
-              style: TextStyle(
-                color: Color(0xFF1E232C),
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-                fontFamily: 'Urbanist', // Or your custom font
-              ),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
             ),
             const SizedBox(height: 40),
 
@@ -44,10 +41,7 @@ class UpdateNewPasswordScreen extends StatelessWidget {
               controller: TextEditingController(),
               validator: AppValidators.password,
             ),
-
             const Spacer(),
-
-            // Update Password Button
             SizedBox(
               width: double.infinity,
               height: 56,

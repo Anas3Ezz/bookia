@@ -8,6 +8,8 @@ import 'package:bookia/feature/search/ui/widgets/search_skeleton_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
 
@@ -27,9 +29,9 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.surface,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: context.appColors.surface,
         elevation: 0,
         title: SearchField(controller: _controller),
       ),

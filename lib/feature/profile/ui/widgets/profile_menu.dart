@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/helper/extenstions.dart';
+import '../../../../core/theme/app_colors.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({super.key});
@@ -41,7 +42,12 @@ class ProfileMenu extends StatelessWidget {
                 context.pushNamed(AppRoutes.editProfile);
               },
             ),
-            ProfileMenuItem(title: 'Reset Password', onTap: () {}),
+            ProfileMenuItem(
+              title: 'Reset Password',
+              onTap: () {
+                context.pushNamed(AppRoutes.editPassword);
+              },
+            ),
             ProfileMenuItem(title: 'FAQ', onTap: () {}),
             ProfileMenuItem(title: 'Contact Us', onTap: () {}),
             // Last item — no bottom border
@@ -56,7 +62,7 @@ class ProfileMenu extends StatelessWidget {
                       'Privacy & Terms',
                       style: TextStyle(
                         fontSize: 15.sp,
-                        color: Colors.black,
+
                         fontWeight: FontWeight.w400,
                       ),
                     ),
@@ -77,6 +83,7 @@ class ProfileMenu extends StatelessWidget {
 
                   return Switch(
                     value: isDark,
+                    activeThumbColor: AppColors.primaryColor,
                     onChanged: (value) {
                       context.read<ThemeCubit>().changeTheme(
                         value ? ThemeMode.dark : ThemeMode.light,

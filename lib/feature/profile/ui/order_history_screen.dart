@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 class MyOrdersScreen extends StatelessWidget {
   const MyOrdersScreen({super.key});
 
@@ -16,7 +18,7 @@ class MyOrdersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -36,7 +38,6 @@ class MyOrdersScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -49,8 +50,10 @@ class MyOrdersScreen extends StatelessWidget {
                   : ListView.separated(
                       padding: EdgeInsets.symmetric(horizontal: 20.w),
                       itemCount: _orders.length,
-                      separatorBuilder: (_, _) =>
-                          Divider(color: Colors.grey.shade200, height: 1),
+                      separatorBuilder: (_, _) => Divider(
+                        color: context.appColors.borderColor,
+                        height: 1,
+                      ),
                       itemBuilder: (_, index) =>
                           _OrderCard(order: _orders[index]),
                     ),
@@ -99,11 +102,7 @@ class _OrderCard extends StatelessWidget {
             children: [
               Text(
                 'Order No${order.orderNumber}',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600),
               ),
               Text(
                 order.date,
@@ -116,11 +115,7 @@ class _OrderCard extends StatelessWidget {
             alignment: Alignment.centerRight,
             child: Text(
               'Total Amount: \$${order.total}',
-              style: TextStyle(
-                fontSize: 13.sp,
-                color: Colors.black,
-                fontWeight: FontWeight.w500,
-              ),
+              style: TextStyle(fontSize: 13.sp, fontWeight: FontWeight.w500),
             ),
           ),
         ],

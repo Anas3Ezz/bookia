@@ -16,7 +16,6 @@ class BookDescription extends StatelessWidget {
       style: const TextStyle(
         fontSize: 14,
         height: 1.6,
-        color: Colors.black,
         fontWeight: FontWeight.w500,
       ),
     );

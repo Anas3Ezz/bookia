@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../../core/theme/app_theme.dart';
+
 class ProfileMenuItem extends StatelessWidget {
-  const ProfileMenuItem({
-    super.key,
-    required this.title,
-    required this.onTap,
-  });
+  const ProfileMenuItem({super.key, required this.title, required this.onTap});
 
   final String title;
   final VoidCallback onTap;
@@ -19,7 +17,7 @@ class ProfileMenuItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 18.h),
         decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(color: Colors.grey.shade200),
+            bottom: BorderSide(color: context.appColors.borderColor),
           ),
         ),
         child: Row(
@@ -29,14 +27,14 @@ class ProfileMenuItem extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 15.sp,
-                color: Colors.black,
+                color: context.appColors.textColor,
                 fontWeight: FontWeight.w400,
               ),
             ),
             Icon(
               Icons.arrow_forward_ios_rounded,
               size: 16.sp,
-              color: Colors.grey.shade400,
+              color: context.appColors.hint,
             ),
           ],
         ),

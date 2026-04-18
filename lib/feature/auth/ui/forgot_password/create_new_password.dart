@@ -1,12 +1,14 @@
 import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/routs/app_routs.dart';
-import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_back_button.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+
+import '../../../../core/helper/validators.dart';
+import '../../../../core/theme/app_theme.dart';
 
 class CreateNewPasswordScreen extends StatefulWidget {
   const CreateNewPasswordScreen({super.key});
@@ -54,7 +56,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.appColors.background,
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -66,20 +68,12 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
               Gap(32.h),
               Text(
                 'Create new password',
-                style: TextStyle(
-                  fontSize: 28.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
+                style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold),
               ),
               Gap(12.h),
               Text(
                 'Your new password must be unique from those\npreviously used.',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  color: Colors.grey.shade500,
-                  height: 1.5,
-                ),
+                style: TextStyle(fontSize: 14.sp, height: 1.5),
               ),
               Gap(32.h),
               Form(
@@ -103,15 +97,7 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                           () => _showNewPassword = !_showNewPassword,
                         ),
                       ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please enter a new password';
-                        }
-                        if (value.trim().length < 8) {
-                          return 'Password must be at least 8 characters';
-                        }
-                        return null;
-                      },
+                      validator: AppValidators.password,
                     ),
                     Gap(16.h),
                     CustomTextField(
@@ -131,16 +117,8 @@ class _CreateNewPasswordScreenState extends State<CreateNewPasswordScreen> {
                           () => _showConfirmPassword = !_showConfirmPassword,
                         ),
                       ),
-                      validator: (value) {
-                        if (value == null || value.trim().isEmpty) {
-                          return 'Please confirm your password';
-                        }
-                        if (value.trim() !=
-                            _newPasswordController.text.trim()) {
-                          return 'Passwords do not match';
-                        }
-                        return null;
-                      },
+                      //TOD:O: add confirm password validation
+                      validator: AppValidators.password,
                     ),
                   ],
                 ),

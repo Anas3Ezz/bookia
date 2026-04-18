@@ -1,4 +1,3 @@
-import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/feature/cart/cubit/cart_cubit.dart';
 import 'package:bookia/feature/cart/ui/cart_screen.dart';
 import 'package:bookia/feature/home/cubit/home_cubit.dart';
@@ -11,6 +10,8 @@ import 'package:bookia/gen/assets.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../core/theme/app_theme.dart';
 
 class BottomNavBarScreen extends StatefulWidget {
   const BottomNavBarScreen({super.key});
@@ -57,23 +58,23 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
         BlocProvider.value(value: _wishlistCubit),
       ],
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: context.appColors.background,
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           onTap: (index) => setState(() => _currentIndex = index),
-          backgroundColor: Colors.white,
+          backgroundColor: context.appColors.background,
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: true,
           showUnselectedLabels: false,
-          selectedItemColor: AppColors.primaryColor,
-          unselectedItemColor: Colors.black87,
           elevation: 0,
           items: [
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 Assets.icons.home,
                 colorFilter: ColorFilter.mode(
-                  _currentIndex == 0 ? AppColors.primaryColor : Colors.black87,
+                  _currentIndex == 0
+                      ? AppColors.primaryColor
+                      : context.appColors.hint,
                   BlendMode.srcIn,
                 ),
               ),
@@ -83,7 +84,9 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
               icon: SvgPicture.asset(
                 Assets.icons.bookmark,
                 colorFilter: ColorFilter.mode(
-                  _currentIndex == 1 ? AppColors.primaryColor : Colors.black87,
+                  _currentIndex == 1
+                      ? AppColors.primaryColor
+                      : context.appColors.hint,
                   BlendMode.srcIn,
                 ),
               ),
@@ -93,7 +96,9 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
               icon: SvgPicture.asset(
                 Assets.icons.shop,
                 colorFilter: ColorFilter.mode(
-                  _currentIndex == 2 ? AppColors.primaryColor : Colors.black87,
+                  _currentIndex == 2
+                      ? AppColors.primaryColor
+                      : context.appColors.hint,
                   BlendMode.srcIn,
                 ),
               ),
@@ -103,7 +108,9 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
               icon: SvgPicture.asset(
                 Assets.icons.profile,
                 colorFilter: ColorFilter.mode(
-                  _currentIndex == 3 ? AppColors.primaryColor : Colors.black87,
+                  _currentIndex == 3
+                      ? AppColors.primaryColor
+                      : context.appColors.hint,
                   BlendMode.srcIn,
                 ),
               ),

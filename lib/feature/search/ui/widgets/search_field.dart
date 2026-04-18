@@ -1,9 +1,10 @@
-import 'package:bookia/core/theme/app_colors.dart';
 import 'package:bookia/core/theme/app_texts_styles.dart';
 import 'package:bookia/feature/search/cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/theme/app_theme.dart';
 
 class SearchField extends StatelessWidget {
   const SearchField({super.key, required this.controller});
@@ -20,10 +21,10 @@ class SearchField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: 'Search for books...',
         hintStyle: AppTextStyle.style(
-          color: Colors.grey.shade400,
+          color: context.appColors.textColor,
           fontSize: 16.sp,
         ),
-        prefixIcon: Icon(Icons.search, color: Colors.grey.shade400),
+        prefixIcon: Icon(Icons.search, color: context.appColors.textColor),
         suffixIcon: ValueListenableBuilder(
           valueListenable: controller,
           builder: (context, value, _) {
@@ -39,7 +40,7 @@ class SearchField extends StatelessWidget {
           },
         ),
         filled: true,
-        fillColor: Colors.grey.shade100,
+        fillColor: context.appColors.surface,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide.none,

@@ -1,6 +1,5 @@
 import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/feature/profile/cubit/profile_cubit.dart';
-import 'package:bookia/feature/profile/ui/widgets/profile_appbar.dart';
 import 'package:bookia/feature/profile/ui/widgets/profile_error.dart';
 import 'package:bookia/feature/profile/ui/widgets/profile_header.dart';
 import 'package:bookia/feature/profile/ui/widgets/profile_menu.dart';
@@ -8,6 +7,10 @@ import 'package:bookia/feature/profile/ui/widgets/profile_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../core/theme/app_theme.dart';
+import 'widgets/profile_appbar.dart';
+
+//TODO:remove the profile appbar
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
@@ -16,6 +19,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  VoidCallback? onLogoutTap;
+
   @override
   void initState() {
     super.initState();
@@ -26,11 +31,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
-        backgroundColor: Colors.white,
+        backgroundColor: context.appColors.background,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         title: const Text(
           'Logout',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         content: const Text(
           'Are you sure you want to logout?',

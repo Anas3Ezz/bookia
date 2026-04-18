@@ -1,4 +1,4 @@
-import 'package:bookia/core/theme/app_colors.dart';
+import 'package:bookia/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -21,7 +21,7 @@ class SocialLoginButton extends StatelessWidget {
       child: Container(
         height: 56,
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.borderColor),
+          border: Border.all(color: context.appColors.borderColor),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Row(
@@ -29,13 +29,7 @@ class SocialLoginButton extends StatelessWidget {
           children: [
             Image.asset(iconPath, height: 24),
             const Gap(8),
-            Text(
-              label,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
-            ),
+            Text(label, style: const TextStyle(fontWeight: FontWeight.w600)),
           ],
         ),
       ),
