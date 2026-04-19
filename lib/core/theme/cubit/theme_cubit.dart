@@ -10,11 +10,6 @@ class ThemeCubit extends Cubit<ThemeState> {
   ThemeCubit(this.localDataSource)
     : super(ThemeState(_parseTheme(localDataSource.getTheme())));
 
-  void loadTheme() {
-    final savedTheme = localDataSource.getTheme();
-    emit(ThemeState(_parseTheme(savedTheme)));
-  }
-
   Future<void> changeTheme(ThemeMode mode) async {
     emit(ThemeState(mode));
     await localDataSource.cacheTheme(_serializeTheme(mode));

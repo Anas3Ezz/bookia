@@ -23,10 +23,8 @@ Future<void> main() async {
   await themeLocalDataSource.init();
 
   runApp(
-    MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => ThemeCubit(themeLocalDataSource)),
-      ],
+    BlocProvider(
+      create: (_) => ThemeCubit(themeLocalDataSource),
       child: BookiaApp(token: StorageService.getToken()),
     ),
   );
