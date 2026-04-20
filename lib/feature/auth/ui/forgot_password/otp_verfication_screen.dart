@@ -43,7 +43,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     });
 
     try {
-      // TODO: Replace with your actual API call to resend the code
       await Future.delayed(const Duration(seconds: 2));
     } finally {
       if (mounted) {

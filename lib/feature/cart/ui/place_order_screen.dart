@@ -60,7 +60,7 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         );
         return;
       }
-      context.pushNamed(AppRoutes.congrates);
+      context.pushNamed(AppRoutes.payment, arguments: widget.total);
     }
   }
 

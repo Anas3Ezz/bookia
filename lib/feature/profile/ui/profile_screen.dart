@@ -10,7 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/theme/app_theme.dart';
 import 'widgets/profile_appbar.dart';
 
-//TODO:remove the profile appbar
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 

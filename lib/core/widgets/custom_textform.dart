@@ -1,5 +1,6 @@
 import 'package:bookia/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
@@ -10,6 +11,10 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final Iterable<String>? autofillHints;
   final TextInputAction? textInputAction;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextCapitalization textCapitalization;
+  final void Function(String)? onChanged;
+  final void Function(bool hasFocus)? onFocusChanged;
 
   const CustomTextField({
     super.key,
@@ -21,6 +26,10 @@ class CustomTextField extends StatefulWidget {
     this.keyboardType,
     this.autofillHints,
     this.textInputAction,
+    this.inputFormatters,
+    this.textCapitalization = TextCapitalization.none,
+    this.onChanged,
+    this.onFocusChanged,
   });
 
   @override
@@ -29,7 +38,6 @@ class CustomTextField extends StatefulWidget {
 
 class _CustomTextFieldState extends State<CustomTextField> {
   final FocusNode _focusNode = FocusNode();
-  // Only start validating after the user has left the field at least once
   bool _hasUnfocused = false;
 
   @override
@@ -39,6 +47,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       if (!_focusNode.hasFocus && !_hasUnfocused) {
         setState(() => _hasUnfocused = true);
       }
+      widget.onFocusChanged?.call(_focusNode.hasFocus);
     });
   }
 
@@ -53,7 +62,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      // Only auto-validate after the user has left the field once
       autovalidateMode: _hasUnfocused
           ? AutovalidateMode.onUserInteraction
           : AutovalidateMode.disabled,
@@ -64,6 +72,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
       autofillHints: widget.autofillHints,
       textInputAction: widget.textInputAction,
       obscureText: widget.isPassword,
+      inputFormatters: widget.inputFormatters,
+      textCapitalization: widget.textCapitalization,
+      onChanged: widget.onChanged,
       cursorColor: AppColors.primaryColor,
       decoration: InputDecoration(
         hintText: widget.hintText,

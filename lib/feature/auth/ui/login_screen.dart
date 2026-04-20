@@ -1,15 +1,16 @@
+import 'package:bookia/core/helper/extenstions.dart';
 import 'package:bookia/core/helper/validators.dart';
+import 'package:bookia/core/routs/app_routs.dart';
 import 'package:bookia/core/theme/app_theme.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
-import 'package:bookia/feature/auth/ui/widgets/social_login_button.dart';
+import 'package:bookia/feature/auth/ui/widgets/social_login_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/helper/extenstions.dart';
-import '../../../core/routs/app_routs.dart';
+import 'widgets/auth_redirect_row.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -114,7 +115,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     }
                   },
                   builder: (context, state) {
-                    // Both email login and Google show a loader
                     if (state is AuthLoadingState ||
                         state is AuthGoogleLoading) {
                       return const Center(
@@ -138,55 +138,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                 ),
                 const Gap(20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Divider(color: context.appColors.borderColor),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Text('Or'),
-                    ),
-                    Expanded(
-                      child: Divider(color: context.appColors.borderColor),
-                    ),
-                  ],
-                ),
+                const SocialLoginSection(),
                 const Gap(10),
-                // ── Google Sign In ────────────────────────────────────────────
-                BlocBuilder<AuthCubit, AuthState>(
-                  builder: (context, state) {
-                    return SocialLoginButton(
-                      iconPath: 'assets/icons/google.png',
-                      label: 'Google',
-                      onTap:
-                          (state is AuthLoadingState ||
-                              state is AuthGoogleLoading)
-                          ? null
-                          : () => context.read<AuthCubit>().signInWithGoogle(),
-                    );
-                  },
-                ),
-                const Gap(10),
-                // Apple is UI-only for now
-                SocialLoginButton(
-                  iconPath: 'assets/icons/apple.png',
-                  label: 'Apple',
-                  onTap: null,
-                ),
-                const Gap(10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text("Don't have an account?  "),
-                    InkWell(
-                      onTap: () => context.pushNamed(AppRoutes.register),
-                      child: const Text(
-                        'Register Now',
-                        style: TextStyle(color: AppColors.primaryColor),
-                      ),
-                    ),
-                  ],
+                AuthRedirectRow(
+                  question: "Don't have an account?  ",
+                  actionText: 'Register Now',
+                  onTap: () => context.pushNamed(AppRoutes.register),
                 ),
               ],
             ),

@@ -4,10 +4,12 @@ import 'package:bookia/core/theme/app_theme.dart';
 import 'package:bookia/core/widgets/custom_app_button.dart';
 import 'package:bookia/core/widgets/custom_textform.dart';
 import 'package:bookia/feature/auth/cubit/auth_cubit.dart';
-import 'package:bookia/feature/auth/ui/widgets/social_login_button.dart';
+import 'package:bookia/feature/auth/ui/widgets/social_login_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+
+import 'widgets/auth_redirect_row.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -52,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     border: Border.all(color: context.appColors.borderColor),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: BackButton(),
+                  child: const BackButton(),
                 ),
                 const Gap(20),
                 Text(
@@ -140,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         context: context,
                         builder: (_) => AlertDialog(
                           title: const Text('Error'),
-                          content: Text(state.message), // ✅ shows actual error
+                          content: Text(state.message),
                           actions: [
                             TextButton(
                               onPressed: () => Navigator.pop(context),
@@ -178,54 +180,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                 ),
                 const Gap(20),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Divider(color: context.appColors.borderColor),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
-                      child: Text('Or'),
-                    ),
-                    Expanded(
-                      child: Divider(color: context.appColors.borderColor),
-                    ),
-                  ],
-                ),
-                const Gap(10),
-                // ── Google Sign In ────────────────────────────────────────────
-                BlocBuilder<AuthCubit, AuthState>(
-                  builder: (context, state) {
-                    return SocialLoginButton(
-                      iconPath: 'assets/icons/google.png',
-                      label: 'Continue with Google',
-                      onTap:
-                          (state is AuthLoadingState ||
-                              state is AuthGoogleLoading)
-                          ? null
-                          : () => context.read<AuthCubit>().signInWithGoogle(),
-                    );
-                  },
-                ),
-                const Gap(10),
-                SocialLoginButton(
-                  iconPath: 'assets/icons/apple.png',
-                  label: 'Continue with Apple',
-                  onTap: null,
-                ),
+                const SocialLoginSection(),
                 const Gap(20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Already have an account?  '),
-                    InkWell(
-                      onTap: () => Navigator.pop(context), // back to login
-                      child: const Text(
-                        'Login Now',
-                        style: TextStyle(color: AppColors.primaryColor),
-                      ),
-                    ),
-                  ],
+                AuthRedirectRow(
+                  question: 'Already have an account?  ',
+                  actionText: 'Login Now',
+                  onTap: () => Navigator.pop(context),
                 ),
                 const Gap(20),
               ],

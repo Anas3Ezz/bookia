@@ -35,9 +35,9 @@ class AppValidators {
     if (value.trim().length < 8) {
       return 'error_password_min_length'.tr();
     }
-    if (!RegExp(r'[A-Z]').hasMatch(value)) {
-      return 'error_password_uppercase'.tr();
-    }
+    // if (!RegExp(r'[A-Z]').hasMatch(value)) {
+    //   return 'error_password_uppercase'.tr();
+    // }
     if (!RegExp(r'[0-9]').hasMatch(value)) {
       return 'error_password_number'.tr();
     }
