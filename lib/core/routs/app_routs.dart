@@ -12,6 +12,7 @@ class AppRoutes {
   static const String searchScreen = '/searchScreen';
   static const String placeOrder = '/placeOrder';
   static const String payment = '/payment';
+  static const String paymentWebView = '/paymentWebView';
   static const String showMyorders = '/showMyorders';
   static const String congrates = '/congrates';
   static const String editProfile = '/editProfile';

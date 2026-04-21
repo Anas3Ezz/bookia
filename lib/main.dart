@@ -29,7 +29,7 @@ Future<void> main() async {
     ),
   );
 
-  //TODO: add the payment feature to the app
+  //TODO:
   // Pull to refresh — you mentioned this was remaining on home, cart, wishlist
   // Token expiry — when the token expires, the app should logout the user and redirect to login automatically
   // Form validation on Place Order — governorate dropdown needs proper validation wiring

@@ -22,15 +22,9 @@ class BookiaApp extends StatelessWidget {
           builder: (context, state) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
-
-              // ✅ THEMES
               theme: AppThemes.lightTheme,
               darkTheme: AppThemes.darkTheme,
-
-              // ✅ CONTROLLED BY CUBIT
               themeMode: state.themeMode,
-
-              // ✅ YOUR ROUTING
               initialRoute: startRout(),
               onGenerateRoute: AppRouter.generateRoute,
             );

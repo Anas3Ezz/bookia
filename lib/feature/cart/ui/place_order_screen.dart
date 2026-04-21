@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/theme/app_theme.dart';
+import '../data/model/place_order_args.dart';
 
 class PlaceOrderScreen extends StatefulWidget {
   const PlaceOrderScreen({super.key, required this.total});
@@ -60,7 +61,15 @@ class _PlaceOrderScreenState extends State<PlaceOrderScreen> {
         );
         return;
       }
-      context.pushNamed(AppRoutes.payment, arguments: widget.total);
+      context.pushNamed(
+        AppRoutes.payment,
+        arguments: PlaceOrderArgs(
+          total: widget.total,
+          email: _emailController.text,
+          phone: _phoneController.text,
+          name: _fullNameController.text,
+        ),
+      );
     }
   }
 

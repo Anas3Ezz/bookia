@@ -8,7 +8,6 @@ import 'package:bookia/feature/auth/ui/login_screen.dart';
 import 'package:bookia/feature/auth/ui/register_screen.dart';
 import 'package:bookia/feature/bottom_nav_bar/ui/bottom_nav_bar_screen.dart';
 import 'package:bookia/feature/cart/ui/congrates_screen.dart';
-import 'package:bookia/feature/cart/ui/payment/payment_screen.dart';
 import 'package:bookia/feature/cart/ui/place_order_screen.dart';
 import 'package:bookia/feature/home/data/models/book_details_arg.dart';
 import 'package:bookia/feature/home/ui/book_details/book_deatials_screen.dart';
@@ -21,6 +20,14 @@ import 'package:bookia/feature/search/data/model/search_args.dart';
 import 'package:bookia/feature/search/ui/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+
+import '../../feature/cart/data/model/place_order_args.dart';
+import '../../feature/payment/cubit/payment_cubit.dart';
+import '../../feature/payment/ui/paymob_webview_screen.dart';
+import '../networking/paymob_service.dart';
+import '../theme/app_theme.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -51,9 +58,19 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => PasswordChangedScreen());
       case AppRoutes.congrates:
         return MaterialPageRoute(builder: (_) => CongratesScreen());
+      case AppRoutes.paymentWebView:
+        final url = settings.arguments as String;
+        return MaterialPageRoute(
+          builder: (_) => PaymobWebViewScreen(paymentUrl: url),
+        );
       case AppRoutes.payment:
-        final total = settings.arguments as String;
-        return MaterialPageRoute(builder: (_) => PaymentScreen(total: total));
+        final args = settings.arguments as PlaceOrderArgs;
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => PaymentCubit(PaymobService()),
+            child: _PaymentLoader(args: args),
+          ),
+        );
       case AppRoutes.showMyorders:
         return MaterialPageRoute(builder: (_) => MyOrdersScreen());
       case AppRoutes.editProfile:
@@ -100,5 +117,66 @@ class AppRouter {
           ),
         );
     }
+  }
+}
+
+class _PaymentLoader extends StatefulWidget {
+  const _PaymentLoader({required this.args});
+
+  final PlaceOrderArgs args;
+
+  @override
+  State<_PaymentLoader> createState() => _PaymentLoaderState();
+}
+
+class _PaymentLoaderState extends State<_PaymentLoader> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<PaymentCubit>().initiatePayment(
+      amount: double.parse(widget.args.total),
+      firstName: widget.args.name,
+      email: widget.args.email,
+      phone: widget.args.phone,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<PaymentCubit, PaymentState>(
+      listener: (context, state) {
+        if (state is PaymentUrlReady) {
+          Navigator.pushReplacementNamed(
+            context,
+            AppRoutes.paymentWebView,
+            arguments: state.url,
+          );
+        } else if (state is PaymentError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message), backgroundColor: Colors.red),
+          );
+          Navigator.pop(context);
+        }
+      },
+      child: Scaffold(
+        backgroundColor: context.appColors.background,
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(color: AppColors.primaryColor),
+              const Gap(16),
+              Text(
+                'Preparing your payment...',
+                style: TextStyle(
+                  color: context.appColors.subtitle,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
