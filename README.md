@@ -1,3 +1,5 @@
+# 📚 Bookia
+
 <div align="center">
 
 <img src="https://capsule-render.vercel.app/api?type=waving&color=0F766E,0EA5E9&height=160&section=header&text=Bookia&fontSize=52&fontColor=ffffff&fontAlignY=42&desc=Flutter%20E-Commerce%20Bookstore%20App&descAlignY=62&descSize=18&animation=fadeIn" width="100%"/>
@@ -6,57 +8,29 @@
 
 ---
 
-## 📖 Overview
 
-**Bookia** is a production-quality Flutter e-commerce app for discovering and purchasing books. Built with a **feature-first architecture**, **Bloc/Cubit** state management, and a real **REST API** backend
+A production-quality Flutter e-commerce bookstore app built with clean architecture, Bloc/Cubit state management, and a fully themed UI supporting light and dark modes.
 
 ---
 
 ## ✨ Features
 
-### 🔐 Authentication
-- User registration & login
-- Forget password with OTP verification
-- Create new password flow
-- Session management with secure token handling
-
-### 🏠 Home
-- Dynamic featured book sliders
-- Best sellers section
-- Smooth and responsive UI
-
-### 📖 Book Details
-- Full book info — title, description, author, price, cover image
-- Add to cart or wishlist directly from details
-
-### 🛒 Cart
-- Add / remove books
-- Checkout flow with order confirmation
-
-### ❤️ Wishlist
-- Save and manage favorite books
-- Persisted across sessions
-
-### 🔍 Search
-- Search books by title
-
-### 👤 Profile
-- View and manage user information
+- Browse books with a dynamic home feed and slider carousel
+- Book details with description, pricing, and discount display
+- Add to cart and manage quantities
+- Wishlist with sync banner
+- Place order with full form validation
+- User authentication (login, register, forgot password, OTP, reset password)
+- Profile management with edit profile and order history
+- Search with skeleton loading and empty/error states
+- Dark / Light mode with persisted preference (Hive)
+- Firebase integration
 
 ---
 
-## 🛠️ Tech Stack
+## 🏗️ Architecture
 
-| Layer | Technology |
-|---|---|
-| UI | Flutter (Dart) |
-| State Management | Bloc / Cubit |
-| Networking | Dio + REST APIs |
-| Architecture | Feature-first layered architecture (cubit / data / ui) |
-
----
-
-## 🗂️ Project Structure
+This project follows **Feature-based Clean Architecture** with a clear separation between data, domain, and UI layers.
 
 ```
 lib/
@@ -64,60 +38,179 @@ lib/
 │   ├── helper/
 │   │   ├── bloc_observer.dart
 │   │   ├── error_handler.dart
-│   │   ├── extensions.dart
-│   │   └── storage_services.dart
+│   │   ├── extenstions.dart
+│   │   ├── storage_services.dart
+│   │   └── validators.dart
 │   ├── networking/
 │   │   ├── api_constants.dart
 │   │   ├── api_result.dart
 │   │   ├── api_result.freezed.dart
-│   │   └── dio_factory.dart
-│   ├── routes/
+│   │   ├── dio_factory.dart
+│   │   └── fire_store_service.dart
+│   ├── routs/
 │   │   ├── app_routers.dart
-│   │   └── app_routes.dart
+│   │   └── app_routs.dart
 │   ├── theme/
+│   │   ├── cubit/
+│   │   │   ├── theme_cubit.dart
+│   │   │   └── theme_state.dart
+│   │   ├── data/
+│   │   │   ├── app_color_scheme.dart
+│   │   │   ├── theme_local_data_source.dart
+│   │   │   └── app_colors.dart
+│   │   ├── app_texts_styles.dart
+│   │   └── app_theme.dart
 │   └── widgets/
+│       ├── cashed_images.dart
+│       ├── custom_app_bar.dart
+│       ├── custom_app_button.dart
+│       ├── custom_back_button.dart
+│       └── custom_textform.dart
 │
-├── features/
+├── feature/
 │   ├── auth/
 │   │   ├── cubit/
+│   │   │   ├── auth_cubit.dart
+│   │   │   └── auth_state.dart
 │   │   ├── data/
 │   │   │   ├── models/
+│   │   │   │   └── user_model.dart
 │   │   │   └── repo/
+│   │   │       ├── auth_repo.dart
+│   │   │       └── firebase_auth_repo.dart
 │   │   └── ui/
-│   │       └── widgets/
+│   │       ├── forgot_password/
+│   │       │   ├── create_new_password.dart
+│   │       │   ├── forget_password_screen.dart
+│   │       │   ├── otp_verfication_screen.dart
+│   │       │   └── password_changed_screen.dart
+│   │       ├── widgets/
+│   │       │   └── social_login_button.dart
+│   │       ├── login_screen.dart
+│   │       └── register_screen.dart
+│   │
 │   ├── home/
 │   │   ├── cubit/
+│   │   │   ├── home_cubit.dart
+│   │   │   └── home_state.dart
 │   │   ├── data/
+│   │   │   ├── models/
+│   │   │   │   ├── book_details_arg.dart
+│   │   │   │   ├── books_model.dart
+│   │   │   │   └── book_slider_model.dart
+│   │   │   └── repo/
+│   │   │       └── home_slider_repo.dart
 │   │   └── ui/
-│   ├── book_details/
-│   │   ├── cubit/
-│   │   ├── data/
-│   │   └── ui/
+│   │       ├── book_details/
+│   │       │   ├── widgets/
+│   │       │   │   ├── book_cover_image.dart
+│   │       │   │   ├── book_description.dart
+│   │       │   │   ├── book_details_appbar.dart
+│   │       │   │   ├── book_title.dart
+│   │       │   │   └── bottom_action_bar.dart
+│   │       │   └── book_details_screen.dart
+│   │       ├── widgets/
+│   │       │   ├── best_seller_grid.dart
+│   │       │   ├── best_seller_header.dart
+│   │       │   ├── best_seller_skeleton_grid.dart
+│   │       │   ├── book_card.dart
+│   │       │   ├── slider_carousel.dart
+│   │       │   ├── slider_indicator.dart
+│   │       │   ├── section_header.dart
+│   │       │   └── slider_skeleton.dart
+│   │       └── home_screen.dart
+│   │
 │   ├── cart/
 │   │   ├── cubit/
+│   │   │   ├── cart_cubit.dart
+│   │   │   └── cart_state.dart
 │   │   ├── data/
+│   │   │   ├── model/
+│   │   │   │   └── add_to_cart_model.dart
+│   │   │   └── repo/
+│   │   │       └── add_to_cart_repo.dart
 │   │   └── ui/
+│   │       ├── widgets/
+│   │       │   ├── cart_checkout_bar.dart
+│   │       │   ├── cart_content.dart
+│   │       │   ├── cart_empty.dart
+│   │       │   ├── cart_error.dart
+│   │       │   ├── cart_item_card.dart
+│   │       │   ├── cart_skeleton_list.dart
+│   │       │   └── quantity_controls.dart
+│   │       ├── cart_screen.dart
+│   │       ├── congrates_screen.dart
+│   │       └── place_order_screen.dart
+│   │
 │   ├── wishlist/
 │   │   ├── cubit/
+│   │   │   ├── wishlist_cubit.dart
+│   │   │   └── wishlist_state.dart
 │   │   ├── data/
+│   │   │   ├── model/
+│   │   │   │   └── wishlist_model.dart
+│   │   │   └── repo/
+│   │   │       └── wishlist_repo.dart
 │   │   └── ui/
-│   ├── search/
-│   │   ├── cubit/
-│   │   ├── data/
-│   │   └── ui/
+│   │       ├── widgets/
+│   │       │   ├── wishlist_empty.dart
+│   │       │   ├── wishlist_error.dart
+│   │       │   ├── wishlist_grid.dart
+│   │       │   ├── wishlist_item_card.dart
+│   │       │   ├── wishlist_skeleton_grid.dart
+│   │       │   └── wishlist_sync_banner.dart
+│   │       └── wishlist_screen.dart
+│   │
 │   ├── profile/
 │   │   ├── cubit/
+│   │   │   ├── profile_cubit.dart
+│   │   │   └── profile_state.dart
 │   │   ├── data/
+│   │   │   ├── model/
+│   │   │   │   └── profile_model.dart
+│   │   │   └── repo/
+│   │   │       └── profile_repo.dart
 │   │   └── ui/
-│   ├── book_mark/
-│   └── bottom_nav_bar/
+│   │       ├── widgets/
+│   │       │   ├── profile_appbar.dart
+│   │       │   ├── profile_error.dart
+│   │       │   ├── profile_header.dart
+│   │       │   ├── profile_image_widget.dart
+│   │       │   ├── profile_menu.dart
+│   │       │   ├── profile_menu_item.dart
+│   │       │   └── profile_skeleton.dart
+│   │       ├── new_password_screen.dart
+│   │       ├── order_history_screen.dart
+│   │       ├── profile_screen.dart
+│   │       └── update_profile_screen.dart
+│   │
+│   └── search/
+│       ├── cubit/
+│       │   ├── search_cubit.dart
+│       │   └── search_state.dart
+│       ├── data/
+│       │   ├── model/
+│       │   │   └── search_args.dart
+│       │   └── repo/
+│       │       └── search_repo.dart
+│       └── ui/
+│           ├── widgets/
+│           │   ├── search_empty_results.dart
+│           │   ├── search_error_view.dart
+│           │   ├── search_field.dart
+│           │   ├── search_prompt.dart
+│           │   ├── search_results_grid.dart
+│           │   └── search_skeleton_grid.dart
+│           └── search_screen.dart
+│
+├── gen/
+│   ├── assets.gen.dart
+│   └── fonts.gen.dart
 │
 ├── bookia_app.dart
+├── firebase_options.dart
 └── main.dart
 ```
-
----
-
 ## 📸 Screenshots
 
 # Logo App
@@ -168,45 +261,91 @@ lib/
 # profile screen
 <img width="341" height="735" alt="image" src="https://github.com/user-attachments/assets/ae8641be-490e-4541-bc4f-48ae874ffed5" />
 
+
 ---
 
-## ⚙️ Getting Started
+## 🧱 Tech Stack
 
-### Prerequisites
-- Flutter SDK (3.x+)
-- Android Studio or VS Code
-- Android emulator or physical device
+| Layer | Technology |
+|---|---|
+| State Management | `flutter_bloc` (Cubit) |
+| Networking | `dio` + `Freezed` sealed `ApiResult<T>` |
+| Local Storage | `Hive` (theme, token) |
+| Authentication | Firebase Auth + custom REST API |
+| Image Loading | `cached_network_image` |
+| Navigation | Named routes with `onGenerateRoute` |
+| Theming | `ThemeExtension` (`AppColorScheme`) + Hive persistence |
+| Code Generation | `freezed`, `json_serializable`, `flutter_gen` |
+| UI Utilities | `flutter_screenutil`, `gap`, `flutter_svg` |
 
-### Installation
+---
+
+## 🎨 Theming
+
+Bookia uses a custom `ThemeExtension` called `AppColorScheme` registered on both `lightTheme` and `darkTheme`. This allows every widget to access semantic color tokens via:
+
+```dart
+context.appColors.background
+context.appColors.surface
+context.appColors.textPrimary
+context.appColors.primaryColor  // always AppColors.primaryColor (gold)
+```
+
+Theme preference is persisted to Hive and restored before `runApp` — no flash on startup.
+
+---
+
+## 📡 API Layer
+
+All API responses are wrapped in a `Freezed` sealed class:
+
+```dart
+@freezed
+class ApiResult<T> with _$ApiResult<T> {
+  const factory ApiResult.success(T data) = Success<T>;
+  const factory ApiResult.failure(String error) = Failure<T>;
+}
+```
+
+This forces every caller to handle both success and failure explicitly with no unchecked nulls.
+
+---
+
+## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/Anas3Ezz/bookia.git
-cd bookia
+# Clone the repo
+git clone https://github.com/your-username/bookia.git
+
+# Install dependencies
 flutter pub get
+
+# Run code generation
+dart run build_runner build --delete-conflicting-outputs
+
+# Run the app
 flutter run
 ```
-To run this project:
-1. Create a Firebase project
-2. Run: flutterfire configure
-3. Add google-services.json to android/app
+
 ---
 
-## 🔮 Planned Improvements
+## 📦 Folder Naming Convention
 
-- [ ] Payment gateway integration
-- [ ] Advanced search with filters & categories
-- [ ] Reviews & ratings system
-- [ ] Unit & widget tests
-- [ ] Dark mode 🌙
+| Folder | Purpose |
+|---|---|
+| `cubit/` | Cubit + State files |
+| `data/models/` | API response models |
+| `data/repo/` | Repository — all API/DB calls |
+| `ui/widgets/` | Screen-specific decomposed widgets |
+| `core/widgets/` | Reusable app-wide widgets |
+| `core/theme/` | Colors, styles, theme extension, cubit |
 
 ---
 
 ## 👨‍💻 Author
 
 **Anas Ezz** — Flutter Developer 🇪🇬
+Built as a production-quality portfolio project showcasing clean architecture, scalable state management, and professional UI/UX.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/YOUR_LINKEDIN_HANDLE)
-[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/Anas3Ezz)
 
----
-\div>
