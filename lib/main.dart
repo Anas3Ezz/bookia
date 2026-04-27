@@ -11,6 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
@@ -28,9 +30,4 @@ Future<void> main() async {
       child: BookiaApp(token: StorageService.getToken()),
     ),
   );
-
-  //TODO:
-  // Token expiry — when the token expires, the app should logout the user and redirect to login automatically
-  // Form validation on Place Order — governorate dropdown needs proper validation wiring
-  // Remove all debug logs and print statements — before release
 }

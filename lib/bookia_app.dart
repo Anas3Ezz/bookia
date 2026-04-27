@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'main.dart';
+
 class BookiaApp extends StatelessWidget {
   const BookiaApp({super.key, this.token});
   final String? token;
@@ -21,6 +23,7 @@ class BookiaApp extends StatelessWidget {
         return BlocBuilder<ThemeCubit, ThemeState>(
           builder: (context, state) {
             return MaterialApp(
+              navigatorKey: navigatorKey,
               debugShowCheckedModeBanner: false,
               theme: AppThemes.lightTheme,
               darkTheme: AppThemes.darkTheme,

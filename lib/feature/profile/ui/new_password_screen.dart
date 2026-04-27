@@ -25,12 +25,6 @@ class _UpdateNewPasswordScreenState extends State<UpdateNewPasswordScreen> {
     super.dispose();
   }
 
-  void _onUpdatePassword() {
-    if (_formKey.currentState?.validate() ?? false) {
-      // TODO: Implement password update logic
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,7 +70,7 @@ class _UpdateNewPasswordScreenState extends State<UpdateNewPasswordScreen> {
               const Spacer(),
               AppButton(
                 text: "Update Password",
-                onPressed: _onUpdatePassword,
+                onPressed: () {},
                 isFilled: true,
                 backgroundColor: AppColors.primaryColor,
                 textColor: AppColors.white,
