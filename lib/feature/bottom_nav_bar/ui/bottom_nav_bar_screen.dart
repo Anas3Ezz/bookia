@@ -38,7 +38,6 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
       ),
       BlocProvider.value(value: _wishlistCubit, child: const WishlistScreen()),
       BlocProvider.value(value: _cartCubit, child: const CartScreen()),
-      // ProfileCubit scoped to ProfileScreen only — no need to share it
       BlocProvider(create: (_) => ProfileCubit(), child: const ProfileScreen()),
     ];
   }

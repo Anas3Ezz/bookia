@@ -75,30 +75,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       child: Scaffold(
         appBar: ProfileAppBar(onLogoutTap: _showLogoutDialog),
-        body: BlocBuilder<ProfileCubit, ProfileState>(
-          buildWhen: (_, current) => current is GetProfileState,
-          builder: (context, state) {
-            if (state is GetProfileLoading || state is ProfileInitial) {
-              return const ProfileSkeleton();
-            } else if (state is GetProfileSuccess) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ProfileHeader(
-                      name: state.profile.name ?? '',
-                      email: state.profile.email ?? '',
-                      imageUrl: state.profile.image ?? '',
-                    ),
-                    const SizedBox(height: 24),
-                    const ProfileMenu(),
-                  ],
-                ),
-              );
-            } else if (state is GetProfileError) {
-              return ProfileError(message: state.message);
-            }
-            return const SizedBox.shrink();
-          },
+        body: RefreshIndicator(
+          onRefresh: () => context.read<ProfileCubit>().getProfile(),
+          child: BlocBuilder<ProfileCubit, ProfileState>(
+            buildWhen: (_, current) => current is GetProfileState,
+            builder: (context, state) {
+              if (state is GetProfileLoading || state is ProfileInitial) {
+                return const ProfileSkeleton();
+              } else if (state is GetProfileSuccess) {
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ProfileHeader(
+                        name: state.profile.name ?? '',
+                        email: state.profile.email ?? '',
+                        imageUrl: state.profile.image ?? '',
+                      ),
+                      const SizedBox(height: 24),
+                      const ProfileMenu(),
+                    ],
+                  ),
+                );
+              } else if (state is GetProfileError) {
+                return ProfileError(message: state.message);
+              }
+              return const SizedBox.shrink();
+            },
+          ),
         ),
       ),
     );

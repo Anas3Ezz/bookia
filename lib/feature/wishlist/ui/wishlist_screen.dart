@@ -21,40 +21,43 @@ class WishlistScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: context.appColors.background,
       appBar: CustomAppBar(title: 'Wishlist'),
-      body: BlocConsumer<WishlistCubit, WishlistState>(
-        listener: (context, state) {
-          if (state is RemoveFromWishlistError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-                backgroundColor: Colors.red,
-              ),
+      body: RefreshIndicator(
+        onRefresh: () => context.read<WishlistCubit>().getWishlist(),
+        child: BlocConsumer<WishlistCubit, WishlistState>(
+          listener: (context, state) {
+            if (state is RemoveFromWishlistError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            } else if (state is AddToWishlistError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return Column(
+              children: [
+                // Banner slides in during any sync operation
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 300),
+                  transitionBuilder: (child, animation) =>
+                      SizeTransition(sizeFactor: animation, child: child),
+                  child: _isSyncing(state)
+                      ? const WishlistSyncBanner(key: ValueKey('banner'))
+                      : const SizedBox.shrink(key: ValueKey('empty')),
+                ),
+                Expanded(child: _buildBody(context, state)),
+              ],
             );
-          } else if (state is AddToWishlistError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(state.message),
-                backgroundColor: Colors.red,
-              ),
-            );
-          }
-        },
-        builder: (context, state) {
-          return Column(
-            children: [
-              // Banner slides in during any sync operation
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                transitionBuilder: (child, animation) =>
-                    SizeTransition(sizeFactor: animation, child: child),
-                child: _isSyncing(state)
-                    ? const WishlistSyncBanner(key: ValueKey('banner'))
-                    : const SizedBox.shrink(key: ValueKey('empty')),
-              ),
-              Expanded(child: _buildBody(context, state)),
-            ],
-          );
-        },
+          },
+        ),
       ),
     );
   }
