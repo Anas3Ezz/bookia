@@ -7,7 +7,10 @@
 </div>
 
 ---
+## 🎥 Demo
 
+[Watch Demo]
+https://youtube.com/shorts/RQzqTt0c2ZE?si=0CYLbs7lxCWcNs7P
 
 A production-quality Flutter e-commerce bookstore app built with clean architecture, Bloc/Cubit state management, and a fully themed UI supporting light and dark modes.
 
