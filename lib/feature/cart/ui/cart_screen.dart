@@ -21,21 +21,7 @@ class CartScreen extends StatelessWidget {
         onRefresh: () => context.read<CartCubit>().getCart(),
         child: BlocConsumer<CartCubit, CartState>(
           listener: (context, state) {
-            if (state is AddToCartSuccess) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: Colors.green,
-                ),
-              );
-            } else if (state is AddToCartError) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(state.message),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            } else if (state is UpdateCartError) {
+            if (state is UpdateCartError) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.message),

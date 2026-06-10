@@ -54,7 +54,7 @@ class BookCard extends StatelessWidget {
                 children: [
                   Text(
                     books.name ?? '',
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       color: context.appColors.textPrimary,
@@ -63,10 +63,28 @@ class BookCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 4.h),
-                  Text(
-                    '\$${books.price ?? ''}',
-                    style: AppTextStyle.price18SecondaryConst,
-                  ),
+                  if (books.discount != null &&
+                      books.discount! > 0 &&
+                      books.priceAfterDiscount != null) ...[
+                    Text(
+                      '\$${books.priceAfterDiscount!.toStringAsFixed(2)}',
+                      style: AppTextStyle.price18SecondaryConst,
+                    ),
+                    SizedBox(height: 2.h),
+                    Text(
+                      '\$${books.price ?? ''}',
+                      style: AppTextStyle.body14Gray.copyWith(
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.lineThrough,
+                      ),
+                    ),
+                  ] else ...[
+                    Text(
+                      '\$${books.price ?? ''}',
+                      style: AppTextStyle.price18SecondaryConst,
+                    ),
+                  ],
                 ],
               ),
             ),

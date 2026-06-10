@@ -7,9 +7,11 @@ import 'package:meta/meta.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit() : super(AuthInitial());
+  final FirebaseAuthRepo _firebaseAuthRepo;
 
-  final FirebaseAuthRepo _firebaseAuthRepo = FirebaseAuthRepo.instance;
+  AuthCubit({FirebaseAuthRepo? firebaseAuthRepo})
+      : _firebaseAuthRepo = firebaseAuthRepo ?? FirebaseAuthRepo.instance,
+        super(AuthInitial());
 
   // ── API Login ─────────────────────────────────────────────────────────────────
 

@@ -41,7 +41,8 @@ class BookBottomActionBar extends StatelessWidget {
           const SizedBox(width: 30),
           Expanded(
             child: BlocConsumer<CartCubit, CartState>(
-              listenWhen: (_, current) => current is AddToCartState,
+              listenWhen: (_, current) =>
+                  current is AddToCartSuccess || current is AddToCartError,
               listener: (context, state) {
                 if (state is AddToCartSuccess) {
                   ScaffoldMessenger.of(context).showSnackBar(
