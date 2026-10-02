@@ -6,13 +6,13 @@
 
 </div>
 
+A production-quality Flutter e-commerce bookstore app built with clean architecture, Bloc/Cubit state management, and a fully themed UI supporting light and dark modes.
+
 ---
+
 ## 🎥 Demo
 
-[Watch Demo]
-https://youtube.com/shorts/RQzqTt0c2ZE?si=0CYLbs7lxCWcNs7P
-
-A production-quality Flutter e-commerce bookstore app built with clean architecture, Bloc/Cubit state management, and a fully themed UI supporting light and dark modes.
+[▶️ Watch the demo on YouTube](https://youtube.com/shorts/RQzqTt0c2ZE?si=0CYLbs7lxCWcNs7P)
 
 ---
 
@@ -31,9 +31,98 @@ A production-quality Flutter e-commerce bookstore app built with clean architect
 
 ---
 
+## 📸 Screenshots
+
+### 🔐 Onboarding & Authentication
+
+<table align="center">
+  <tr>
+    <th align="center">Splash</th>
+    <th align="center">Login</th>
+    <th align="center">Register</th>
+  </tr>
+  <tr>
+    <td align="center"><img width="200" alt="Splash" src="https://github.com/user-attachments/assets/0e6b8034-df0f-4fdd-91df-67d0c6f7b2e7" /></td>
+    <td align="center"><img width="200" alt="Login" src="https://github.com/user-attachments/assets/8e1b7d7d-308b-4e2b-bae4-fd2681cdd06b" /></td>
+    <td align="center"><img width="200" alt="Register" src="https://github.com/user-attachments/assets/b3fec3b6-9b5d-42bc-aabf-9861e1847df1" /></td>
+  </tr>
+</table>
+
+### 🔑 Password Recovery
+
+<table align="center">
+  <tr>
+    <th align="center">Forgot Password</th>
+    <th align="center">OTP Verification</th>
+    <th align="center">Create New Password</th>
+    <th align="center">Password Changed</th>
+  </tr>
+  <tr>
+    <td align="center"><img width="200" alt="Forgot Password" src="https://github.com/user-attachments/assets/63a0e464-7f28-44d1-9067-486bd875f7a1" /></td>
+    <td align="center"><img width="200" alt="OTP Verification" src="https://github.com/user-attachments/assets/ec8b844b-433b-41cc-a11c-08d861f3ece7" /></td>
+    <td align="center"><img width="200" alt="Create New Password" src="https://github.com/user-attachments/assets/79ba1e06-0535-47c3-9f71-e47fd5629df1" /></td>
+    <td align="center"><img width="200" alt="Password Changed" src="https://github.com/user-attachments/assets/09e2eda2-357c-4c1b-959d-85140ea99605" /></td>
+  </tr>
+</table>
+
+### 🛍️ Browse & Shop
+
+<table align="center">
+  <tr>
+    <th align="center">Home</th>
+    <th align="center">Book Details</th>
+    <th align="center">Search</th>
+    <th align="center">Cart</th>
+  </tr>
+  <tr>
+    <td align="center"><img width="200" alt="Home" src="https://github.com/user-attachments/assets/9dedebfc-556f-4125-9223-b3d29d592a2b" /></td>
+    <td align="center"><img width="200" alt="Book Details" src="https://github.com/user-attachments/assets/947c3c44-1c4c-4869-9466-5f07eca96a06" /></td>
+    <td align="center"><img width="200" alt="Search" src="https://github.com/user-attachments/assets/b20433c9-b7e0-42ac-903c-e36a43a4a05a" /></td>
+    <td align="center"><img width="200" alt="Cart" src="https://github.com/user-attachments/assets/1d8203a3-71a8-434c-9047-8d219066db75" /></td>
+  </tr>
+</table>
+
+### 📦 Checkout & Account
+
+<table align="center">
+  <tr>
+    <th align="center">Checkout</th>
+    <th align="center">Order Confirmed</th>
+    <th align="center">Wishlist</th>
+    <th align="center">Profile</th>
+  </tr>
+  <tr>
+    <td align="center"><img width="200" alt="Checkout" src="https://github.com/user-attachments/assets/cf8a03cf-e2dc-4de0-baac-f9d6d205fb3d" /></td>
+    <td align="center"><img width="200" alt="Order Confirmed" src="https://github.com/user-attachments/assets/f59211d7-14c0-495d-95b1-fe2579c9279e" /></td>
+    <td align="center"><img width="200" alt="Wishlist" src="https://github.com/user-attachments/assets/20858f73-9b3d-4d5d-9331-b1243da59ae4" /></td>
+    <td align="center"><img width="200" alt="Profile" src="https://github.com/user-attachments/assets/ae8641be-490e-4541-bc4f-48ae874ffed5" /></td>
+  </tr>
+</table>
+
+---
+
+## 🧱 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| State Management | `flutter_bloc` (Cubit) |
+| Networking | `dio` + `Freezed` sealed `ApiResult<T>` |
+| Local Storage | `Hive` (theme, token) |
+| Authentication | Firebase Auth + custom REST API |
+| Image Loading | `cached_network_image` |
+| Navigation | Named routes with `onGenerateRoute` |
+| Theming | `ThemeExtension` (`AppColorScheme`) + Hive persistence |
+| Code Generation | `freezed`, `json_serializable`, `flutter_gen` |
+| UI Utilities | `flutter_screenutil`, `gap`, `flutter_svg` |
+
+---
+
 ## 🏗️ Architecture
 
 This project follows **Feature-based Clean Architecture** with a clear separation between data, domain, and UI layers.
+
+<details>
+<summary><b>📂 Click to expand the project structure</b></summary>
 
 ```
 lib/
@@ -214,77 +303,19 @@ lib/
 ├── firebase_options.dart
 └── main.dart
 ```
-## 📸 Screenshots
 
-# Logo App
-<img width="63" height="84" alt="image" src="https://github.com/user-attachments/assets/eec4c2ff-2821-4a9e-a9ed-c86dde528204" />
+</details>
 
-# OnBoarding Screen
-<img width="425" height="844" alt="image" src="https://github.com/user-attachments/assets/0e6b8034-df0f-4fdd-91df-67d0c6f7b2e7" />
+### 📦 Folder Naming Convention
 
-# Login Screen
-<img width="425" height="838" alt="image" src="https://github.com/user-attachments/assets/8e1b7d7d-308b-4e2b-bae4-fd2681cdd06b" />
-
-# regisger Screen
-<img width="346" height="759" alt="image" src="https://github.com/user-attachments/assets/b3fec3b6-9b5d-42bc-aabf-9861e1847df1" />
-
-# Forget Password Screen 
-<img width="330" height="728" alt="image" src="https://github.com/user-attachments/assets/63a0e464-7f28-44d1-9067-486bd875f7a1" />
-
-# Otp Verfication Screen
-<img width="338" height="749" alt="image" src="https://github.com/user-attachments/assets/ec8b844b-433b-41cc-a11c-08d861f3ece7" />
-
-# Create a new password 
-<img width="362" height="758" alt="image" src="https://github.com/user-attachments/assets/79ba1e06-0535-47c3-9f71-e47fd5629df1" />
-
-# Password Changed successfully
-<img width="352" height="767" alt="image" src="https://github.com/user-attachments/assets/09e2eda2-357c-4c1b-959d-85140ea99605" />
-
-# Home 
-<img width="307" height="628" alt="Image" src="https://github.com/user-attachments/assets/9dedebfc-556f-4125-9223-b3d29d592a2b" />
-
-# book Details 
-<img width="292" height="626" alt="Image" src="https://github.com/user-attachments/assets/947c3c44-1c4c-4869-9466-5f07eca96a06" />
-
-# Search Screen
-<img width="298" height="623" alt="Image" src="https://github.com/user-attachments/assets/b20433c9-b7e0-42ac-903c-e36a43a4a05a" />
-
-# Cart Screen 
-<img width="333" height="734" alt="image" src="https://github.com/user-attachments/assets/1d8203a3-71a8-434c-9047-8d219066db75" />
-
-# CheckOut Screen
-<img width="315" height="668" alt="image" src="https://github.com/user-attachments/assets/cf8a03cf-e2dc-4de0-baac-f9d6d205fb3d" />
-
-# Congrats Screen 
-<img width="293" height="628" alt="image" src="https://github.com/user-attachments/assets/f59211d7-14c0-495d-95b1-fe2579c9279e" />
-
-# Wishlist Screen
-<img width="332" height="735" alt="image" src="https://github.com/user-attachments/assets/20858f73-9b3d-4d5d-9331-b1243da59ae4" />
-
-# profile screen
-<img width="341" height="735" alt="image" src="https://github.com/user-attachments/assets/ae8641be-490e-4541-bc4f-48ae874ffed5" />
-
-
-# TEST READMEFILE
-
-<img width="836" height="432" alt="Screenshot 2026-08-08 082038" src="https://github.com/user-attachments/assets/6379c97e-caea-4e71-9c1b-178d11c35566" />
-
-
----
-
-## 🧱 Tech Stack
-
-| Layer | Technology |
+| Folder | Purpose |
 |---|---|
-| State Management | `flutter_bloc` (Cubit) |
-| Networking | `dio` + `Freezed` sealed `ApiResult<T>` |
-| Local Storage | `Hive` (theme, token) |
-| Authentication | Firebase Auth + custom REST API |
-| Image Loading | `cached_network_image` |
-| Navigation | Named routes with `onGenerateRoute` |
-| Theming | `ThemeExtension` (`AppColorScheme`) + Hive persistence |
-| Code Generation | `freezed`, `json_serializable`, `flutter_gen` |
-| UI Utilities | `flutter_screenutil`, `gap`, `flutter_svg` |
+| `cubit/` | Cubit + State files |
+| `data/models/` | API response models |
+| `data/repo/` | Repository — all API/DB calls |
+| `ui/widgets/` | Screen-specific decomposed widgets |
+| `core/widgets/` | Reusable app-wide widgets |
+| `core/theme/` | Colors, styles, theme extension, cubit |
 
 ---
 
@@ -323,7 +354,7 @@ This forces every caller to handle both success and failure explicitly with no u
 
 ```bash
 # Clone the repo
-git clone https://github.com/your-username/bookia.git
+git clone https://github.com/Anas3Ezz/bookia.git
 
 # Install dependencies
 flutter pub get
@@ -337,23 +368,12 @@ flutter run
 
 ---
 
-## 📦 Folder Naming Convention
-
-| Folder | Purpose |
-|---|---|
-| `cubit/` | Cubit + State files |
-| `data/models/` | API response models |
-| `data/repo/` | Repository — all API/DB calls |
-| `ui/widgets/` | Screen-specific decomposed widgets |
-| `core/widgets/` | Reusable app-wide widgets |
-| `core/theme/` | Colors, styles, theme extension, cubit |
-
----
-
 ## 👨‍💻 Author
 
 **Anas Ezz** — Flutter Developer 🇪🇬
+
 Built as a production-quality portfolio project showcasing clean architecture, scalable state management, and professional UI/UX.
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/YOUR_LINKEDIN_HANDLE)
-
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/ezzans)
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)](https://github.com/Anas3Ezz)
+[![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=flat-square&logo=youtube&logoColor=white)](https://youtube.com/@Anas3Ezz)
